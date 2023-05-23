@@ -1,0 +1,6 @@
+framework module Pods_HRMS_Trivitron {
+  umbrella header "Pods-HRMS Trivitron-umbrella.h"
+
+  export *
+  module * { export * }
+}
