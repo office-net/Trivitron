@@ -20,4 +20,5 @@ pod 'LZViewPager', '~> 1.2.5'
   pod 'FaceSDK', '~> 4.1'
 pod ‘SideMenu’
 pod 'RSSelectionMenu', '~> 7.1.2'
+pod 'FSCalendar'
 end

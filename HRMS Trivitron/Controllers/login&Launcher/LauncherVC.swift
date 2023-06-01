@@ -17,7 +17,7 @@ class LauncherVC: UIViewController {
     var isnote = true
     override func viewDidLoad() {
         super.viewDidLoad()
-      //  apicalling()
+        apicalling()
         self.navigationController?.navigationBar.isHidden = true
    
         let seconds = 4.0

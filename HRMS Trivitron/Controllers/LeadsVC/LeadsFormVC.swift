@@ -18,6 +18,9 @@ class LeadsFormVC: UIViewController{
     var IsFromViewDetails = ""
     var DetailsJson:JSON = []
     
+    @IBOutlet weak var Region: UITextField!
+    var regionList:JSON = []
+    var regionId = ""
     
     var selectedRowsArray = [Any]()
     
@@ -125,21 +128,19 @@ class LeadsFormVC: UIViewController{
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.barStyle = .default
-        self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.tintColor = UIColor.black
-        self.navigationController!.view.backgroundColor = UIColor.clear
+           
+           super.viewWillAppear(animated)
+           // CALL API
+         self.navigationController?.setNavigationBarHidden(false, animated: true)
+           navigationController?.navigationBar.barStyle = .default
+           self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+           self.navigationController?.navigationBar.shadowImage = UIImage()
+           self.navigationController?.navigationBar.isTranslucent = true
+           self.navigationController?.navigationBar.tintColor = UIColor.white
+           self.navigationController!.view.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.backgroundColor = base.firstcolor
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
-        
-    }
+           self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+       }
     
     @IBAction func BTN_Submit(_ sender: Any) {
         validation()
@@ -226,6 +227,7 @@ extension LeadsFormVC
         ProjectLocation.text = DetailsJson["UserViewLeadCustomerlst"][0]["PROJECTLOCATION"].stringValue
         plant.text = DetailsJson["UserViewLeadCustomerlst"][0]["PLANTID"].stringValue
         Remarks.text = DetailsJson["UserViewLeadCustomerlst"][0]["REMARKS"].stringValue
+        
     }
     
     func getId()
@@ -360,6 +362,7 @@ extension LeadsFormVC
                 self.IndustryArray = response["Categoryofindustry"]
                 self.CustomerTypeArray = response["LeadType"]
                 self.LeadsStatusArray = response["LeadStatus"]
+                self.regionList = response["Region"]
                 
                 if response["ProductSegment"].count != 0
                 {
@@ -401,7 +404,7 @@ extension LeadsFormVC
         let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
         
-        let parameters : [String : Any] = ["AddDetail":["UserId": "\(UserID!)", "TokenNo": token!,"PLEAD_NAME":CustomerName.text!,"PCONTACT_PERSON_NAME":ContactPersonName.text!,"PCONTACT_NO":ContactPersonNumber.text!,"PEMAIL_ID":ContactPersonEmailId.text!,"CUSTOMERLOCATION":CustomerLocation.text ?? "" ,"LEADTYPE":customerTypeId,"PRODUCT_SEGMENT":ProductegmentValue,"PStatus":LeadsStatusId,"PCATE_OF_INDUSTRY":IndustryId,"TentativeAmount":TentiveAmmount.text!,"TentativeUnit":unitId,"CurrencyType":currencyId,"ASSIGN_TO":AssignToId,"PPROD_OF_INTEREST":PInterestValue,"CITYID":cityId,"STATEID":stateId,"COUNTRYID":countryId,"PINOCDE":PostalCode.text!,"LANTITUTE":Latitude.text ?? "","LONGITUTE":Longitude.text ?? "","PROJECTLOCATION":ProjectLocation.text!,"QUOTATION":"0","APPROPRIATEVALUE":"0","REMARKS":Remarks.text ?? "","LOSTREMARKS":"","UNIT":NumberOfUnit.text!,"PLANTID":plantId,"REGIONID":"","PLEADID":LeadId]]
+        let parameters : [String : Any] = ["AddDetail":["UserId": "\(UserID!)", "TokenNo": token!,"PLEAD_NAME":CustomerName.text!,"PCONTACT_PERSON_NAME":ContactPersonName.text!,"PCONTACT_NO":ContactPersonNumber.text!,"PEMAIL_ID":ContactPersonEmailId.text!,"CUSTOMERLOCATION":CustomerLocation.text ?? "" ,"LEADTYPE":customerTypeId,"PRODUCT_SEGMENT":ProductegmentValue,"PStatus":LeadsStatusId,"PCATE_OF_INDUSTRY":IndustryId,"TentativeAmount":TentiveAmmount.text!,"TentativeUnit":unitId,"CurrencyType":currencyId,"ASSIGN_TO":AssignToId,"PPROD_OF_INTEREST":PInterestValue,"CITYID":cityId,"STATEID":stateId,"COUNTRYID":countryId,"PINOCDE":PostalCode.text!,"LANTITUTE":Latitude.text ?? "","LONGITUTE":Longitude.text ?? "","PROJECTLOCATION":ProjectLocation.text!,"QUOTATION":"0","APPROPRIATEVALUE":"0","REMARKS":Remarks.text ?? "","LOSTREMARKS":"","UNIT":NumberOfUnit.text!,"PLANTID":plantId,"REGIONID":regionId,"PLEADID":LeadId]]
         
         Networkmanager.postImageData(vv: self.view, parameters: parameters, img:(imageArray[0]["Image"])! as! UIImage, imgKey: "Attachments", imgName: "Image") { (response,data) in
             
@@ -550,6 +553,9 @@ extension LeadsFormVC:UITextFieldDelegate
         plant.delegate = self
         plant.inputView = gradePicker
         
+        Region.delegate = self
+        Region.inputView = gradePicker
+        
         
         
     }
@@ -602,6 +608,10 @@ extension LeadsFormVC: UIPickerViewDelegate, UIPickerViewDataSource
         {
             return plantArray.count
         }
+        else if Region.isFirstResponder
+        {
+            return regionList.count
+        }
         else
         {
             return LeadsStatusArray.count
@@ -634,7 +644,7 @@ extension LeadsFormVC: UIPickerViewDelegate, UIPickerViewDataSource
         }
         else if state.isFirstResponder
         {
-            return stateArray[row]["StateName"].stringValue
+            return stateArray[row]["Name"].stringValue
         }
         else if city.isFirstResponder
         {
@@ -643,6 +653,10 @@ extension LeadsFormVC: UIPickerViewDelegate, UIPickerViewDataSource
         else if plant.isFirstResponder
         {
             return plantArray[row]["Name"].stringValue
+        }
+        else if Region.isFirstResponder
+        {
+            return regionList[row]["Name"].stringValue
         }
         else
         {
@@ -697,6 +711,12 @@ extension LeadsFormVC: UIPickerViewDelegate, UIPickerViewDataSource
         {
             plant.text =  plantArray[row]["Name"].stringValue
             plantId =  plantArray[row]["Id"].stringValue
+        }
+        
+        else if Region.isFirstResponder
+        {
+            Region.text =  regionList[row]["Name"].stringValue
+            regionId =  regionList[row]["Id"].stringValue
         }
         
         
@@ -793,6 +813,15 @@ extension LeadsFormVC
             dropDown?.selectRow(0, inComponent: 0, animated: true)
             plant.text =  plantArray[0]["Name"].stringValue
             plantId = plantArray[0]["Id"].stringValue
+            
+        }
+        
+        if textField == Region
+        {
+            let dropDown = textField.inputView as? UIPickerView
+            dropDown?.selectRow(0, inComponent: 0, animated: true)
+            Region.text =  regionList[0]["Name"].stringValue
+            regionId = regionList[0]["Id"].stringValue
             
         }
         

@@ -54,7 +54,9 @@ class HomeVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSou
 
     @IBOutlet weak var lbl_NoBirthday: UILabel!
     @IBOutlet weak var lbl_NoNewJoinee: UILabel!
-
+    @IBOutlet weak var lbl_UserName: UILabel!
+    @IBOutlet weak var UserImage: UIImageView!
+    
     
     
     
@@ -79,7 +81,10 @@ class HomeVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSou
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
 
+//        let  UserName = json["Emp_First_name"].stringValue + " " + json["Emp_Middle_name"].stringValue + " " + json["Emp_Last_name"].stringValue
         
+        let userName = UserDefaults.standard.object(forKey: "UserName") as? String
+        lbl_UserName.text = userName
         
         birthdayAPI()
         NewJoineeAPI()
@@ -166,18 +171,17 @@ class HomeVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSou
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+      
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationBar.barStyle = .default
-       // self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController!.view.backgroundColor = UIColor.clear
-        self.navigationController?.navigationBar.backgroundColor = base.firstcolor
-        //  #colorLiteral(red: 0.3529411765, green: 0.7294117647, blue: 0.3254901961, alpha: 1)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        print("Helooooooooookokokokokokokokokokokokokokokokokokokokokokokokokokk")
-      //  getinOutstatus()
+          navigationController?.navigationBar.barStyle = .default
+          self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+          self.navigationController?.navigationBar.shadowImage = UIImage()
+          self.navigationController?.navigationBar.isTranslucent = true
+          self.navigationController?.navigationBar.tintColor = UIColor.white
+          self.navigationController?.view.backgroundColor = UIColor.clear
+       self.navigationController?.navigationBar.backgroundColor = base.firstcolor
+          self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+     
         getdetailsApi()
         
     }
@@ -260,6 +264,27 @@ class HomeVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSou
         let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadsListVC")as! LeadsListVC
         self.navigationController?.pushViewController(secondVC, animated: true)
     }
+    
+    @IBAction func btn_TaskPlanner(_ sender: Any) {
+        
+        let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+        let secondVC = storyboard.instantiateViewController(withIdentifier: "TaskPlannerVC")as! TaskPlannerVC
+        self.navigationController?.pushViewController(secondVC, animated: true)
+        
+        
+    }
+    
+    
+    
+    
+    @IBAction func btn_CustomerBase(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+        let secondVC = storyboard.instantiateViewController(withIdentifier: "CustomerBaseListVC")as! CustomerBaseListVC
+        self.navigationController?.pushViewController(secondVC, animated: true)
+    }
+    
+    
+    
     
     
  

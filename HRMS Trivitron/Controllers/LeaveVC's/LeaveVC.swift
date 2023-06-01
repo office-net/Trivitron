@@ -144,6 +144,6 @@ class LeaveVC: UIViewController, LZViewPagerDelegate, LZViewPagerDataSource  {
 }
 extension UIViewController {
     static func createFromNib<T: UIViewController>(storyBoardId: String) -> T?{
-        return UIStoryboard(name: "LedMain", bundle: nil).instantiateViewController(withIdentifier: storyBoardId) as? T
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: storyBoardId) as? T
     }
 }

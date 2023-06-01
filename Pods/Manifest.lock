@@ -2,6 +2,7 @@ PODS:
   - Alamofire (5.6.4)
   - FaceSDK (4.1.1217):
     - RegulaCommon (= 6.6.203)
+  - FSCalendar (2.8.4)
   - IQKeyboardManagerSwift (6.5.11)
   - LZViewPager (1.2.5):
     - SnapKit (~> 5.0.0)
@@ -25,6 +26,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.4)
   - FaceSDK (~> 4.1)
+  - FSCalendar
   - IQKeyboardManagerSwift
   - LZViewPager (~> 1.2.5)
   - RSSelectionMenu (~> 7.1.2)
@@ -41,6 +43,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - FaceSDK
+    - FSCalendar
     - IQKeyboardManagerSwift
     - LZViewPager
     - RegulaCommon
@@ -57,6 +60,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   FaceSDK: b62d5cefa0b62241be52f9874479b07bf506e8f8
+  FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   IQKeyboardManagerSwift: c7955c0bdbf7b2eb29bb7daaa44e3d90f55a9a85
   LZViewPager: 89ddd98246d54b52bde14c8d91702f946d6f8893
   RegulaCommon: 5a2b9c9c24f45451532ee074e52a1450e328bd38
@@ -70,6 +74,6 @@ SPEC CHECKSUMS:
   SwiftGifOrigin: fbd6cf37afcfcf97a5c3db996ddc0492e5c5c145
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 5f86e687aba855e70152b6db54696be211304be1
+PODFILE CHECKSUM: cb37bb90e32d5ef089c07be1f8e7b4c12a8abdbf
 
 COCOAPODS: 1.12.0

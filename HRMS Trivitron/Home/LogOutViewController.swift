@@ -16,27 +16,7 @@ var msg = ""
     var titlee = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        let defaults = UserDefaults.standard
-        if let Language = defaults.string(forKey: "Language") {
-        if Language == "English"
-            {
-            self.navigationItem.title = "Log Out"
-            self.msg = "Are you sure you want to Exit?"
-            self.ok = "OK"
-            self.cancel = "Cancel"
-            self.titlee = "OfficeNet"
-        }
-            else
-            {
-                self.navigationItem.title = "लॉग आउट"
-                self.msg = " क्या आप निसंदेह बाहर निकलना चाहते हैं?"
-                self.ok = "हां"
-                self.cancel = "नहीं"
-                self.titlee = "ऑफिसनेट"
-            }
-        }
+       
         
        
         // Do any additional setup after loading the view.
@@ -47,14 +27,14 @@ var msg = ""
         super.viewWillAppear(animated)
         
         
-        let alertController = UIAlertController(title:base.Title, message: msg, preferredStyle: .alert)
+        let alertController = UIAlertController(title:base.Title, message: "Are you sure you want to Exit?", preferredStyle: .alert)
         // Create the actions
-        let okAction = UIAlertAction(title: base.yes, style: UIAlertAction.Style.default) {
+        let okAction = UIAlertAction(title: "Yes", style: UIAlertAction.Style.default) {
             UIAlertAction in
             self.logoutApi()
             
         }
-        let action1 = UIAlertAction(title: cancel, style: .default, handler: { (action) -> Void in
+        let action1 = UIAlertAction(title: "Cancel", style: .default, handler: { (action) -> Void in
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
@@ -79,9 +59,10 @@ var msg = ""
     func logoutApi()
     {
         var parameters:[String:Any]?
+        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
         if let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int {
-            parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":UserID]
+            parameters = ["TokenNo":token!,"UserID":UserID]
         }
         else{
             parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":"0"]

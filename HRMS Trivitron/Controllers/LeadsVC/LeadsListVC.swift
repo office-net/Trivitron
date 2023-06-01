@@ -9,6 +9,7 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import RSSelectionMenu
+import SemiModalViewController
 
 
 class LeadsListVC: UIViewController {
@@ -16,7 +17,7 @@ class LeadsListVC: UIViewController {
     var LeadType:JSON = []
    
     var simpleSelectedArray = [String]()
-    var ActionArray = ["View Details","Edit","Re-classify","Add Notes","Set Meeting","Delete"]
+    var ActionArray = ["View-Details","Edit","Re-classify","Add-Notes","Set-Meeting"]
     @IBOutlet weak var tbl: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,21 @@ class LeadsListVC: UIViewController {
         let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadsFormVC")as! LeadsFormVC
         
         self.navigationController?.pushViewController(secondVC, animated: true)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+          navigationController?.navigationBar.barStyle = .default
+          self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+          self.navigationController?.navigationBar.shadowImage = UIImage()
+          self.navigationController?.navigationBar.isTranslucent = true
+          self.navigationController?.navigationBar.tintColor = UIColor.white
+          self.navigationController!.view.backgroundColor = UIColor.clear
+       self.navigationController?.navigationBar.backgroundColor = base.firstcolor
+          self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+
+        
     }
     
   
@@ -104,7 +120,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
         
         
         switch value {
-        case "View Details":
+        case "View-Details":
             self?.simpleSelectedArray = [String]()
             let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
             let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadsFormVC")as! LeadsFormVC
@@ -127,12 +143,34 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
             let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadReClassifyVC")as! LeadReClassifyVC
             secondVC.LeadId = (self?.getData[sender.tag]["LeadNo"].stringValue)!
             secondVC.MasterData = JSON(rawValue: (self?.LeadType)!)!
+            secondVC.BackData = JSON(rawValue: (self?.getData[sender.tag])!)!
             self?.navigationController?.pushViewController(secondVC, animated: true)
             
-        case "Virat":
-            print("Virat is an Indian cricketer")
-        case "Suresh":
-            print("Suresh is an Indian cricketer")
+        case "Set-Meeting":
+          
+            self?.simpleSelectedArray = [String]()
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "NewTaskVC")as! NewTaskVC
+            secondVC.TaskType = "Lead"
+            secondVC.CustomerData = JSON(rawValue: (self?.getData[sender.tag])!)!
+    
+            self?.navigationController?.pushViewController(secondVC, animated: true)
+
+        case "Add-Notes":
+            self?.simpleSelectedArray = [String]()
+            let options: [SemiModalOption : Any] = [
+                SemiModalOption.pushParentBack: false
+            ]
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let pvc = storyboard.instantiateViewController(withIdentifier: "LeadsAddNotesVC") as! LeadsAddNotesVC
+            pvc.LeadId = (self?.getData[sender.tag]["LeadNo"].stringValue)!
+            pvc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 520)
+            
+            pvc.modalPresentationStyle = .overCurrentContext
+            self?.presentSemiViewController(pvc, options: options, completion: {
+                print("Completed!")
+            }, dismissBlock: {
+            })
         case "Ravindra":
             print("Ravindra is an Indian cricketer")
         case "Chris":
@@ -144,7 +182,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
     }
         selectionMenu.dismissAutomatically = true
 
-        selectionMenu.show(style: .popover(sourceView: sender, size: CGSize(width: 200, height: 260)), from: self)
+        selectionMenu.show(style: .popover(sourceView: sender, size: CGSize(width: 200, height: 200)), from: self)
         
       }
     
@@ -243,6 +281,15 @@ extension LeadsListVC
         
         
     }
+    
+    
+    
+   
+
+    
+  
+    
+    
 }
 
 

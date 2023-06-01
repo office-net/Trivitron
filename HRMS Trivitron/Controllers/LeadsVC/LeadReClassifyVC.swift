@@ -21,6 +21,7 @@ class LeadReClassifyVC: UIViewController {
     @IBOutlet weak var NoRecordFound: UILabel!
     var MasterData:JSON = []
     var StatusDetailsList:JSON = []
+    var BackData:JSON = []
     var StatusId:String = ""
     var LeadId = ""
     var gradePicker = UIPickerView()
@@ -37,12 +38,27 @@ class LeadReClassifyVC: UIViewController {
         gradePicker.dataSource = self
         LeadStatus.delegate = self
         LeadStatus.inputView = gradePicker
+        
+        
+        self.vv.isHidden = true
+        self.hh.constant = 0
+        
         ListApiCalling()
-       
+        
     }
     
-
-
+    @IBAction func btn_Save(_ sender: Any) {
+        switch LeadStatus.text
+        {
+        case "Won":
+            APiCalling(Quotation: "", AppropriateValue: txt.text ?? "", LostRemarks: "")
+        case "Lost":
+            APiCalling(Quotation: "", AppropriateValue:"", LostRemarks: txt.text ?? "")
+        default :
+            APiCalling(Quotation: "", AppropriateValue: "", LostRemarks: "")
+        }
+    }
+    
 }
 extension LeadReClassifyVC:UITextFieldDelegate,UIPickerViewDelegate, UIPickerViewDataSource
 {
@@ -60,6 +76,29 @@ extension LeadReClassifyVC:UITextFieldDelegate,UIPickerViewDelegate, UIPickerVie
         
         LeadStatus.text =  MasterData[row]["Name"].stringValue
         StatusId =  MasterData[row]["Id"].stringValue
+        
+        switch LeadStatus.text
+        {
+        case "Quotation Submitted":
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "CustomerDetailsFormVC")as! CustomerDetailsFormVC
+            vc.BackData = self.BackData
+            vc.backLeadId = self.LeadId
+            vc.isFrom = "Re-Clasify"
+            self.navigationController?.pushViewController(vc, animated: true)
+        case "Won":
+            self.vv.isHidden = false
+            self.hh.constant = 70
+            self.lbl.text = "Appropriate Value"
+            
+        case "Lost":
+            self.vv.isHidden = false
+            self.hh.constant = 70
+            self.lbl.text = "Lost Remarks"
+        default:
+            self.vv.isHidden = true
+            self.hh.constant = 0
+        }
     }
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == LeadStatus
@@ -73,15 +112,47 @@ extension LeadReClassifyVC:UITextFieldDelegate,UIPickerViewDelegate, UIPickerVie
         
         return true
     }
+    func APiCalling(Quotation:String,AppropriateValue:String,LostRemarks:String)
     
-    
+    {
+        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
+        var parameters = [String : Any]()
+        parameters = ["IsCustomerBase":"No","TokenNo":token!,"UserId":UserID!,"LeadStatusId":StatusId,"Remarks":Remarks.text ?? "","LeadId":self.LeadId,"Quotation":Quotation,"AppropriateValue":AppropriateValue,"LostRemarks":LostRemarks,"CustomerCode":"","AllocatedToEmpID":"","CustomerName":"","ContactPersonName":"","ContactPersonMobileNo":"","ContactPersonEmailID":"","AlternateContactPersonName":"","AlternateContactPersonMobileNo":"","AlternateContactPersonEmailID":"","CustomerWebsite":"","Country":"","StateProvince":"","City":"","PostalCode":"","BillingAddress":"","ShippingAddress":"","TrivitronInstallation":"","BusinessUnit":"","Department":"","SubDepartment":"","Status":"","CusBaseRemarks":"","REQID":"0","Region":"0"]
+        Networkmanager.postRequest(vv: self.view, remainingUrl:"SaveReclassifySTS", parameters: parameters) { (response,data) in
+            let Status = response["Status"].intValue
+            let msg = response["Message"].stringValue
+            if Status == 1
+            {
+                
+                let alertController = UIAlertController(title: base.alertname, message: msg, preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) {
+                    UIAlertAction in
+                    
+                    
+                    self.LeadStatus.text = ""
+                    self.Remarks.text = ""
+                   self.txt.text = ""
+                    
+                    self.ListApiCalling()
+                }
+                alertController.addAction(okAction)
+                DispatchQueue.main.async {
+                    self.present(alertController, animated: true, completion: nil)
+                }
+                
+                
+            }
+            else
+            {   let Message = response["Message"].stringValue
+                self.showAlert(message: Message)
+            }
+            
+            
+        }
+    }
 }
-
-
-
-
-
-
 
 
 
@@ -119,13 +190,13 @@ extension LeadReClassifyVC
 {
     func ListApiCalling()
     {
-      
-       
-         let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
-          let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
-          let parameters = ["TokenNo":token!,"UserId":UserID!,"LeadId":LeadId] as [String : Any]
+        
+        
+        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
+        let parameters = ["TokenNo":token!,"UserId":UserID!,"LeadId":LeadId] as [String : Any]
         Networkmanager.postRequest(vv: self.view, remainingUrl:"LMReclassifySTS", parameters: parameters) { (response,data) in
-           //print(response)
+            //print(response)
             let Status = response["Status"].intValue
             if Status == 1
             {   self.StatusDetailsList = response["StatusDetailsList"]
@@ -143,7 +214,7 @@ extension LeadReClassifyVC
             
             
         }
-    
+        
         
         
         

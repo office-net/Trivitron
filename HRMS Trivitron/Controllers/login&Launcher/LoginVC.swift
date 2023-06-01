@@ -37,14 +37,7 @@ class LoginVC: UIViewController {
         mid_view.layer.shadowOpacity = 1
         mid_view.layer.shadowOffset = CGSize.zero
         mid_view.layer.shadowRadius = 3
-//        self.navigationController?.navigationBar.barTintColor  = #colorLiteral(red: 0, green: 0.1882352941, blue: 0.368627451, alpha: 1)
-//        self.navigationController?.navigationBar.backgroundColor  = #colorLiteral(red: 0, green: 0.1882352941, blue: 0.368627451, alpha: 1)
-//        let label = UILabel()
-//        label.textColor = #colorLiteral(red: 0.968627451, green: 0.5803921569, blue: 0.1137254902, alpha: 1)
-//        label.font = UIFont.boldSystemFont(ofSize: 20.0)
-//        
-//        label.text = "LOGIN"
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: label)
+
         
         let id  = UIDevice.current.identifierForVendor!.uuidString
         self.deviceid = id
@@ -82,22 +75,7 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func btn_Soso(_ sender: Any) {
-//        let options: [SemiModalOption : Any] = [
-//            SemiModalOption.pushParentBack: false
-//        ]
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let pvc = storyboard.instantiateViewController(withIdentifier: "SosSettingsVC") as! SosSettingsVC
-//
-//        pvc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 520)
-//
-//        pvc.modalPresentationStyle = .overCurrentContext
-//
-//        //  pvc.transitioningDelegate = self
-//
-//        presentSemiViewController(pvc, options: options, completion: {
-//            print("Completed!")
-//        }, dismissBlock: {
-//        })
+
         
     }
     
@@ -180,7 +158,7 @@ class LoginVC: UIViewController {
     func SendToHome()
     {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainTabBarController = storyboard.instantiateViewController(identifier: "HomeVC")
+        let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
     }
     

@@ -93,7 +93,7 @@ extension UITextField
           
           datePicker.frame = CGRect(x: 0, y: UIScreen.main.bounds.height - 200, width: self.frame.size.width, height: 200)
           datePicker.locale = NSLocale(localeIdentifier: "en_GB") as Locale
-          datePicker.datePickerMode = .dateAndTime //2
+          datePicker.datePickerMode = .time //2
           self.inputView = datePicker //3
           let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 44.0))
           
@@ -139,6 +139,23 @@ extension UIViewController
         //alertController.addAction(cancelAction)
         self.present(alertController, animated: true)
     }
+    func validMobileNumber(phoneNumber: Int) -> Bool {
+        let characterSet = CharacterSet(charactersIn: " +()0123456789")
+        let inputString = String(phoneNumber)
+        let filteredString = inputString.components(separatedBy: characterSet)
+        if filteredString.count == 1 {
+            return true
+        }
+        return false
+    }
+    func isValidEmail(emailAddressString: String) -> Bool {
+
+    let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+
+    let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+    return emailTest.evaluate(with: emailAddressString)
+    }
+    
 }
 extension UITextField {
     

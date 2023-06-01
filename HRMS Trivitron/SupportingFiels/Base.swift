@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SwiftGifOrigin
 class base
 {
     static var Token = ""
@@ -72,7 +73,7 @@ class base
 class CustomActivityIndicator {
     
     var container: UIView = UIView()
-    var loadingView: UIView = UIView()
+    var loadingView: UIImageView = UIImageView()
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     // Singleton Instance
     static let sharedInstance = CustomActivityIndicator()
@@ -87,19 +88,21 @@ class CustomActivityIndicator {
         loadingView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
         
         loadingView.center = uiView.center
-        //        loadingView.backgroundColor = UIColorFromHex(rgbValue: 0x444444, alpha: 0.7)
-        //        loadingView.backgroundColor = UIColor.hexStringToUIColor(hex: "7BBA40")
-        loadingView.backgroundColor = UIColor.darkGray
+       
+        loadingView.backgroundColor = UIColor.clear
         
         
         loadingView.clipsToBounds = true
         loadingView.layer.cornerRadius = 10
+        loadingView.loadGif(name: "tvitron")
         
-        activityIndicator.frame = CGRect(x: 0.0, y: 0.0, width:40.0, height: 40.0)
-        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
-        activityIndicator.tintColor = UIColor.white
-        activityIndicator.center = CGPoint(x: loadingView.frame.size.width / 2, y: loadingView.frame.size.height / 2)
+//        activityIndicator.frame = CGRect(x: 0.0, y: 0.0, width:40.0, height: 40.0)
+//        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
+//        activityIndicator.tintColor = UIColor.white
+//        activityIndicator.center = CGPoint(x: loadingView.frame.size.width / 2, y: loadingView.frame.size.height / 2)
+//
         
+    
         loadingView.addSubview(activityIndicator)
         container.addSubview(loadingView)
         uiView.addSubview(container)
