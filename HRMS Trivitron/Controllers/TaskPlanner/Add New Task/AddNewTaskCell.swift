@@ -15,6 +15,7 @@ class AddNewTaskCell: UITableViewCell {
     @IBOutlet weak var desiginstiomn:UITextField!
     @IBOutlet weak var email:UITextField!
     @IBOutlet weak var AlternativeMobileNumber: UITextField!
+   
     var delegate:AdditionalPeron?
     override func awakeFromNib() {
         super.awakeFromNib()

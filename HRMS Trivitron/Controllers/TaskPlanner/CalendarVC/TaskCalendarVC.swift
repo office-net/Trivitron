@@ -6,6 +6,7 @@ import UIKit
 import SwiftyJSON
 import FSCalendar
 import CoreLocation
+
 protocol ViewDetailsTask: AnyObject
 {
     func ButtonPressed(IndexPath:Int)
@@ -40,12 +41,15 @@ class TaskCalendarVC: UIViewController, FSCalendarDelegate {
     var long = ""
     @IBOutlet weak var tbl:UITableView!
     @IBOutlet weak var cc: FSCalendar!
+    
+  
+    
     var GetData:JSON = []
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         cc.delegate = self
-      //  ApiCallingTrackLocation()
+        self.title = "Task Planner"
         Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
     }
     @objc func sayHello()
@@ -68,11 +72,7 @@ class TaskCalendarVC: UIViewController, FSCalendarDelegate {
         ApiCalling(Fromdate: string)
     }
     
-    @IBAction func btn_New(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "SelectCustomerVC")as! SelectCustomerVC
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+   
     
     
     
@@ -151,7 +151,7 @@ extension TaskCalendarVC:UITableViewDelegate,UITableViewDataSource
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CalenderTaskCell", for: indexPath) as! CalenderTaskCell
-        cell.lbl_name.text = GetData["TaskList"][indexPath.row]["COMPANY_NAME"].stringValue
+        cell.lbl_name.text = GetData["TaskList"][indexPath.row]["CUSTOMER_NAME"].stringValue
         let startdate = GetData["TaskList"][indexPath.row]["STARTS_DATE"].stringValue
         let startTime = GetData["TaskList"][indexPath.row]["START_TIME"].stringValue
         let Enddate = GetData["TaskList"][indexPath.row]["END_DATE"].stringValue

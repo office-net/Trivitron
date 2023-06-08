@@ -12,6 +12,7 @@ class TaskDetailsCell: UITableViewCell {
     @IBOutlet weak var designation: UILabel!
     @IBOutlet weak var MobileNumber: UILabel!
     @IBOutlet weak var Nameofperson: UILabel!
+    @IBOutlet weak var AlterNativeNumber: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
        

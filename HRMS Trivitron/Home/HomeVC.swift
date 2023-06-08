@@ -95,7 +95,7 @@ class HomeVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSou
     func setpermissions()
     {
         let controoler = SPPermissions.list([.camera,.locationAlwaysAndWhenInUse])
-        controoler.titleText = "Hercules"
+        controoler.titleText = "Trivitron"
         controoler.headerText = "Please allow permissions to get started"
         controoler.footerText = "These Are Required"
         controoler.present(on: self)
@@ -381,8 +381,8 @@ extension HomeVC
     func birthdayAPI()
     {   CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
         var parameters:[String:Any]?
-        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
-        parameters = ["TokenNo":token!]
+     
+        parameters = ["TokenNo":"abcHkl7900@8Uyhkj"]
         Networkmanager.postRequest(vv: self.view, remainingUrl:"HRCorner_GetList", parameters: parameters!) { (response,data) in
             let json:JSON = response
             print(json)
@@ -390,11 +390,22 @@ extension HomeVC
             if status == 1
             { CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: self.view)
                 self.birthdayData = json["EmpBirthdayList"]
-                // self.collectionViewBirthDay.isHidden = true
-                print(self.birthdayData)
-                self.collectionViewBirthDay.reloadData()
-                
-                self.timer = Timer.scheduledTimer(timeInterval:3, target: self, selector: #selector(self.changeImage2), userInfo: nil, repeats: true)
+                if self.birthdayData.isEmpty
+                {
+                    print("Birthday List Is Empty")
+                    self.collectionViewBirthDay.isHidden = true
+                       self.c1.constant = 0
+                       self.vv1_Hieght.constant = 60
+                }
+                else
+                {
+                    print(self.birthdayData)
+                    self.collectionViewBirthDay.reloadData()
+                    
+                    self.timer = Timer.scheduledTimer(timeInterval:3, target: self, selector: #selector(self.changeImage2), userInfo: nil, repeats: true)
+                }
+               
+              
             }
             else
             {   self.collectionViewBirthDay.isHidden = true
@@ -431,8 +442,8 @@ extension HomeVC
     func NewJoineeAPI()
     {   CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
         var parameters:[String:Any]?
-        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
-        parameters = ["TokenNo":token!]
+
+        parameters = ["TokenNo":"abcHkl7900@8Uyhkj"]
         Networkmanager.postRequest(vv: self.view, remainingUrl:"HRCorner_GetList", parameters: parameters!) {
             (response,data) in
             let json:JSON = response
@@ -441,9 +452,21 @@ extension HomeVC
             if status == 1
             { CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: self.view)
                 self.newjoineeData = json["EmpNewJoiningList"]
-                self.collectionViewNewJoine.reloadData()
-                // self.collectionViewNewJoine.isHidden = true
-                self.timer = Timer.scheduledTimer(timeInterval:2.5, target: self, selector: #selector(self.changeImage3), userInfo: nil, repeats: true)
+                
+                if self.newjoineeData.isEmpty
+                {
+                    print(self.newjoineeData)
+                    self.collectionViewNewJoine.isHidden = true
+                      self.vv2_Hieght.constant = 60
+                      self.c2.constant = 0
+                }
+                else
+                {
+                    self.collectionViewNewJoine.reloadData()
+                
+                    self.timer = Timer.scheduledTimer(timeInterval:2.5, target: self, selector: #selector(self.changeImage3), userInfo: nil, repeats: true)
+                }
+              
                 
             }
             else

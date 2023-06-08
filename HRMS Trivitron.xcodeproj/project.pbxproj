@@ -51,9 +51,13 @@
 		0B7010F7294841AD006FE03A /* BithdayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7010F4294841AD006FE03A /* BithdayVC.swift */; };
 		0B7010FA294862B2006FE03A /* MyApprovalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7010F8294862B1006FE03A /* MyApprovalVC.swift */; };
 		0B7010FB294862B2006FE03A /* MyRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7010F9294862B2006FE03A /* MyRequestVC.swift */; };
+		0B75578C2A305345006F6C25 /* EditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B75578B2A305345006F6C25 /* EditTaskVC.swift */; };
+		0B75578E2A31AB1A006F6C25 /* ShareInvitationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B75578D2A31AB1A006F6C25 /* ShareInvitationVC.swift */; };
 		0B7824F32A26F93E00F8EAD8 /* LeadsAddNotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7824F22A26F93E00F8EAD8 /* LeadsAddNotesVC.swift */; };
 		0B7824F62A2705DF00F8EAD8 /* CustomerBaseListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7824F52A2705DF00F8EAD8 /* CustomerBaseListVC.swift */; };
 		0B7824FA2A2881AD00F8EAD8 /* tvitron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0B7824F92A2881AD00F8EAD8 /* tvitron.gif */; };
+		0B78A97F2A3044510031D339 /* TaskPlannerETaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78A97E2A3044510031D339 /* TaskPlannerETaVC.swift */; };
+		0B88DB752A2F016C0090ED8D /* ReshchwduleTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B88DB742A2F016C0090ED8D /* ReshchwduleTaskVC.swift */; };
 		0BA41CFE2959AFE0002958DB /* MarkAttendanceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA41CFD2959AFE0002958DB /* MarkAttendanceVC.swift */; };
 		0BA46CFA29F1132E00A9FEC4 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA46CF829F1132E00A9FEC4 /* ChangePasswordVC.swift */; };
 		0BA46CFB29F1132E00A9FEC4 /* profileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA46CF929F1132E00A9FEC4 /* profileVC.swift */; };
@@ -110,6 +114,7 @@
 		0BCCD4F4295977E900CD1CAC /* NotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCCD4F3295977E900CD1CAC /* NotesVC.swift */; };
 		0BCCD4F82959781400CD1CAC /* Notes_childVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCCD4F72959781400CD1CAC /* Notes_childVC.swift */; };
 		0BDB727E2A1F122800804A95 /* CustomerDetailsFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDB727D2A1F122800804A95 /* CustomerDetailsFormVC.swift */; };
+		0BE679042A29C663008C7838 /* LeadsUploadAndViewDocVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE679032A29C663008C7838 /* LeadsUploadAndViewDocVC.swift */; };
 		8D48686D1C6FDB01AA288A1B /* Pods_HRMS_Trivitron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0B67244E8AB78B9159C606 /* Pods_HRMS_Trivitron.framework */; };
 /* End PBXBuildFile section */
 
@@ -165,9 +170,13 @@
 		0B7010F4294841AD006FE03A /* BithdayVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BithdayVC.swift; sourceTree = "<group>"; };
 		0B7010F8294862B1006FE03A /* MyApprovalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyApprovalVC.swift; sourceTree = "<group>"; };
 		0B7010F9294862B2006FE03A /* MyRequestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRequestVC.swift; sourceTree = "<group>"; };
+		0B75578B2A305345006F6C25 /* EditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVC.swift; sourceTree = "<group>"; };
+		0B75578D2A31AB1A006F6C25 /* ShareInvitationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareInvitationVC.swift; sourceTree = "<group>"; };
 		0B7824F22A26F93E00F8EAD8 /* LeadsAddNotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadsAddNotesVC.swift; sourceTree = "<group>"; };
 		0B7824F52A2705DF00F8EAD8 /* CustomerBaseListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerBaseListVC.swift; sourceTree = "<group>"; };
 		0B7824F92A2881AD00F8EAD8 /* tvitron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tvitron.gif; sourceTree = "<group>"; };
+		0B78A97E2A3044510031D339 /* TaskPlannerETaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPlannerETaVC.swift; sourceTree = "<group>"; };
+		0B88DB742A2F016C0090ED8D /* ReshchwduleTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReshchwduleTaskVC.swift; sourceTree = "<group>"; };
 		0BA41CFD2959AFE0002958DB /* MarkAttendanceVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkAttendanceVC.swift; sourceTree = "<group>"; };
 		0BA46CF829F1132E00A9FEC4 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		0BA46CF929F1132E00A9FEC4 /* profileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileVC.swift; sourceTree = "<group>"; };
@@ -230,6 +239,7 @@
 		0BCCD4F3295977E900CD1CAC /* NotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesVC.swift; sourceTree = "<group>"; };
 		0BCCD4F72959781400CD1CAC /* Notes_childVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notes_childVC.swift; sourceTree = "<group>"; };
 		0BDB727D2A1F122800804A95 /* CustomerDetailsFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDetailsFormVC.swift; sourceTree = "<group>"; };
+		0BE679032A29C663008C7838 /* LeadsUploadAndViewDocVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadsUploadAndViewDocVC.swift; sourceTree = "<group>"; };
 		2D95C9D6C58AF661BE0BEABE /* Pods-HRMS Trivitron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HRMS Trivitron.release.xcconfig"; path = "Target Support Files/Pods-HRMS Trivitron/Pods-HRMS Trivitron.release.xcconfig"; sourceTree = "<group>"; };
 		3D0B67244E8AB78B9159C606 /* Pods_HRMS_Trivitron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HRMS_Trivitron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		601A9C8F1D1961619A635DBC /* Pods-IOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IOS.debug.xcconfig"; path = "Target Support Files/Pods-IOS/Pods-IOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -277,6 +287,7 @@
 				0B3CB6802A1603B100A25074 /* ViewImageVC.swift */,
 				0B1593602A1C9E65005B6BC9 /* LeadReClassifyVC.swift */,
 				0B7824F22A26F93E00F8EAD8 /* LeadsAddNotesVC.swift */,
+				0BE679032A29C663008C7838 /* LeadsUploadAndViewDocVC.swift */,
 			);
 			path = LeadsVC;
 			sourceTree = "<group>";
@@ -308,6 +319,10 @@
 				0B4E91B82A2072DB0060E903 /* SelectCustomerVC.swift */,
 				0B4E91BA2A2072DB0060E903 /* TaskPlannerVC.swift */,
 				0B4E91BB2A2072DB0060E903 /* TaskVC.swift */,
+				0B88DB742A2F016C0090ED8D /* ReshchwduleTaskVC.swift */,
+				0B78A97E2A3044510031D339 /* TaskPlannerETaVC.swift */,
+				0B75578B2A305345006F6C25 /* EditTaskVC.swift */,
+				0B75578D2A31AB1A006F6C25 /* ShareInvitationVC.swift */,
 			);
 			path = TaskPlanner;
 			sourceTree = "<group>";
@@ -787,15 +802,19 @@
 				0B6955A22A1F2C6100C777B2 /* NewTaskVC.swift in Sources */,
 				0BA46CFE29F1494100A9FEC4 /* DNotesVC.swift in Sources */,
 				0BCAE34F295AD13C007FF7E8 /* GalleryVC.swift in Sources */,
+				0BE679042A29C663008C7838 /* LeadsUploadAndViewDocVC.swift in Sources */,
 				0B7010FA294862B2006FE03A /* MyApprovalVC.swift in Sources */,
 				0BCCD4F82959781400CD1CAC /* Notes_childVC.swift in Sources */,
 				0B4E91BE2A2072DB0060E903 /* TaskPlannerVC.swift in Sources */,
 				0BC89E3629263D150001ABE7 /* COPendingVC.swift in Sources */,
 				0BBF015E29F102E10038684A /* SLPendingVC.swift in Sources */,
+				0B78A97F2A3044510031D339 /* TaskPlannerETaVC.swift in Sources */,
 				0BC89E3829263D150001ABE7 /* CODetailsVC.swift in Sources */,
 				0BC89E282926389B0001ABE7 /* ODNewRequestVC.swift in Sources */,
+				0B75578C2A305345006F6C25 /* EditTaskVC.swift in Sources */,
 				0BBF016529F105CC0038684A /* SuggestionCell.swift in Sources */,
 				0B69B7C729235EAD00002493 /* NetworkCheck.swift in Sources */,
+				0B75578E2A31AB1A006F6C25 /* ShareInvitationVC.swift in Sources */,
 				0B3CB6812A1603B200A25074 /* ViewImageVC.swift in Sources */,
 				0BC89E2C2926389B0001ABE7 /* RegulazationDetailsVC.swift in Sources */,
 				0B6CF9ED2A15EDA400C5A84E /* LeadsFormVC.swift in Sources */,
@@ -813,6 +832,7 @@
 				0BC89E3929263D150001ABE7 /* COArchiveVC.swift in Sources */,
 				0BC89E1E292636320001ABE7 /* NewTicketVC.swift in Sources */,
 				0BC89E2D2926389B0001ABE7 /* ODRequestDetailsVC.swift in Sources */,
+				0B88DB752A2F016C0090ED8D /* ReshchwduleTaskVC.swift in Sources */,
 				0B69B7BC29235B1800002493 /* LauncherVC.swift in Sources */,
 				0BBF016029F102E10038684A /* SLNewRequest.swift in Sources */,
 				0BC89E8F292654F00001ABE7 /* AbbrevationVC.swift in Sources */,
@@ -1000,18 +1020,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S3T3Y2RJ7K;
+				CURRENT_PROJECT_VERSION = 1.1;
+				DEVELOPMENT_TEAM = 464X8SC6XY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "HRMS Trivitron/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "HRMS Trivitron ";
+				INFOPLIST_KEY_CFBundleDisplayName = "Trivitron  Connect";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				INFOPLIST_KEY_NSCameraUsageDescription = "App need camera for Upload Profile picture";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera for app functionality";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please Allow for Mark Attendance";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please Allow for Mark Attendance";
 				INFOPLIST_KEY_NSLocationUsageDescription = "Please Allow for Mark Attendance";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please Allow for Mark Attendance";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App need Library for Upload Profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow Photos for app functionality";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1024,7 +1044,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TrivitronHealthcare;
+				PRODUCT_BUNDLE_IDENTIFIER = Trivitron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1039,18 +1059,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S3T3Y2RJ7K;
+				CURRENT_PROJECT_VERSION = 1.1;
+				DEVELOPMENT_TEAM = 464X8SC6XY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "HRMS Trivitron/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "HRMS Trivitron ";
+				INFOPLIST_KEY_CFBundleDisplayName = "Trivitron  Connect";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				INFOPLIST_KEY_NSCameraUsageDescription = "App need camera for Upload Profile picture";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera for app functionality";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please Allow for Mark Attendance";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please Allow for Mark Attendance";
 				INFOPLIST_KEY_NSLocationUsageDescription = "Please Allow for Mark Attendance";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please Allow for Mark Attendance";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App need Library for Upload Profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Please allow Photos for app functionality";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -1063,7 +1083,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = TrivitronHealthcare;
+				PRODUCT_BUNDLE_IDENTIFIER = Trivitron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

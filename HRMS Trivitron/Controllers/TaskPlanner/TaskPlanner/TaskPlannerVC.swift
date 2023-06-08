@@ -8,9 +8,11 @@
 import UIKit
 import LZViewPager
 import SnapKit
+import RSSelectionMenu
 
 class TaskPlannerVC: UIViewController, LZViewPagerDelegate, LZViewPagerDataSource {
-
+    var simpleSelectedArray = [String]()
+    var ActionArray = ["Existing-Customer","Lead","New-Customer"]
     @IBOutlet weak var pagerView: LZViewPager!
     private var subControllers:[UIViewController] = []
     override func viewDidLoad() {
@@ -65,6 +67,48 @@ class TaskPlannerVC: UIViewController, LZViewPagerDelegate, LZViewPagerDataSourc
         }
         return (UIScreen.main.bounds.width)/2.5
     }
+    @IBAction func btn_New(_ sender: UIButton) {
+        let selectionMenu = RSSelectionMenu(selectionStyle: .single, dataSource: ActionArray, cellType: .subTitle) { (cell, name, indexPath) in
+            
+            cell.textLabel?.text = name.components(separatedBy: " ").first
+            cell.tintColor = #colorLiteral(red: 0.04421768337, green: 0.5256456137, blue: 0.5384403467, alpha: 1)
+            cell.textLabel?.textColor = #colorLiteral(red: 0.04421768337, green: 0.5256456137, blue: 0.5384403467, alpha: 1)
+          
+        }
+        selectionMenu.setSelectedItems(items: simpleSelectedArray) { [weak self] (text, index, selected, selectedList) in
+        self?.simpleSelectedArray = selectedList
+       let value = text
+        
+        
+        switch value {
+        case "Existing-Customer":
+            self?.simpleSelectedArray = [String]()
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "CustomerBaseListVC")as! CustomerBaseListVC
+            secondVC.isFrom = "Task Planner"
+            self?.navigationController?.pushViewController(secondVC, animated: true)
+        
+        case "Lead":
+            self?.simpleSelectedArray = [String]()
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadsListVC")as! LeadsListVC
+            self?.navigationController?.pushViewController(secondVC, animated: true)
+            
+        case "New-Customer":
+            self?.simpleSelectedArray = [String]()
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "NewTaskVC")as! NewTaskVC
+            self?.navigationController?.pushViewController(secondVC, animated: true)
+        default:
+            print("Unknown player")
+         }
+
+    }
+        selectionMenu.dismissAutomatically = true
+
+        selectionMenu.show(style: .popover(sourceView: sender, size: CGSize(width: 200, height: 120)), from: self)
+        
+      }
 
 }
 extension UIViewController {

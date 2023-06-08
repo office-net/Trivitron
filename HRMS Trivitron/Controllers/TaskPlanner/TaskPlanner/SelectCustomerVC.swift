@@ -33,7 +33,7 @@ extension SelectCustomerVC:UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SelectCell", for: indexPath) as!  SelectCell
         cell.index.text = "(\(indexPath.row))"
-        cell.NaMe.text = GetData["CustomerBaselst"][indexPath.row]["CustomerName"].stringValue
+        cell.NaMe.text = GetData["CustomerBaselst"][indexPath.row]["CUSTOMER_NAME"].stringValue
         cell.status.text = GetData["CustomerBaselst"][indexPath.row]["ContactStatus"].stringValue
         if cell.status.text == "ACTIVE"
         {

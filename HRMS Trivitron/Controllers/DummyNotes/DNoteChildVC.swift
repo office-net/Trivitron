@@ -53,7 +53,7 @@ class DNoteChildVC: UIViewController {
        @IBAction func btn_save(_ sender: Any) {
          if txt_description.text == ""
                {
-                   let alert = UIAlertController(title: "Sansera", message: "Please Enter Description", preferredStyle: UIAlertController.Style.alert)
+                   let alert = UIAlertController(title: "Trivitron", message: "Please Enter Description", preferredStyle: UIAlertController.Style.alert)
                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                    self.present(alert, animated: true, completion: nil)
                }

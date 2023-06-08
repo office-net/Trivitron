@@ -11,6 +11,8 @@ import SwiftyJSON
 class CustomerBaseListVC: UIViewController {
     
     var getData:JSON = []
+    var isFrom = ""
+    @IBOutlet weak var btn_New: UIButton!
     @IBOutlet weak var tbl: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,8 @@ class CustomerBaseListVC: UIViewController {
         let vc = storyboard.instantiateViewController(withIdentifier: "CustomerDetailsFormVC")as! CustomerDetailsFormVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    
     
 
 }
@@ -55,10 +59,32 @@ extension CustomerBaseListVC:UITableViewDelegate,UITableViewDataSource
         cell.btnViewDetails.tag = indexPath.row
         cell.btnViewDetails.addTarget(self, action: #selector(buttonTappedViewDetails(_:)), for: .touchUpInside)
         
+        cell.btn_SetMeeting.addTarget(self, action: #selector(buttonSetmeeting(_:)), for: .touchUpInside)
+        cell.btn_SetMeeting.tag = indexPath.row
         let btnStaTUS = getData[indexPath.row]["IsActionButton"].intValue
         cell.Btn_Active_Inactive.isHidden = btnStaTUS == 0
+        if isFrom == "Task Planner"
+        {
+            cell.btnViewDetails.isHidden = true
+            cell.Btn_Active_Inactive.isUserInteractionEnabled = false
+            self.btn_New.isHidden = true
+            self.title = "Select Exiting Customer"
+            
+        }
+        else
+        {
+            cell.btn_SetMeeting.isHidden = true
+        }
         
         return cell
+    }
+    @objc func buttonSetmeeting(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+        let secondVC = storyboard.instantiateViewController(withIdentifier: "NewTaskVC")as! NewTaskVC
+        secondVC.CustomerData = getData[sender.tag]
+        secondVC.TaskType = "Existing Customer"
+        self.navigationController?.pushViewController(secondVC, animated: true)
+        
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
@@ -173,5 +199,7 @@ class CustomerCell:UITableViewCell
     
     @IBOutlet weak var Btn_Active_Inactive: UIButton!
     @IBOutlet weak var btnViewDetails: UIButton!
+    
+    @IBOutlet weak var btn_SetMeeting: UIButton!
     
 }

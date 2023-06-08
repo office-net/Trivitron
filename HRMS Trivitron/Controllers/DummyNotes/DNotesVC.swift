@@ -38,7 +38,7 @@ class DNotesVC: UIViewController,UITableViewDelegate,UITableViewDataSource {
         if myarray.count == 0
         {
            
-            let alert = UIAlertController(title: "Indef", message: "No Note Found,  Kindly add notes", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Trivitron", message: "No Note Found,  Kindly add notes", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(okAction)
             present(alert, animated: true, completion: nil)

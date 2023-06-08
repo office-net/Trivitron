@@ -20,7 +20,7 @@ class LauncherVC: UIViewController {
         apicalling()
         self.navigationController?.navigationBar.isHidden = true
    
-        let seconds = 4.0
+        let seconds = 5.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             
             if self.isnote
@@ -82,7 +82,7 @@ extension LauncherVC
         Networkmanager.postRequest(vv: self.view, remainingUrl:"RegistrationBtnStatus", parameters: parameters) { (response,data) in
             print("beforeeeeeee\(self.isnote)")
             
-            //self.isnote = response["ButtonStatus"].boolValue
+         //   self.isnote = response["ButtonStatus"].boolValue
         
             print("Afterrrrrrrr\(self.isnote)")
         }

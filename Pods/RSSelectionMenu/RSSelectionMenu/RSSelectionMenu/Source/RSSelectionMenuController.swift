@@ -117,6 +117,7 @@ open class RSSelectionMenu<T: Equatable>: UIViewController, UIPopoverPresentatio
             tableViewStyle: tableViewStyle,
             cellType: .basic,
             cellConfiguration: configuration
+            
         )
     }
     

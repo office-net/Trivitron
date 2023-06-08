@@ -20,6 +20,7 @@ class NewTaskVC: UIViewController,AdditionalPeron {
     var TaskType = ""
     
     var CUST_TYPE = ""
+    var CUSTOMER_NAME = ""
     var AdditionalPersonCount = ["1"]
     var strMeetingType = ""
     var GetData:JSON = []
@@ -155,7 +156,7 @@ extension NewTaskVC
         
         //print(arrayDish)
       
-        let params:[String:Any] = ["TokenNo":token!,"UserId":UserID!,"CUST_TYPE":CUST_TYPE,"COMPANY_ID":CustomerData["LEAD_ID"].stringValue,"CUSTOMER_NAME":CustomerData["LEAD_NAME"].stringValue,"ContactPerson":txtContactPersonName.text ?? "","CONTACT_NO":txtContactPersonNumber.text ?? "","EMAIL_ID":txtContactPersonEmail.text ?? "","CUSTOMER_LOCATION":txtCustomerLocation.text ?? "","SETASREMINDER_TM":txt_SetReminder.text ?? "","TASK_ACTIVITY":txt_TaskActivity.text ?? "","STARTS_DATE":startDate.text ?? "","START_TIME":startTime.text ?? "","END_DATE":EndDate.text ?? "","END_TIME":EndTime.text ?? "","MEETING_STATUS":txt_MeetinfStatus.text ?? "","MEETING_TYPE":strMeetingType,"REMARKS":txt_Remarks.text ?? "","CompanyName":"","state":txt_StateName.text ?? "","city":txt_CityName.text ?? "","ADDITIONAL_PERSON":arrayDish]
+        let params:[String:Any] = ["TokenNo":token!,"UserId":UserID!,"CUST_TYPE":CUST_TYPE,"COMPANY_ID":CustomerData["LEAD_ID"].stringValue,"CUSTOMER_NAME":CUSTOMER_NAME,"ContactPerson":txtContactPersonName.text ?? "","CONTACT_NO":txtContactPersonNumber.text ?? "","EMAIL_ID":txtContactPersonEmail.text ?? "","CUSTOMER_LOCATION":txtCustomerLocation.text ?? "","SETASREMINDER_TM":txt_SetReminder.text ?? "","TASK_ACTIVITY":txt_TaskActivity.text ?? "","STARTS_DATE":startDate.text ?? "","START_TIME":startTime.text ?? "","END_DATE":EndDate.text ?? "","END_TIME":EndTime.text ?? "","MEETING_STATUS":txt_MeetinfStatus.text ?? "","MEETING_TYPE":strMeetingType,"REMARKS":txt_Remarks.text ?? "","CompanyName":"","state":txt_StateName.text ?? "","city":txt_CityName.text ?? "","ADDITIONAL_PERSON":arrayDish]
         print(params)
         
         Networkmanager.postRequest(vv: self.view, remainingUrl:"AddNewTask", parameters: params) { (response,data) in
@@ -276,6 +277,7 @@ extension NewTaskVC:UITableViewDataSource,UITableViewDelegate
             
             self.vv.isHidden = true
             self.hh.constant = 0
+            self.CUSTOMER_NAME = CustomerData["LEAD_NAME"].stringValue
             self.txtContactPersonName.text = CustomerData["UserViewLeadCustomerlst"][0]["PCONTACT_PERSON_NAME"].stringValue
             self.txtContactPersonEmail.text = CustomerData["UserViewLeadCustomerlst"][0]["PEMAIL_ID"].stringValue
             self.txtContactPersonNumber.text = CustomerData["UserViewLeadCustomerlst"][0]["PCONTACT_NO"].stringValue
@@ -283,6 +285,21 @@ extension NewTaskVC:UITableViewDataSource,UITableViewDelegate
             self.txtContactPersonEmail.isUserInteractionEnabled = false
             self.txtContactPersonNumber.isUserInteractionEnabled = false
             CUST_TYPE = "L"
+        case "Existing Customer":
+          
+            
+            self.vv.isHidden = true
+            self.hh.constant = 0
+            self.txtContactPersonName.text = CustomerData["Contactpersonname"].stringValue
+            self.txtContactPersonEmail.text = CustomerData["ContactpersonEmail"].stringValue
+            self.txtContactPersonNumber.text = CustomerData["Contactpersonno"].stringValue
+            self.CUSTOMER_NAME = CustomerData["CustomerName"].stringValue
+            self.txtContactPersonName.isUserInteractionEnabled = false
+            self.txtContactPersonEmail.isUserInteractionEnabled = false
+            self.txtContactPersonNumber.isUserInteractionEnabled = false
+            CUST_TYPE = "E"
+            
+            
         default:
             print("")
         }

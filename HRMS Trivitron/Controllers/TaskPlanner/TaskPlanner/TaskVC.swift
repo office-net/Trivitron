@@ -29,9 +29,13 @@ class TaskVC: UIViewController ,UITableViewDataSource,UITableViewDelegate, viewD
         super.viewDidLoad()
 
         uisetup()
+     
+        
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         apicalling()
-        
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

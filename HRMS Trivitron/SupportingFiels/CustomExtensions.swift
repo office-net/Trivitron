@@ -56,17 +56,51 @@ extension UITextField
           datePicker.frame = CGRect(x: 0, y: UIScreen.main.bounds.height - 200, width: self.frame.size.width, height: 200)//1
           datePicker.datePickerMode = .date //2
           self.inputView = datePicker //3
-
+//
 //        let calendar = Calendar(identifier: .gregorian)
 //        let currentDate = Date()
 //            var components = DateComponents()
 //            components.calendar = calendar
-//        components.day = +4
-//
-//        let maxDate = calendar.date(byAdding: components, to: currentDate)!
-//        components.day = 0
+////        components.day = +4
+////
+////        let maxDate = calendar.date(byAdding: components, to: currentDate)!
+////        components.day = 0
+//        //        let currentDate = Date()
 //        let minDate = calendar.date(byAdding: components, to: currentDate)!
 //        datePicker.minimumDate = minDate
+//        datePicker.maximumDate = maxDate
+          // Created a toolbar and assign it to inputAccessoryView
+          let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 45.0)) //4
+          let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil) //5
+          let cancel = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: #selector(tapCancel)) // 6
+          let barButton = UIBarButtonItem(title: "Done", style: .plain, target: target, action: selector) //7
+          toolBar.setItems([cancel, flexible, barButton], animated: false) //8
+          self.inputAccessoryView = toolBar //9
+      }
+    func setInputViewDatePicker2(target: Any, selector: Selector) {
+          // Create a UIDatePicker object and assign to inputView
+          let screenWidth = UIScreen.main.bounds.width
+          let datePicker = UIDatePicker()
+          if #available(iOS 13.4, *) {
+              datePicker.preferredDatePickerStyle = UIDatePickerStyle.wheels
+          } else {
+              // Fallback on earlier versions
+          }
+          datePicker.frame = CGRect(x: 0, y: UIScreen.main.bounds.height - 200, width: self.frame.size.width, height: 200)//1
+          datePicker.datePickerMode = .date //2
+          self.inputView = datePicker //3
+//
+        let calendar = Calendar(identifier: .gregorian)
+        let currentDate = Date()
+            var components = DateComponents()
+            components.calendar = calendar
+////        components.day = +4
+////
+////        let maxDate = calendar.date(byAdding: components, to: currentDate)!
+////        components.day = 0
+//        //        let currentDate = Date()
+        let minDate = calendar.date(byAdding: components, to: currentDate)!
+        datePicker.minimumDate = minDate
 //        datePicker.maximumDate = maxDate
           // Created a toolbar and assign it to inputAccessoryView
           let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 45.0)) //4
@@ -128,6 +162,15 @@ extension Date {
         return dateFormatter.string(from: Date())
 
     }
+    static func getCurrentTime() -> String {
+
+           let dateFormatter = DateFormatter()
+
+           dateFormatter.dateFormat = "HH:mm:ss"
+
+           return dateFormatter.string(from: Date())
+
+       }
 }
 extension UIViewController
 {

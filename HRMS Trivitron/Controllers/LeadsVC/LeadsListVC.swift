@@ -17,7 +17,7 @@ class LeadsListVC: UIViewController {
     var LeadType:JSON = []
    
     var simpleSelectedArray = [String]()
-    var ActionArray = ["View-Details","Edit","Re-classify","Add-Notes","Set-Meeting"]
+    var ActionArray = ["View-Details","Edit","Re-classify","Add-Notes","Set-Meeting","Upload/View/Document"]
     @IBOutlet weak var tbl: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,10 +171,14 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
                 print("Completed!")
             }, dismissBlock: {
             })
-        case "Ravindra":
-            print("Ravindra is an Indian cricketer")
-        case "Chris":
-            print("Chris is an Australian cricketer")
+        case "Upload/View/Document":
+            self?.simpleSelectedArray = [String]()
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadsUploadAndViewDocVC")as! LeadsUploadAndViewDocVC
+            secondVC.LeadId = (self?.getData[sender.tag]["LeadNo"].stringValue)!
+            self?.navigationController?.pushViewController(secondVC, animated: true)
+            
+       
         default:
             print("Unknown player")
          }
@@ -182,7 +186,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
     }
         selectionMenu.dismissAutomatically = true
 
-        selectionMenu.show(style: .popover(sourceView: sender, size: CGSize(width: 200, height: 200)), from: self)
+        selectionMenu.show(style: .popover(sourceView: sender, size: CGSize(width: 200, height: 265)), from: self)
         
       }
     

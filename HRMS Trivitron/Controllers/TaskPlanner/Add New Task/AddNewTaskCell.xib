@@ -21,8 +21,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IMY-de-TTV">
                         <rect key="frame" x="10" y="10" width="592" height="321"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Additional Contact Person" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9zo-EL-EPY">
-                                <rect key="frame" x="10" y="10" width="186.66666666666666" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Additional Contact Person Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9zo-EL-EPY">
+                                <rect key="frame" x="9.9999999999999858" y="10" width="239.66666666666663" height="18"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -104,6 +104,7 @@
                             <constraint firstItem="671-KI-ja5" firstAttribute="top" secondItem="hHQ-7x-eun" secondAttribute="bottom" constant="10" id="Dso-aD-9U0"/>
                             <constraint firstItem="tCU-YJ-kjR" firstAttribute="top" secondItem="671-KI-ja5" secondAttribute="bottom" constant="10" id="IiL-wo-mEf"/>
                             <constraint firstItem="9zo-EL-EPY" firstAttribute="top" secondItem="IMY-de-TTV" secondAttribute="top" constant="10" id="MPd-Wq-tb6"/>
+                            <constraint firstItem="Gxl-jl-m8V" firstAttribute="leading" secondItem="tCU-YJ-kjR" secondAttribute="trailing" constant="10" id="RHe-79-Sne"/>
                             <constraint firstItem="Gxl-jl-m8V" firstAttribute="top" secondItem="671-KI-ja5" secondAttribute="bottom" constant="10" id="Tgy-fp-cgK"/>
                             <constraint firstItem="Nfj-4g-FSd" firstAttribute="top" secondItem="9zo-EL-EPY" secondAttribute="bottom" constant="10" id="UWj-m9-ecj"/>
                             <constraint firstAttribute="trailing" secondItem="hHQ-7x-eun" secondAttribute="trailing" constant="10" id="XP6-QV-Utc"/>
@@ -114,7 +115,6 @@
                             <constraint firstItem="hHQ-7x-eun" firstAttribute="top" secondItem="hlO-eI-3dg" secondAttribute="bottom" constant="10" id="h8p-9e-44I"/>
                             <constraint firstItem="hlO-eI-3dg" firstAttribute="top" secondItem="Nfj-4g-FSd" secondAttribute="bottom" constant="10" id="l4r-Qt-h0j"/>
                             <constraint firstItem="hHQ-7x-eun" firstAttribute="leading" secondItem="IMY-de-TTV" secondAttribute="leading" constant="10" id="qdn-OX-J94"/>
-                            <constraint firstItem="Gxl-jl-m8V" firstAttribute="leading" secondItem="tCU-YJ-kjR" secondAttribute="trailing" constant="10" id="vlB-ta-dSl"/>
                             <constraint firstAttribute="trailing" secondItem="Nfj-4g-FSd" secondAttribute="trailing" constant="10" id="yMO-ZE-PFF"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
