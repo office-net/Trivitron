@@ -299,6 +299,22 @@ extension NewTaskVC:UITableViewDataSource,UITableViewDelegate
             self.txtContactPersonNumber.isUserInteractionEnabled = false
             CUST_TYPE = "E"
             
+        case "New":
+          
+            
+            self.vv.isHidden = true
+            self.hh.constant = 0
+            self.txtContactPersonName.text = CustomerData["ContactPersonName"].stringValue
+            self.txtContactPersonEmail.text = CustomerData["Cont_Email"].stringValue
+            self.txtContactPersonNumber.text = CustomerData["Cont_Mobile"].stringValue
+            self.CUSTOMER_NAME = CustomerData["CustomerName"].stringValue
+            self.txtCustomerLocation.text = CustomerData["Location"].stringValue
+          
+            self.txtCustomerLocation.isUserInteractionEnabled = txtCustomerLocation.text == ""
+            self.txtContactPersonEmail.isUserInteractionEnabled = txtContactPersonEmail.text == ""
+            self.txtContactPersonName.isUserInteractionEnabled = txtContactPersonName.text == ""
+            CUST_TYPE = "O"
+            
             
         default:
             print("")

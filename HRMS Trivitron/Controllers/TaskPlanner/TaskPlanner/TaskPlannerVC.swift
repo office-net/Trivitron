@@ -97,7 +97,7 @@ class TaskPlannerVC: UIViewController, LZViewPagerDelegate, LZViewPagerDataSourc
         case "New-Customer":
             self?.simpleSelectedArray = [String]()
             let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
-            let secondVC = storyboard.instantiateViewController(withIdentifier: "NewTaskVC")as! NewTaskVC
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "OtherCustomerListVC")as! OtherCustomerListVC
             self?.navigationController?.pushViewController(secondVC, animated: true)
         default:
             print("Unknown player")

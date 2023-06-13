@@ -6,19 +6,157 @@
 //
 
 import UIKit
+import SwiftyJSON
+
 
 class ShareInvitationVC: UIViewController {
-
+    var GetData:JSON = []
+    var TaskID = ""
+    var Emp_Code = ""
+    
+    @IBOutlet weak var tbl: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.title = "Share Invitation"
+        tbl.delegate = self
+        tbl.dataSource = self
+        tbl.separatorStyle = .none
+        ApiCalling()
     }
-
-
+    
+    
+    @IBAction func btn_Submit(_ sender: Any) {
+        if Emp_Code == ""
+        {
+            self.showAlert(message: "Please Select a Employee first")
+        }
+        else
+        {
+            SubmitApi()
+        }
+    }
+    
+    func  SubmitApi()
+    {     let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
+        let parameters = ["TokenNo":token ?? "","UserId":UserID ?? 0,"TaskId":TaskID,"EmpCodes":Emp_Code] as [String : Any]
+        Networkmanager.postRequest(vv: self.view, remainingUrl:"ShareMeeting", parameters: parameters) { (response,data) in
+            self.GetData = response
+            let status = self.GetData["Status"].intValue
+            if status == 1
+            {
+                let msg = self.GetData["Message"].stringValue
+                self.showAlertWithAction(message: msg)
+            }
+            else
+            {
+                let msg = self.GetData["Message"].stringValue
+                
+                self.tbl.reloadData()
+            }
+        }
+    }
+    
 }
+
+
+
+
+extension ShareInvitationVC:UITableViewDelegate,UITableViewDataSource
+{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return GetData["EmpConList"].count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ShareCell", for: indexPath)as! ShareCell
+        cell.name.text =  GetData["EmpConList"][indexPath.row]["Emp_Name"].stringValue
+        cell.desigination.text =  GetData["EmpConList"][indexPath.row]["EmpDesignation"].stringValue
+        cell.btn.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
+        cell.btn.tag = indexPath.row
+        return cell
+    }
+    @objc func buttonTapped(_ sender: UIButton)
+    
+    {
+       if sender.isSelected == true
+        {
+     
+           for i in 0..<GetData["EmpConList"].count
+           {
+               let index = IndexPath(row: i, section: 0)
+               let cell: ShareCell = self.tbl.cellForRow(at: index) as! ShareCell
+               cell.btn.isSelected = false
+           }
+           sender.isSelected = false
+           self.Emp_Code = ""
+        
+         }
+        else
+        {
+            
+            for i in 0..<GetData["EmpConList"].count
+            {
+                let index = IndexPath(row: i, section: 0)
+                let cell: ShareCell = self.tbl.cellForRow(at: index) as! ShareCell
+                cell.btn.isSelected = false
+            }
+            sender.isSelected = true
+            self.Emp_Code = GetData["EmpConList"][sender.tag]["Emp_Code"].stringValue
+            
+        }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
+    
+    
+}
+
+extension ShareInvitationVC
+{
+    func ApiCalling()
+    {     let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
+        let parameters = ["TokenNo":token ?? "","UserId":UserID ?? 0] as [String : Any]
+        Networkmanager.postRequest(vv: self.view, remainingUrl:"EmpTeamList", parameters: parameters) { (response,data) in
+            self.GetData = response
+            let status = self.GetData["Status"].intValue
+            if status == 1
+            {
+                print(self.GetData)
+                self.tbl.reloadData()
+                
+            }
+            else
+            {
+                let msg = self.GetData["Message"].stringValue
+                self.showAlert(message: msg)
+                self.tbl.reloadData()
+            }
+        }
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 class ShareCell:UITableViewCell
 {
+    @IBOutlet weak var name: UILabel!
     
+    @IBOutlet weak var desigination: UILabel!
+    @IBOutlet weak var btn: UIButton!
 }

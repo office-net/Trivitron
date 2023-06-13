@@ -53,6 +53,13 @@
 		0B7010FB294862B2006FE03A /* MyRequestVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7010F9294862B2006FE03A /* MyRequestVC.swift */; };
 		0B75578C2A305345006F6C25 /* EditTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B75578B2A305345006F6C25 /* EditTaskVC.swift */; };
 		0B75578E2A31AB1A006F6C25 /* ShareInvitationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B75578D2A31AB1A006F6C25 /* ShareInvitationVC.swift */; };
+		0B75579C2A36D344006F6C25 /* FillCvrDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7557952A36D344006F6C25 /* FillCvrDetails.swift */; };
+		0B75579D2A36D344006F6C25 /* ConcludeAddtionalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B7557972A36D344006F6C25 /* ConcludeAddtionalCell.xib */; };
+		0B75579E2A36D344006F6C25 /* CompetitorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7557982A36D344006F6C25 /* CompetitorCell.swift */; };
+		0B75579F2A36D344006F6C25 /* CompetitorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B7557992A36D344006F6C25 /* CompetitorCell.xib */; };
+		0B7557A02A36D344006F6C25 /* ConcludeTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B75579A2A36D344006F6C25 /* ConcludeTaskVC.swift */; };
+		0B7557A12A36D344006F6C25 /* ConcludeAddtionalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B75579B2A36D344006F6C25 /* ConcludeAddtionalCell.swift */; };
+		0B7557A42A36E214006F6C25 /* OtherCustomerListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7557A32A36E214006F6C25 /* OtherCustomerListVC.swift */; };
 		0B7824F32A26F93E00F8EAD8 /* LeadsAddNotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7824F22A26F93E00F8EAD8 /* LeadsAddNotesVC.swift */; };
 		0B7824F62A2705DF00F8EAD8 /* CustomerBaseListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7824F52A2705DF00F8EAD8 /* CustomerBaseListVC.swift */; };
 		0B7824FA2A2881AD00F8EAD8 /* tvitron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0B7824F92A2881AD00F8EAD8 /* tvitron.gif */; };
@@ -172,6 +179,13 @@
 		0B7010F9294862B2006FE03A /* MyRequestVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRequestVC.swift; sourceTree = "<group>"; };
 		0B75578B2A305345006F6C25 /* EditTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTaskVC.swift; sourceTree = "<group>"; };
 		0B75578D2A31AB1A006F6C25 /* ShareInvitationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareInvitationVC.swift; sourceTree = "<group>"; };
+		0B7557952A36D344006F6C25 /* FillCvrDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillCvrDetails.swift; sourceTree = "<group>"; };
+		0B7557972A36D344006F6C25 /* ConcludeAddtionalCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConcludeAddtionalCell.xib; sourceTree = "<group>"; };
+		0B7557982A36D344006F6C25 /* CompetitorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompetitorCell.swift; sourceTree = "<group>"; };
+		0B7557992A36D344006F6C25 /* CompetitorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompetitorCell.xib; sourceTree = "<group>"; };
+		0B75579A2A36D344006F6C25 /* ConcludeTaskVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcludeTaskVC.swift; sourceTree = "<group>"; };
+		0B75579B2A36D344006F6C25 /* ConcludeAddtionalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcludeAddtionalCell.swift; sourceTree = "<group>"; };
+		0B7557A32A36E214006F6C25 /* OtherCustomerListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherCustomerListVC.swift; sourceTree = "<group>"; };
 		0B7824F22A26F93E00F8EAD8 /* LeadsAddNotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadsAddNotesVC.swift; sourceTree = "<group>"; };
 		0B7824F52A2705DF00F8EAD8 /* CustomerBaseListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerBaseListVC.swift; sourceTree = "<group>"; };
 		0B7824F92A2881AD00F8EAD8 /* tvitron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tvitron.gif; sourceTree = "<group>"; };
@@ -295,6 +309,9 @@
 		0B4E91AF2A20726B0060E903 /* TaskPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				0B7557A22A36E1D6006F6C25 /* OtherCustomerListVC */,
+				0B7557962A36D344006F6C25 /* ConcludeTask */,
+				0B7557942A36D344006F6C25 /* CVR */,
 				0B4E91C12A2073290060E903 /* TaskDetails */,
 				0B4E91B72A2072DB0060E903 /* TaskPlanner */,
 				0B4E91B62A2072A10060E903 /* CalendarVC */,
@@ -453,6 +470,34 @@
 				0B7010F4294841AD006FE03A /* BithdayVC.swift */,
 			);
 			path = "MyTean&Birthday";
+			sourceTree = "<group>";
+		};
+		0B7557942A36D344006F6C25 /* CVR */ = {
+			isa = PBXGroup;
+			children = (
+				0B7557952A36D344006F6C25 /* FillCvrDetails.swift */,
+			);
+			path = CVR;
+			sourceTree = "<group>";
+		};
+		0B7557962A36D344006F6C25 /* ConcludeTask */ = {
+			isa = PBXGroup;
+			children = (
+				0B7557972A36D344006F6C25 /* ConcludeAddtionalCell.xib */,
+				0B7557982A36D344006F6C25 /* CompetitorCell.swift */,
+				0B7557992A36D344006F6C25 /* CompetitorCell.xib */,
+				0B75579A2A36D344006F6C25 /* ConcludeTaskVC.swift */,
+				0B75579B2A36D344006F6C25 /* ConcludeAddtionalCell.swift */,
+			);
+			path = ConcludeTask;
+			sourceTree = "<group>";
+		};
+		0B7557A22A36E1D6006F6C25 /* OtherCustomerListVC */ = {
+			isa = PBXGroup;
+			children = (
+				0B7557A32A36E214006F6C25 /* OtherCustomerListVC.swift */,
+			);
+			path = OtherCustomerListVC;
 			sourceTree = "<group>";
 		};
 		0B7824F42A2705C300F8EAD8 /* CustomerBase */ = {
@@ -708,9 +753,11 @@
 				0B6955A12A1F2C6100C777B2 /* AddNewTaskCell.xib in Resources */,
 				0B4F585F2941934000734C5E /* Localizable.strings in Resources */,
 				0B69B7BF29235B9500002493 /* loader_office_net.gif in Resources */,
+				0B75579F2A36D344006F6C25 /* CompetitorCell.xib in Resources */,
 				0B7824FA2A2881AD00F8EAD8 /* tvitron.gif in Resources */,
 				0B69B7AF29235A5100002493 /* Assets.xcassets in Resources */,
 				0B4E91B32A20729C0060E903 /* CalenderTaskCell.xib in Resources */,
+				0B75579D2A36D344006F6C25 /* ConcludeAddtionalCell.xib in Resources */,
 				0B69B7AD29235A5000002493 /* Main.storyboard in Resources */,
 				0B4E91C72A2073290060E903 /* TaskDetailsCell.xib in Resources */,
 			);
@@ -770,6 +817,7 @@
 				0B66F71629262F7C00C13F52 /* PendingDetailVC.swift in Sources */,
 				0B4E91BD2A2072DB0060E903 /* SelectCustomerVC.swift in Sources */,
 				0B6955A02A1F2C6100C777B2 /* AddNewTaskCell.swift in Sources */,
+				0B7557A12A36D344006F6C25 /* ConcludeAddtionalCell.swift in Sources */,
 				0B7010F6294841AD006FE03A /* MyTeamVC.swift in Sources */,
 				0B1C943F29FB917C00FFAB77 /* ShareInfoVC.swift in Sources */,
 				0B7824F62A2705DF00F8EAD8 /* CustomerBaseListVC.swift in Sources */,
@@ -786,6 +834,7 @@
 				0BC89E292926389B0001ABE7 /* ODPendingRequestVC.swift in Sources */,
 				0BA46CFA29F1132E00A9FEC4 /* ChangePasswordVC.swift in Sources */,
 				0B7010F7294841AD006FE03A /* BithdayVC.swift in Sources */,
+				0B75579E2A36D344006F6C25 /* CompetitorCell.swift in Sources */,
 				0BC89E2A2926389B0001ABE7 /* ODArchiveVC.swift in Sources */,
 				0B1593612A1C9E65005B6BC9 /* LeadReClassifyVC.swift in Sources */,
 				0B69B7C829235EAD00002493 /* Base.swift in Sources */,
@@ -822,6 +871,7 @@
 				0B7010F5294841AD006FE03A /* BirthdayWishVC.swift in Sources */,
 				0BC89E2B2926389B0001ABE7 /* RegulazationVC.swift in Sources */,
 				0B66F71329262F7C00C13F52 /* ArchiveDetailsVC.swift in Sources */,
+				0B7557A42A36E214006F6C25 /* OtherCustomerListVC.swift in Sources */,
 				0BCAE348295AC798007FF7E8 /* HolidayVC.swift in Sources */,
 				0BC89E89292654F00001ABE7 /* BSIslamicCalendar.m in Sources */,
 				0B4E91B42A20729C0060E903 /* TaskCalendarVC.swift in Sources */,
@@ -841,7 +891,9 @@
 				0BC89E88292654F00001ABE7 /* CalenderTableViewCell.m in Sources */,
 				0B4E91C62A2073290060E903 /* TaskDetailsCell.swift in Sources */,
 				0B4E91BF2A2072DB0060E903 /* TaskVC.swift in Sources */,
+				0B7557A02A36D344006F6C25 /* ConcludeTaskVC.swift in Sources */,
 				0B69B7A629235A5000002493 /* AppDelegate.swift in Sources */,
+				0B75579C2A36D344006F6C25 /* FillCvrDetails.swift in Sources */,
 				0B7010FB294862B2006FE03A /* MyRequestVC.swift in Sources */,
 				0BBF016129F102E10038684A /* SLRequestDetails.swift in Sources */,
 				0B30D3212A15DCD70041A565 /* LeadsListVC.swift in Sources */,

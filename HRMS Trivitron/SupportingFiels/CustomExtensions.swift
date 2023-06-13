@@ -182,6 +182,16 @@ extension UIViewController
         //alertController.addAction(cancelAction)
         self.present(alertController, animated: true)
     }
+    func showAlertWithAction(message:String){
+          let alertController = UIAlertController(title: "Trivitron", message: message, preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {_ in
+            self.navigationController?.popViewController(animated: true)
+            }
+          alertController.addAction(okAction)
+          self.present(alertController, animated: true, completion: nil)
+      }
+    
+    
     func validMobileNumber(phoneNumber: Int) -> Bool {
         let characterSet = CharacterSet(charactersIn: " +()0123456789")
         let inputString = String(phoneNumber)

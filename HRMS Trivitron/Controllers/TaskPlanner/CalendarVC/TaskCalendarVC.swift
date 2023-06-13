@@ -99,9 +99,9 @@ extension TaskCalendarVC:GoMeetingButton,ViewDetailsTask,TravelBackButon,EndTask
         }
         else
         {
-            let ab = GetData["TaskList"][index]
-           
-            SubmitAPICalling(PERSON_NAME: ab["ContactPerson"].stringValue, TaskId: ab["TaskId"].stringValue, ContactNo: ab["CONTACT_NO"].stringValue, CompanyName: ab["COMPANY_NAME"].stringValue)
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ConcludeTaskVC")as! ConcludeTaskVC
+            vc.backData = GetData["TaskList"][index]
+            self.navigationController?.pushViewController(vc, animated: true)
         }
 
        
@@ -483,61 +483,7 @@ extension TaskCalendarVC:CLLocationManagerDelegate
         
 
     }
-    // end of loc
-//    func ApiCallingTrackLocation()
-//    {     let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
-//        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
-//        let parameters = ["TokenNo":token!,"UserId":UserID!,"LocationArrList":[["LocationID":0,"Latitude":self.lat,"Longitude":self.long,"Timestamp":"","AccuracyMeters":"100","Address":self.currentAddress]] ]as [String : Any]
-//        Networkmanager.postRequest(vv: self.view, remainingUrl:"TrackedUserLocations", parameters: parameters) { (response,data) in
-//            let json:JSON = response
-//            let status = json["Status"].intValue
-//            if status == 1
-//            {
-//            print(json)
-//            }
-//
-//        }
-//    }
-    func SubmitAPICalling(PERSON_NAME:String,TaskId:String,ContactNo:String,CompanyName:String)
-    {
 
-        
-        
-        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
-        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
-        let params:[String:Any] = ["TokenNo":token!,"UserId":UserID!,"TaskId":TaskId,"CompanyName":CompanyName,"PERSON_NAME":PERSON_NAME,"ContactNo":ContactNo,"ReasonOfVisit":"","ImageExtension":"png","markMeetingOver":true,"ADDITIONAL_PERSON":"","CompetitorDetail":"","CVRDetails":["DESIGNATION": "S", "CLIENT_INFORMATION": "", "BRANCH": "HO", "CUSTOMER_TYPE": "E", "TYPE_OF_VISIT": "", "REMARKS": "", "EMP_CODE": "", "ACTION_REQ": "", "CONTACT_NO": "", "OtherProduct": "", "PERSON_NAME": "", "EMP_NAME": "", "REASON_OF_VISIT": "", "CATE_OF_INTEREST": "", "LOCATION":"", "STATE_NAME": "", "EMAIL_ID": "", "DATE_OF_VISIT": "", "TIME_OF_VISIT": "", "CITY_NAME": "", "CUSTOMER_NAME": "", "OUTCOME_OF_VISIT": "", "PROD_OF_INTEREST": ""],"Userselfieimage":""]
-        
-        Networkmanager.postRequest(vv: self.view, remainingUrl:"MarkMeetingover", parameters: params) { (response,data) in
-            let json = response
-            let status = json["Status"].intValue
-            if status == 1
-            {
-                print(json)
-                let msg = json["Message"].stringValue
-                // Create the alert controller
-                let alertController = UIAlertController(title: base.alertname, message: msg, preferredStyle: .alert)
-                
-                // Create the actions
-                let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-                    UIAlertAction in
-                    self.navigationController?.popViewController(animated: true)
-                }
-                // Add the actions
-                alertController.addAction(okAction)
-                // Present the controller
-                DispatchQueue.main.async {
-                    self.present(alertController, animated: true)
-                }
-                
-            }
-            else
-            {
-                let msg = json["Message"].stringValue
-                self.showAlert(message: msg)
-            }
-        }
-      
-    }
 }
 
 extension TaskCalendarVC

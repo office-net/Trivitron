@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate ,CLLocationManagerDelegate
         IQKeyboardManager.shared.enable = true
         var timer = Timer.scheduledTimer(timeInterval: TimeInterval(n), target: self, selector: #selector(getLocation), userInfo: nil, repeats: true)
         getUserLocation()
+       
         return true
     }
 
@@ -69,33 +70,52 @@ extension AppDelegate
             self.lat = "Lat : \(location.coordinate.latitude) "
             self.long = "Lng : \(location.coordinate.longitude)"
 
-            let UserLocation = locations[0] as CLLocation
-            let GeoCoder = CLGeocoder()
-            GeoCoder.reverseGeocodeLocation(UserLocation) { (Placemarks,error) in
-                if (error != nil)
-                {
-                    print("Error in reverseGeocodeLocation ")
-                }
+            // getting address from coordinate using reverseGeocode
+            let location = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        
+                 
+                   let geocoder = CLGeocoder()
+                   geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarkArray, error) in
+                       guard let placemarks = placemarkArray, let placemark = placemarks.first else {
+                           return
+                       }
+                 
+                       // creating complete address
+                       var address = ""
+//                       if let name = placemark.name {
+//                           address += "\(name))"
+//                       }
+                       if let thoroughfare = placemark.thoroughfare {
+                           address += "\(thoroughfare), "
+                       }
+                       if let subThoroughfare = placemark.subThoroughfare {
+                           address += "\(subThoroughfare)"
+                       }
+                       if let locality = placemark.locality {
+                           address += "\(locality)"
+                       }
+                       if let subLocality = placemark.subLocality {
+                           address += ", \(subLocality)"
+                       }
+                       if let administrativeArea = placemark.administrativeArea {
+                           address += ", \(administrativeArea)"
+                       }
+                       if let postalCode = placemark.postalCode {
+                           address += ", \(postalCode)"
+                       }
+                       if let country = placemark.country {
+                           address += ", \(country)"
+                       }
+                       self.Address = address
+                     //  print(address)
+                   })
 
-
-                let placemark = Placemarks! as [CLPlacemark]
-                if (placemark.count>0)
-                {
-                    let p = Placemarks![0]
-                    let street = p.subLocality ?? ""
-                    let locatity = p.locality ?? ""
-                    let subThoroughfare  = p.postalCode ?? ""
-                    let addmistraivearea = p.administrativeArea ?? ""
-                    let country = p.country ?? ""
-                    self.Address = "\(street) \(locatity) \(subThoroughfare) \(addmistraivearea) \(country)"
-
-                }
-
-
-
-            }
-
-
+            
+            
+            
+            
+            
+            
 
         }
     }

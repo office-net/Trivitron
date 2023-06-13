@@ -174,6 +174,9 @@ class HomeVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSou
       
         self.navigationController?.setNavigationBarHidden(false, animated: true)
           navigationController?.navigationBar.barStyle = .default
+        let backButton = UIBarButtonItem()
+        backButton.title = "Back"
+        self.navigationItem.backBarButtonItem = backButton
           self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
           self.navigationController?.navigationBar.shadowImage = UIImage()
           self.navigationController?.navigationBar.isTranslucent = true

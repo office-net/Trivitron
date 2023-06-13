@@ -9,6 +9,8 @@ import UIKit
 import SwiftyJSON
 import RSSelectionMenu
 import SemiModalViewController
+import CoreLocation
+import MapKit
 
 class TasKDetailsVC: UIViewController {
     var getdata:JSON = []
@@ -36,6 +38,14 @@ class TasKDetailsVC: UIViewController {
     @IBOutlet weak var lbl_contactPersonNumber: UILabel!
     @IBOutlet weak var lbl_contactPersonName: UILabel!
     @IBOutlet weak var lbl_CustomerName: UILabel!
+    
+    
+    
+    
+    var Latitude = ""
+    var Longitude = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Task Details"
@@ -60,6 +70,9 @@ class TasKDetailsVC: UIViewController {
         self.CreatedDate.text = getdata["CreatedDate"].stringValue
         self.Remarks.text = getdata["REMARKS"].stringValue
         
+        self.Latitude = getdata["Latitude"].stringValue
+        self.Longitude = getdata["Longitude"].stringValue
+        
         
         let dateString = getdata["START_TIME"].stringValue
         let dateString2 = getdata["END_TIME"].stringValue
@@ -73,6 +86,9 @@ class TasKDetailsVC: UIViewController {
         dateFormatter.pmSymbol = "PM"
         
         LblDateAndTimeOfMeeting.text = "\(getdata["STARTS_DATE"].stringValue) \(dateString) To \(getdata["END_DATE"].stringValue) \(dateString2)"
+        
+        
+        
         
     }
     
@@ -163,7 +179,33 @@ extension TasKDetailsVC
             secondVC.getdata = JSON(rawValue: (self?.getdata)!)!
        
             self?.navigationController?.pushViewController(secondVC, animated: true)
+            //
             
+            
+        case "Share a Meeting Invitation":
+            self?.simpleSelectedArray = [String]()
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "ShareInvitationVC")as! ShareInvitationVC
+            secondVC.TaskID = (self?.getdata["TaskId"].stringValue)!
+       
+            self?.navigationController?.pushViewController(secondVC, animated: true)
+           //"Route Details"
+        case "Route Details":
+            self?.simpleSelectedArray = [String]()
+            if self?.Longitude != "" && self?.Latitude != ""
+            {
+                self?.openLocationInAppleMaps(latitude: Double((self?.Latitude)!)!, longitude: Double((self?.Longitude)!)!)
+            }
+            else
+            {
+                   selectionMenu.dismiss(animated: true, completion: {
+                     let anotherAlert = UIAlertController(title: "Trivitron", message: "No Location Found", preferredStyle: .alert)
+                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                     anotherAlert.addAction(okAction)
+                    self?.present(anotherAlert, animated: true, completion: nil)
+                })
+            }
+           
         default:
             print("Unknown player")
             self?.simpleSelectedArray = [String]()
@@ -174,4 +216,20 @@ extension TasKDetailsVC
 
         selectionMenu.show(style: .popover(sourceView: Sender as UIView, size: CGSize(width: 220, height: 250)), from: self)
     }
+    
+    
+    func openLocationInAppleMaps(latitude: Double, longitude: Double) {
+        let regionDistance:CLLocationDistance = 10000
+        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+        let regionSpan = MKCoordinateRegion(center: coordinates, latitudinalMeters: regionDistance, longitudinalMeters: regionDistance)
+        let options = [
+            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
+            MKLaunchOptionsMapSpanKey: NSValue(mkCoordinateSpan: regionSpan.span)
+        ]
+        let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = "Location Name"
+        mapItem.openInMaps(launchOptions: options)
+    }
+    
 }
