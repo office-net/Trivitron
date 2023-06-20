@@ -41,7 +41,7 @@ class LeadsListVC: UIViewController {
           self.navigationController!.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
           self.navigationController?.navigationBar.shadowImage = UIImage()
           self.navigationController?.navigationBar.isTranslucent = true
-          self.navigationController?.navigationBar.tintColor = UIColor.white
+          self.navigationController?.navigationBar.tintColor = UIColor.black
           self.navigationController!.view.backgroundColor = UIColor.clear
        self.navigationController?.navigationBar.backgroundColor = base.firstcolor
           self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -130,13 +130,8 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
            
             self?.navigationController?.pushViewController(secondVC, animated: true)
         case "Edit":
-            self?.simpleSelectedArray = [String]()
-            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
-            let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadsFormVC")as! LeadsFormVC
-            secondVC.DetailsJson = JSON(rawValue: (self?.getData[sender.tag])!)!
-            secondVC.IsFromViewDetails = "Edit"
-            self?.navigationController?.pushViewController(secondVC, animated: true)
-            
+            self?.FromEdit(Tag: sender.tag)
+     
         case "Re-classify":
             self?.simpleSelectedArray = [String]()
             let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
@@ -201,7 +196,20 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
     
     
     
-    
+    func FromEdit(Tag:Int)
+    {
+        self.simpleSelectedArray = [String]()
+        let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+        let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadsFormVC")as! LeadsFormVC
+        secondVC.DetailsJson = self.getData[Tag]
+        secondVC.IsFromViewDetails = "Edit"
+        
+       
+        
+        
+        self.navigationController?.pushViewController(secondVC, animated: true)
+        
+    }
     
     
     
@@ -228,15 +236,17 @@ extension LeadsListVC
          let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
      
         if let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int  {
-            parameters = [ "UserId": UserID,
-                           "TokenNo": token!,
-                           "Location": "",
-                           "search": "",
-                           "PCATE_OF_INDUSTRY": "0",
-                           "PPROD_OF_INTEREST": "0",
-                           "leadtype": "-Select-",
+            parameters = [ "TokenNo": token!,
+                           "UserId": UserID,
                            "ddllocation": "",
-                           "Status": "-Select-"]
+                           "search": "",
+                           "Location": "",
+                           "PPROD_OF_INTEREST": "0",
+                           "leadtype": "0",
+                           "Status": "0",
+                           "PCATE_OF_INDUSTRY": "0",
+                           "REGIONID": "0",
+                           "MOBILENO": ""]
           
         }
         else{
@@ -305,6 +315,7 @@ class leadsCell:UITableViewCell
     
    
     @IBOutlet weak var lbl_cName: UILabel!
+    
     @IBOutlet weak var lbl_Industry: UILabel!
     @IBOutlet weak var lbl_CPerson: UILabel!
     @IBOutlet weak var lbl_Date: UILabel!

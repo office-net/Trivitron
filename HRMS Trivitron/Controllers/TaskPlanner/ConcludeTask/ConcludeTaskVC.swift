@@ -13,11 +13,7 @@ protocol ConcludeAddtionalCellButton:AnyObject
     func BtnPressed()
     
 }
-protocol CompetitorCellButton:AnyObject
-{
-    func BtnPressed2()
-    
-}
+
 protocol FillCvr:AnyObject
 {
     func Action(CvrData:[String : Any])
@@ -32,6 +28,7 @@ class ConcludeTaskVC: UIViewController, FillCvr{
         self.fillCVR = true
         self.btn_FilCrr.isSelected = true
        dict = CvrData
+        print(dict)
     }
     
    
@@ -41,9 +38,7 @@ class ConcludeTaskVC: UIViewController, FillCvr{
     var fillCVR = false
     var markmeetingOver = false
     var imgString = ""
-    @IBOutlet weak var txt_CompNayNAme: UITextField!
-    @IBOutlet weak var txt_PersonNme: UITextField!
-    @IBOutlet weak var txt_ContactNumber: UITextField!
+
     var backData:JSON = []
 
     @IBOutlet weak var btnMarkMeet: UIButton!
@@ -54,8 +49,18 @@ class ConcludeTaskVC: UIViewController, FillCvr{
     @IBOutlet weak var tbl2: UITableView!
     @IBOutlet weak var tbl1: UITableView!
     
+    @IBOutlet weak var nameOfcompany: UITextField!
+    
+    @IBOutlet weak var nameofperson: UITextField!
+    
+    @IBOutlet weak var contactnumber: UITextField!
+   
+    @IBOutlet weak var email: UITextField!
+    
+    @IBOutlet weak var Reasion: UITextField!
+    
     var AdditionalPersonCount = ["1"]
-    var CompetitorCount = ["1"]
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         print(backData)
@@ -91,15 +96,46 @@ class ConcludeTaskVC: UIViewController, FillCvr{
         {
             self.showAlert(message: "Please Select Mark Meeting Over")
         }
-        else if fillCVR != true
-        {
-            self.showAlert(message: "Please Fill CVR Details")
-        }
+
         else
         {
             SubmitAPICalling()
         }
     }
+    
+    
+    
+    @IBAction func btn_Add(_ sender: Any) {
+        
+        if nameOfcompany.text == ""
+        {
+            self.showAlert(message: "Please ente name of compnay")
+        }
+        else if nameofperson.text == ""
+        {
+            self.showAlert(message: "Please ente name of person")
+        }
+        else
+        {
+            let dict = ["CompanyName": nameOfcompany.text ?? "",
+                        "ContactNo": contactnumber.text ?? "",
+                        "Email_Id": email.text ?? "",
+                        "PersonName": nameofperson.text ?? "",
+                        "Reason_visit": Reasion.text ?? ""]
+            self.CompetitorDish.append(dict)
+            self.tbl2.reloadData()
+            nameOfcompany.text = ""
+            contactnumber.text = ""
+            email.text = ""
+            nameofperson.text = ""
+            Reasion.text = ""
+            
+            
+        }
+    }
+    
+    
+    
     
 }
 
@@ -109,30 +145,26 @@ extension ConcludeTaskVC
 {
     func SubmitAPICalling()
     {
-//        for i in 0...AdditionalPersonCount.count - 1
-//        {
-//            let index = IndexPath(row: i, section: 0)
-//            let cell: ConcludeAddtionalCell = self.tbl1.cellForRow(at: index) as! ConcludeAddtionalCell
-//            if cell.name.text == "" && cell.number.text == "" && cell.desiginstiomn.text == "" && cell.email.text == ""
-//            {
-//                print(AdditionamDish)
-//            }
-//            else
-//            {
-//                let dict = ["PersonName":cell.name.text!,"ContactNo":cell.number.text!,"DESIGNATION":cell.desiginstiomn.text!,"Email_Id":cell.email.text!,"ID":"0","TYPE":"I"]
-//
-//                AdditionamDish.append(dict)
-//
-//            }
-//
-//
-//
-//        }
-        
+
         
         let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
-        let params:[String:Any] = ["TokenNo":token!,"UserId":UserID!,"TaskId":backData["TaskId"].stringValue,"CompanyName":txt_CompNayNAme.text ?? "","PERSON_NAME":txt_PersonNme.text ?? "","ContactNo":txt_ContactNumber.text ?? "","ReasonOfVisit":"","ImageExtension":"png","markMeetingOver":markmeetingOver,"ADDITIONAL_PERSON":AdditionamDish,"CompetitorDetail":CompetitorDish,"CVRDetails":dict,"Userselfieimage":imgString]
+        let params:[String:Any] = [    "TokenNo": token!,
+                                       "UserId": UserID!,
+                                       "TaskId": backData["TaskId"].stringValue,
+                                       "CompanyName": backData["COMPANY_NAME"].stringValue,
+                                       "PERSON_NAME": backData["ContactPerson"].stringValue,
+                                       "ContactNo": backData["CONTACT_NO"].stringValue,
+                                       "ReasonOfVisit": "",
+                                       "ImageExtension": "png",
+                                       "markMeetingOver": markmeetingOver,
+                                       "ADDITIONAL_PERSON": AdditionamDish,
+                                       "CompetitorDetail": CompetitorDish,
+                                       "CVRDetails": NSNull(),
+                                       "Userselfieimage": imgString]
+        
+    
+ 
         
         Networkmanager.postRequest(vv: self.view, remainingUrl:"MarkMeetingover", parameters: params) { (response,data) in
             let json = response
@@ -143,7 +175,7 @@ extension ConcludeTaskVC
                 let msg = json["Message"].stringValue
                 // Create the alert controller
                 let alertController = UIAlertController(title: base.alertname, message: msg, preferredStyle: .alert)
-                
+
                 // Create the actions
                 let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
                     UIAlertAction in
@@ -155,7 +187,7 @@ extension ConcludeTaskVC
                 DispatchQueue.main.async {
                     self.present(alertController, animated: true)
                 }
-                
+
             }
             else
             {
@@ -190,13 +222,13 @@ extension ConcludeTaskVC:UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == tbl1
         {
-            h1.constant = CGFloat(AdditionalPersonCount.count*285)
+            h1.constant = CGFloat(AdditionalPersonCount.count*0)
             return AdditionalPersonCount.count
         }
         else
         {
-            h2.constant = CGFloat(CompetitorCount.count*285)
-            return CompetitorCount.count
+            h2.constant = CGFloat(CompetitorDish.count*110)
+            return CompetitorDish.count
         }
     }
     
@@ -210,12 +242,24 @@ extension ConcludeTaskVC:UITableViewDelegate,UITableViewDataSource
         else
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CompetitorCell", for: indexPath) as! CompetitorCell
-            cell.delegate = self
+            cell.nameOftheompany.text = CompetitorDish[indexPath.row]["CompanyName"] as? String
+            cell.btn_Delete.tag = indexPath.row
+            cell.btn_Delete.addTarget(self, action: #selector(Competitiorbutton), for: .touchUpInside)
             return cell
         }
+        
+        
+        
+    }
+    
+    
+    @objc func Competitiorbutton(_sender:UIButton)
+    {
+        CompetitorDish.remove(at: _sender.tag)
+        tbl2.reloadData()
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return  285
+        return  110
     }
     
     func uidetup()
@@ -226,45 +270,16 @@ extension ConcludeTaskVC:UITableViewDelegate,UITableViewDataSource
         tbl2.dataSource = self
         tbl1.separatorStyle = .none
         tbl2.separatorStyle = .none
-        txt_CompNayNAme.text = backData["COMPANY_NAME"].stringValue
-        if txt_CompNayNAme.text == ""
-        {
-            txt_CompNayNAme.isUserInteractionEnabled = true
-        }
-        else
-        {
-            txt_CompNayNAme.isUserInteractionEnabled = false
-        }
-        txt_PersonNme.text = backData["ContactPerson"].stringValue
-        if txt_PersonNme.text == ""
-        {
-            txt_PersonNme.isUserInteractionEnabled = true
-        }
-        else
-        {
-            txt_PersonNme.isUserInteractionEnabled = false
-        }
-        txt_ContactNumber.text = backData["CONTACT_NO"].stringValue
-        if txt_ContactNumber.text == ""
-        {
-            txt_ContactNumber.isUserInteractionEnabled = true
-        }
-        else
-        {
-            txt_ContactNumber.isUserInteractionEnabled = false
-        }
+       
         
     }
     
 }
 
 
-extension ConcludeTaskVC:ConcludeAddtionalCellButton, CompetitorCellButton
+extension ConcludeTaskVC:ConcludeAddtionalCellButton
 {
-    func BtnPressed2() {
-        self.CompetitorCount.append("1")
-        self.tbl2.reloadData()
-    }
+    
     
     func BtnPressed() {
         self.AdditionalPersonCount.append("1")

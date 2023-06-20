@@ -60,6 +60,8 @@
 		0B7557A02A36D344006F6C25 /* ConcludeTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B75579A2A36D344006F6C25 /* ConcludeTaskVC.swift */; };
 		0B7557A12A36D344006F6C25 /* ConcludeAddtionalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B75579B2A36D344006F6C25 /* ConcludeAddtionalCell.swift */; };
 		0B7557A42A36E214006F6C25 /* OtherCustomerListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7557A32A36E214006F6C25 /* OtherCustomerListVC.swift */; };
+		0B7557C92A3ABF69006F6C25 /* CGFloatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7557C72A3ABF69006F6C25 /* CGFloatTextView.swift */; };
+		0B7557CA2A3ABF69006F6C25 /* CGFloatTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7557C82A3ABF69006F6C25 /* CGFloatTextField.swift */; };
 		0B7824F32A26F93E00F8EAD8 /* LeadsAddNotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7824F22A26F93E00F8EAD8 /* LeadsAddNotesVC.swift */; };
 		0B7824F62A2705DF00F8EAD8 /* CustomerBaseListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7824F52A2705DF00F8EAD8 /* CustomerBaseListVC.swift */; };
 		0B7824FA2A2881AD00F8EAD8 /* tvitron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0B7824F92A2881AD00F8EAD8 /* tvitron.gif */; };
@@ -186,6 +188,8 @@
 		0B75579A2A36D344006F6C25 /* ConcludeTaskVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcludeTaskVC.swift; sourceTree = "<group>"; };
 		0B75579B2A36D344006F6C25 /* ConcludeAddtionalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcludeAddtionalCell.swift; sourceTree = "<group>"; };
 		0B7557A32A36E214006F6C25 /* OtherCustomerListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherCustomerListVC.swift; sourceTree = "<group>"; };
+		0B7557C72A3ABF69006F6C25 /* CGFloatTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatTextView.swift; sourceTree = "<group>"; };
+		0B7557C82A3ABF69006F6C25 /* CGFloatTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatTextField.swift; sourceTree = "<group>"; };
 		0B7824F22A26F93E00F8EAD8 /* LeadsAddNotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadsAddNotesVC.swift; sourceTree = "<group>"; };
 		0B7824F52A2705DF00F8EAD8 /* CustomerBaseListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerBaseListVC.swift; sourceTree = "<group>"; };
 		0B7824F92A2881AD00F8EAD8 /* tvitron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tvitron.gif; sourceTree = "<group>"; };
@@ -452,6 +456,8 @@
 		0B69B7C029235EAD00002493 /* SupportingFiels */ = {
 			isa = PBXGroup;
 			children = (
+				0B7557C82A3ABF69006F6C25 /* CGFloatTextField.swift */,
+				0B7557C72A3ABF69006F6C25 /* CGFloatTextView.swift */,
 				0B7824F92A2881AD00F8EAD8 /* tvitron.gif */,
 				0B69B7BE29235B9500002493 /* loader_office_net.gif */,
 				0B69B7C129235EAD00002493 /* CustomExtensions.swift */,
@@ -852,8 +858,10 @@
 				0BA46CFE29F1494100A9FEC4 /* DNotesVC.swift in Sources */,
 				0BCAE34F295AD13C007FF7E8 /* GalleryVC.swift in Sources */,
 				0BE679042A29C663008C7838 /* LeadsUploadAndViewDocVC.swift in Sources */,
+				0B7557C92A3ABF69006F6C25 /* CGFloatTextView.swift in Sources */,
 				0B7010FA294862B2006FE03A /* MyApprovalVC.swift in Sources */,
 				0BCCD4F82959781400CD1CAC /* Notes_childVC.swift in Sources */,
+				0B7557CA2A3ABF69006F6C25 /* CGFloatTextField.swift in Sources */,
 				0B4E91BE2A2072DB0060E903 /* TaskPlannerVC.swift in Sources */,
 				0BC89E3629263D150001ABE7 /* COPendingVC.swift in Sources */,
 				0BBF015E29F102E10038684A /* SLPendingVC.swift in Sources */,

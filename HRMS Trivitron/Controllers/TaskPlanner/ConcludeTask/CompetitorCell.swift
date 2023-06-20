@@ -8,7 +8,9 @@
 import UIKit
 
 class CompetitorCell: UITableViewCell {
-    var delegate:CompetitorCellButton?
+    @IBOutlet weak var nameOftheompany: UITextField!
+    @IBOutlet weak var btn_Delete: UIButton!
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,7 +22,5 @@ class CompetitorCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func btn(_ sender: Any) {
-        delegate?.BtnPressed2()
-    }
+   
 }

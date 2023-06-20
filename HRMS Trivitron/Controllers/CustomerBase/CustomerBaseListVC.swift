@@ -139,7 +139,7 @@ extension CustomerBaseListVC
                 let alertController = UIAlertController(title: base.alertname, message: msg, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
                     UIAlertAction in
-                    self.navigationController?.popViewController(animated: true)
+                  //  self.navigationController?.popViewController(animated: true)
                 }
                 alertController.addAction(okAction)
                 DispatchQueue.main.async {
