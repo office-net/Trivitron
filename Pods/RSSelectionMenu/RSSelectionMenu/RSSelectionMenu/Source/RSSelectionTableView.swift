@@ -104,15 +104,16 @@ open class RSSelectionTableView<T: Equatable>: UITableView {
     
     // MARK: - Setup
     func setup() {
-        
+        self.separatorStyle = .none
         self.selectionDataSource?.selectionTableView = self
         dataSource = self.selectionDataSource
         delegate = self.selectionDelegate
+        
         tableFooterView = UIView()
         estimatedRowHeight = 50
         rowHeight = UITableView.automaticDimension
         keyboardDismissMode = .interactive
-        
+    
         // register cells
         register(UITableViewCell.self, forCellReuseIdentifier: CellType.basic.value())
         register(UITableViewCell.self, forCellReuseIdentifier: CellType.rightDetail.value())

@@ -157,8 +157,6 @@ class LeadsFormVC: UIViewController{
                 let dic = ["segment":data["ProductSegement"].stringValue,"Interest":data["ProductInterest"].stringValue,"unit":data["NoofUnit"].stringValue,"CreatedDate":data["CreatedDate"].stringValue,"CreatedBy":data["CreatedBy"].stringValue]
                 localData.append(dic)
                 print(localData)
-                
-                
             }
             
         }
@@ -300,7 +298,7 @@ extension LeadsFormVC
     
     
     func IsFromViewDetailsPage()
-    {
+    {    Region.isUserInteractionEnabled = false
         CustomerName.isUserInteractionEnabled = false
         ContactPersonName.isUserInteractionEnabled = false
         ContactPersonNumber.isUserInteractionEnabled = false
@@ -1009,6 +1007,18 @@ extension LeadsFormVC
                 ApiCallingAddress(PostalCode: PostalCode.text!)
             }
         }
+        if textField == ContactPersonNumber
+        {
+            if ContactPersonNumber.text?.count == 10
+            {
+                print(ContactPersonNumber.text!)
+                self.APiNumberCheck(number: ContactPersonNumber.text ?? "" )
+            }
+            else
+            {
+                showAlert(message: "Please Enter a Vaild phone Number")
+            }
+        }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -1398,5 +1408,43 @@ class leadproductsegmentCell:UITableViewCell
     
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+}
+
+
+extension LeadsFormVC
+{
+    func APiNumberCheck(number:String)
+    {    let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
+        let parameters = ["UserId":UserID!,"TokenNo": token!,"MOBILENO":number] as [String : Any]
+        Networkmanager.postRequest(vv: self.view, remainingUrl:"LeadCustomerList", parameters: parameters) { (response,data) in
+            let Status = response["Status"].intValue
+            if Status == 1
+            {
+                let alertController = UIAlertController(title: base.alertname, message: "This Lead is Already Exist", preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) {
+                    UIAlertAction in
+                    self.DetailsJson = response["LeadCustomerlst"][0]
+                    self.ViewProductsegmentSetup()
+                    self.IsFromViewDetailsPage()
+                    self.setValue()
+         
+                }
+                alertController.addAction(okAction)
+                DispatchQueue.main.async {
+                    self.present(alertController, animated: true, completion: nil)
+                }
+                
+            }
+            else
+            {   let Message = response["Message"].stringValue
+                self.showAlert(message: Message)
+            }
+            
+            
+            
+        }
     }
 }

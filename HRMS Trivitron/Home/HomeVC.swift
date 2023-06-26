@@ -13,6 +13,7 @@ import SPPermissions
 import SemiModalViewController
 import SDWebImage
 import SideMenu
+import RSSelectionMenu
 protocol Birthday
 {
     func btnBaddy(tag:Int)
@@ -29,6 +30,9 @@ class HomeVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSou
         getdetailsApi()
     }
     
+    
+    var simpleSelectedArray = [String]()
+    var ActionArray = ["Breakdown","Installation","Preventive Maintenance","Spares"]
     
     var x = 1
     var imgaray:JSON = []
@@ -81,7 +85,6 @@ class HomeVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSou
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
 
-//        let  UserName = json["Emp_First_name"].stringValue + " " + json["Emp_Middle_name"].stringValue + " " + json["Emp_Last_name"].stringValue
         
         let userName = UserDefaults.standard.object(forKey: "UserName") as? String
         lbl_UserName.text = userName
@@ -286,6 +289,15 @@ class HomeVC: UIViewController ,UICollectionViewDelegate,UICollectionViewDataSou
         self.navigationController?.pushViewController(secondVC, animated: true)
     }
     
+    
+    
+    @IBAction func ServiceCall(_ sender: Any) {
+        
+        self.ServiceCallSetup(sender: sender as! UIButton)
+        
+        
+        
+    }
     
     
     
@@ -589,3 +601,53 @@ extension HomeVC
         })
     }
 }
+
+
+
+
+
+extension HomeVC
+{
+    func ServiceCallSetup(sender:UIButton)
+    {
+        showAlert()
+        
+      }
+    
+    
+    func showAlert() {
+
+        let alert = UIAlertController(title: "Service Calls", message: nil, preferredStyle: .alert)
+
+ 
+       let option1Button = UIAlertAction(title: "Breakdown", style: .default, handler: { action in
+           
+           let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
+           let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
+           self.navigationController?.pushViewController(secondVC, animated: true)
+       })
+
+       let option2Button = UIAlertAction(title: "Installation", style: .default, handler: { action in
+          
+       })
+
+       let option3Button = UIAlertAction(title: "Preventive Maintenance", style: .default, handler: { action in
+         
+       })
+
+       let option4Button = UIAlertAction(title: "Spares", style: .default, handler: { action in
+      
+       })
+
+      alert.addAction(option1Button)
+      alert.addAction(option2Button)
+      alert.addAction(option3Button)
+      alert.addAction(option4Button)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+      present(alert, animated: true, completion: nil)
+  }
+ 
+
+}
+

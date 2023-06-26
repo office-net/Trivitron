@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0B1593612A1C9E65005B6BC9 /* LeadReClassifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1593602A1C9E65005B6BC9 /* LeadReClassifyVC.swift */; };
 		0B1C943F29FB917C00FFAB77 /* ShareInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1C943E29FB917C00FFAB77 /* ShareInfoVC.swift */; };
+		0B30358B2A440C8B00863543 /* ServiceCall.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B30358A2A440C8B00863543 /* ServiceCall.storyboard */; };
+		0B30358E2A44246000863543 /* BreakdownListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B30358D2A44246000863543 /* BreakdownListVC.swift */; };
 		0B30D31B2A15D3F50041A565 /* LedMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B30D31A2A15D3F50041A565 /* LedMain.storyboard */; };
 		0B30D3212A15DCD70041A565 /* LeadsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B30D31E2A15DCD60041A565 /* LeadsListVC.swift */; };
 		0B3CB6812A1603B200A25074 /* ViewImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3CB6802A1603B100A25074 /* ViewImageVC.swift */; };
@@ -67,6 +69,8 @@
 		0B7824FA2A2881AD00F8EAD8 /* tvitron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0B7824F92A2881AD00F8EAD8 /* tvitron.gif */; };
 		0B78A97F2A3044510031D339 /* TaskPlannerETaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78A97E2A3044510031D339 /* TaskPlannerETaVC.swift */; };
 		0B88DB752A2F016C0090ED8D /* ReshchwduleTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B88DB742A2F016C0090ED8D /* ReshchwduleTaskVC.swift */; };
+		0B965DA22A49581300F2AA5F /* DoorWiseBreakdownListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B965DA12A49581300F2AA5F /* DoorWiseBreakdownListVC.swift */; };
+		0B965DA42A49749000F2AA5F /* BreakDownViewDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B965DA32A49749000F2AA5F /* BreakDownViewDetailsVC.swift */; };
 		0BA41CFE2959AFE0002958DB /* MarkAttendanceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA41CFD2959AFE0002958DB /* MarkAttendanceVC.swift */; };
 		0BA46CFA29F1132E00A9FEC4 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA46CF829F1132E00A9FEC4 /* ChangePasswordVC.swift */; };
 		0BA46CFB29F1132E00A9FEC4 /* profileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA46CF929F1132E00A9FEC4 /* profileVC.swift */; };
@@ -130,6 +134,8 @@
 /* Begin PBXFileReference section */
 		0B1593602A1C9E65005B6BC9 /* LeadReClassifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadReClassifyVC.swift; sourceTree = "<group>"; };
 		0B1C943E29FB917C00FFAB77 /* ShareInfoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareInfoVC.swift; sourceTree = "<group>"; };
+		0B30358A2A440C8B00863543 /* ServiceCall.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ServiceCall.storyboard; sourceTree = "<group>"; };
+		0B30358D2A44246000863543 /* BreakdownListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownListVC.swift; sourceTree = "<group>"; };
 		0B30D31A2A15D3F50041A565 /* LedMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LedMain.storyboard; sourceTree = "<group>"; };
 		0B30D31E2A15DCD60041A565 /* LeadsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadsListVC.swift; sourceTree = "<group>"; };
 		0B3CB6802A1603B100A25074 /* ViewImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImageVC.swift; sourceTree = "<group>"; };
@@ -195,6 +201,8 @@
 		0B7824F92A2881AD00F8EAD8 /* tvitron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tvitron.gif; sourceTree = "<group>"; };
 		0B78A97E2A3044510031D339 /* TaskPlannerETaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPlannerETaVC.swift; sourceTree = "<group>"; };
 		0B88DB742A2F016C0090ED8D /* ReshchwduleTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReshchwduleTaskVC.swift; sourceTree = "<group>"; };
+		0B965DA12A49581300F2AA5F /* DoorWiseBreakdownListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorWiseBreakdownListVC.swift; sourceTree = "<group>"; };
+		0B965DA32A49749000F2AA5F /* BreakDownViewDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakDownViewDetailsVC.swift; sourceTree = "<group>"; };
 		0BA41CFD2959AFE0002958DB /* MarkAttendanceVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkAttendanceVC.swift; sourceTree = "<group>"; };
 		0BA46CF829F1132E00A9FEC4 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		0BA46CF929F1132E00A9FEC4 /* profileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileVC.swift; sourceTree = "<group>"; };
@@ -279,6 +287,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B30358C2A4423FD00863543 /* Service Call */ = {
+			isa = PBXGroup;
+			children = (
+				0B30358D2A44246000863543 /* BreakdownListVC.swift */,
+				0B965DA12A49581300F2AA5F /* DoorWiseBreakdownListVC.swift */,
+				0B965DA32A49749000F2AA5F /* BreakDownViewDetailsVC.swift */,
+			);
+			path = "Service Call";
+			sourceTree = "<group>";
+		};
 		0B30D3182A15D3930041A565 /* DelegateFiels */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +311,7 @@
 			children = (
 				0B69B7AB29235A5000002493 /* Main.storyboard */,
 				0B30D31A2A15D3F50041A565 /* LedMain.storyboard */,
+				0B30358A2A440C8B00863543 /* ServiceCall.storyboard */,
 			);
 			path = StoryBoards;
 			sourceTree = "<group>";
@@ -434,6 +453,7 @@
 				0B69B7C029235EAD00002493 /* SupportingFiels */,
 				0BB60773292365A20051E61A /* Home */,
 				0B66F70729262F3400C13F52 /* Controllers */,
+				0B30358C2A4423FD00863543 /* Service Call */,
 				0B69B7AE29235A5100002493 /* Assets.xcassets */,
 				0B69B7B029235A5100002493 /* LaunchScreen.storyboard */,
 				0B69B7B329235A5100002493 /* Info.plist */,
@@ -757,6 +777,7 @@
 				0BC89E8B292654F00001ABE7 /* BSIslamicCalendarCell.xib in Resources */,
 				0B30D31B2A15D3F50041A565 /* LedMain.storyboard in Resources */,
 				0B6955A12A1F2C6100C777B2 /* AddNewTaskCell.xib in Resources */,
+				0B30358B2A440C8B00863543 /* ServiceCall.storyboard in Resources */,
 				0B4F585F2941934000734C5E /* Localizable.strings in Resources */,
 				0B69B7BF29235B9500002493 /* loader_office_net.gif in Resources */,
 				0B75579F2A36D344006F6C25 /* CompetitorCell.xib in Resources */,
@@ -872,6 +893,7 @@
 				0BBF016529F105CC0038684A /* SuggestionCell.swift in Sources */,
 				0B69B7C729235EAD00002493 /* NetworkCheck.swift in Sources */,
 				0B75578E2A31AB1A006F6C25 /* ShareInvitationVC.swift in Sources */,
+				0B965DA42A49749000F2AA5F /* BreakDownViewDetailsVC.swift in Sources */,
 				0B3CB6812A1603B200A25074 /* ViewImageVC.swift in Sources */,
 				0BC89E2C2926389B0001ABE7 /* RegulazationDetailsVC.swift in Sources */,
 				0B6CF9ED2A15EDA400C5A84E /* LeadsFormVC.swift in Sources */,
@@ -888,6 +910,7 @@
 				0BDB727E2A1F122800804A95 /* CustomerDetailsFormVC.swift in Sources */,
 				0BB6077D29249A150051E61A /* LogOutViewController.swift in Sources */,
 				0BC89E3929263D150001ABE7 /* COArchiveVC.swift in Sources */,
+				0B30358E2A44246000863543 /* BreakdownListVC.swift in Sources */,
 				0BC89E1E292636320001ABE7 /* NewTicketVC.swift in Sources */,
 				0BC89E2D2926389B0001ABE7 /* ODRequestDetailsVC.swift in Sources */,
 				0B88DB752A2F016C0090ED8D /* ReshchwduleTaskVC.swift in Sources */,
@@ -898,6 +921,7 @@
 				0B66F71529262F7C00C13F52 /* LeaveVC.swift in Sources */,
 				0BC89E88292654F00001ABE7 /* CalenderTableViewCell.m in Sources */,
 				0B4E91C62A2073290060E903 /* TaskDetailsCell.swift in Sources */,
+				0B965DA22A49581300F2AA5F /* DoorWiseBreakdownListVC.swift in Sources */,
 				0B4E91BF2A2072DB0060E903 /* TaskVC.swift in Sources */,
 				0B7557A02A36D344006F6C25 /* ConcludeTaskVC.swift in Sources */,
 				0B69B7A629235A5000002493 /* AppDelegate.swift in Sources */,
