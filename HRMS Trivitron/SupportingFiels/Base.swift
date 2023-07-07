@@ -17,21 +17,17 @@ class base
     static var cancel = ""
     static var yes = ""
     static let url = "https://trivitron.officenet.in/MobileAPI/AppServices.svc/"
-    //"http://hrconnect.krblindia.com/MobileAPI/AppServices.svc/"
     static let alertname = "Trivitron"
     static let secondcolor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
     static let firstcolor = #colorLiteral(red: 0, green: 0.6791719198, blue: 0.6895478964, alpha: 1)
-    
-    
-    
-    
-    
+    //"https://connect.trivitron.com/MobileAPI/AppServices.svc/"
     static func AlertsName(ok:String,cancel:String,yes:String,title:String)
     {
         self.ok = ok
         self.cancel = cancel
         self.yes = yes
         self.Title = title
+        
     }
     
    
@@ -52,6 +48,15 @@ class base
             textField.withImage(direction: .Left, image: myImage, colorBorder: UIColor.clear)
         }
     }
+    
+    static func changeImageDropdown(textField:UITextField)
+    {
+        if let myImage = UIImage(named: "dropDown")
+        {
+            
+            textField.withImage(direction: .Right, image: myImage, colorBorder: UIColor.clear)
+        }
+    }
     static func changeImageClock(textField:UITextField)
     {
         if let myImage = UIImage(named: "wallclock")
@@ -59,6 +64,7 @@ class base
             
             textField.withImage(direction: .Left, image: myImage, colorBorder: UIColor.clear)
         }
+        
     }
     static func getCurrentTime() -> String {
         
@@ -71,6 +77,7 @@ class base
         return time
         
     }
+    
     
 }
 class CustomActivityIndicator {

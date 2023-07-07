@@ -150,6 +150,99 @@ class Networkmanager
 
     }
     
+    
+    
+    class func postAndGetData2(vv:UIView,parameters: [String:Any], imgSpare :UIImage,imgServices:[UIImage],PdfData:[Any], completion: @escaping ((_ data: JSON,_ responseData:Foundation.Data) -> Void)){
+        
+        print("image Posted")
+        print("Parameters Posted in image : ",parameters)
+        let completeUrl = "https://trivitron.officenet.in/MobileAPI/Breakdownupdate.ashx"
+    
+        
+      //  let imgData = img.jpegData(compressionQuality: 0.5)
+        
+        CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: vv)
+        
+        AF.upload(multipartFormData: { multipartFormData in
+        
+            let imgData = imgSpare.jpegData(compressionQuality: 0.5) ?? Data()
+             
+            multipartFormData.append(imgData, withName: "image", fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
+              
+              
+          
+            
+            for data in imgServices
+              {
+               
+                let imageData =  data.jpegData(compressionQuality: 0.5) ?? Data()
+               
+                multipartFormData.append(imageData, withName: "serviceImage", fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
+                
+                
+            }
+            
+            if PdfData.count != 0
+            {
+                for i in 0..<PdfData.count {
+                    guard let fileData = try? Data(contentsOf: PdfData[i] as! URL) else {
+                        
+                        print("There was an error!")
+                        // return or break
+                        return
+                    }
+                    
+                    let filename : String = (PdfData[i] as AnyObject).lastPathComponent
+                    let splitName:[String] = filename.components(separatedBy: ".")
+                    let name = splitName.first
+                    let filetype = splitName.last
+                    
+                    multipartFormData.append(fileData, withName: "document", fileName: "\(filename)", mimeType: "application/pdf")
+                    
+                }
+            }
+            
+         
+
+
+                  
+            
+            
+            
+            
+            
+            
+            
+            for (key, value) in parameters {
+                if key == "AddDetail" {
+
+                   let arrData =  try! JSONSerialization.data(withJSONObject: value, options: .prettyPrinted)
+                    multipartFormData.append(arrData, withName: key as String)
+                }
+                else {
+                    multipartFormData.append("\(value)".data(using: String.Encoding.utf8)!, withName: key as String)
+                }
+            }
+        },
+        to:completeUrl).responseDecodable(of: JSON.self) { response in
+           // debugPrint(response)
+            guard let data = response.data else { return }
+            switch response.result
+            {
+            
+            case .success(let value):
+                let swiftyJsonVar = JSON(value)
+             
+                
+                completion(swiftyJsonVar, data)
+                CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: vv)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+
+    }
+    
 }
     
     

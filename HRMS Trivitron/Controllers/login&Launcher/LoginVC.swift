@@ -45,6 +45,7 @@ class LoginVC: UIViewController {
         
         self.deviceName = name
         print("============================================================================\(name)")
+        btnPasswordHideShow.setImage(UIImage(named: "showPassword"), for: .normal)
        
     }
 
@@ -101,12 +102,12 @@ class LoginVC: UIViewController {
         if isPasswordHide{
             self.txt_pass.isSecureTextEntry = false
             isPasswordHide = false
-            btnPasswordHideShow.setImage(UIImage(named: "showPassword"), for: .normal)
+            btnPasswordHideShow.setImage(UIImage(named: "hidePassword"), for: .normal)
         }
         else {
             self.txt_pass.isSecureTextEntry = true
             isPasswordHide = true
-            btnPasswordHideShow.setImage(UIImage(named: "hidePassword"), for: .normal)
+            btnPasswordHideShow.setImage(UIImage(named: "showPassword"), for: .normal)
         }
         
     }

@@ -17,12 +17,12 @@ class LeadsListVC: UIViewController {
     var LeadType:JSON = []
    
     var simpleSelectedArray = [String]()
-    var ActionArray = ["View-Details","Edit","Re-classify","Add-Notes","Set-Meeting","Upload/View/Document"]
+    var ActionArray = ["View Details","Edit","Re classify","Add Notes","Set Meeting","Upload/View/Document"]
     @IBOutlet weak var tbl: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Leads List"
-        apicalling()
+        
         ApiCallingMaster()
     }
   
@@ -46,7 +46,7 @@ class LeadsListVC: UIViewController {
        self.navigationController?.navigationBar.backgroundColor = base.firstcolor
           self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
 
-        
+        apicalling()
     }
     
   
@@ -109,7 +109,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
     @objc func buttonTapped(_ sender: UIButton) {
         let selectionMenu = RSSelectionMenu(selectionStyle: .single, dataSource: ActionArray, cellType: .subTitle) { (cell, name, indexPath) in
             
-            cell.textLabel?.text = name.components(separatedBy: " ").first
+            cell.textLabel?.text = name
             cell.tintColor = #colorLiteral(red: 0.04421768337, green: 0.5256456137, blue: 0.5384403467, alpha: 1)
             cell.textLabel?.textColor = #colorLiteral(red: 0.04421768337, green: 0.5256456137, blue: 0.5384403467, alpha: 1)
           
@@ -120,7 +120,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
         
         
         switch value {
-        case "View-Details":
+        case "View Details":
             self?.simpleSelectedArray = [String]()
             let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
             let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadsFormVC")as! LeadsFormVC
@@ -132,7 +132,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
         case "Edit":
             self?.FromEdit(Tag: sender.tag)
      
-        case "Re-classify":
+        case "Re classify":
             self?.simpleSelectedArray = [String]()
             let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
             let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadReClassifyVC")as! LeadReClassifyVC
@@ -141,7 +141,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
             secondVC.BackData = JSON(rawValue: (self?.getData[sender.tag])!)!
             self?.navigationController?.pushViewController(secondVC, animated: true)
             
-        case "Set-Meeting":
+        case "Set Meeting":
           
             self?.simpleSelectedArray = [String]()
             let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
@@ -151,7 +151,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
     
             self?.navigationController?.pushViewController(secondVC, animated: true)
 
-        case "Add-Notes":
+        case "Add Notes":
             self?.simpleSelectedArray = [String]()
             let options: [SemiModalOption : Any] = [
                 SemiModalOption.pushParentBack: false

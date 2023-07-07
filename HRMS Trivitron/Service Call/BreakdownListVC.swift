@@ -15,11 +15,29 @@ class BreakdownListVC: UIViewController {
         super.viewDidLoad()
         tbl.delegate = self
         tbl.dataSource = self
+        
         self.title = "Breakdown List"
         APiNumberCheck()
 
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+      
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+          navigationController?.navigationBar.barStyle = .default
+        let backButton = UIBarButtonItem()
+        backButton.title = "Back"
+        self.navigationItem.backBarButtonItem = backButton
+          self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+          self.navigationController?.navigationBar.shadowImage = UIImage()
+          self.navigationController?.navigationBar.isTranslucent = true
+          self.navigationController?.navigationBar.tintColor = UIColor.black
+          self.navigationController?.view.backgroundColor = UIColor.clear
+       self.navigationController?.navigationBar.backgroundColor = base.firstcolor
+          self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+     
+    }
     
     
 }
@@ -85,7 +103,7 @@ extension BreakdownListVC
         Networkmanager.postRequest(vv: self.view, remainingUrl:"BreakdownList", parameters: parameters) { (response,data) in
             let Status = response["Status"].intValue
             if Status == 1
-            {
+            {  print(response)
                 self.ListData = response["BreakdownList"]
                 self.tbl.reloadData()
             }

@@ -56,20 +56,7 @@ extension UITextField
           datePicker.frame = CGRect(x: 0, y: UIScreen.main.bounds.height - 200, width: self.frame.size.width, height: 200)//1
           datePicker.datePickerMode = .date //2
           self.inputView = datePicker //3
-//
-//        let calendar = Calendar(identifier: .gregorian)
-//        let currentDate = Date()
-//            var components = DateComponents()
-//            components.calendar = calendar
-////        components.day = +4
-////
-////        let maxDate = calendar.date(byAdding: components, to: currentDate)!
-////        components.day = 0
-//        //        let currentDate = Date()
-//        let minDate = calendar.date(byAdding: components, to: currentDate)!
-//        datePicker.minimumDate = minDate
-//        datePicker.maximumDate = maxDate
-          // Created a toolbar and assign it to inputAccessoryView
+
           let toolBar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: screenWidth, height: 45.0)) //4
           let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil) //5
           let cancel = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: #selector(tapCancel)) // 6
@@ -201,14 +188,12 @@ extension UIViewController
         }
         return false
     }
-    func isValidEmail(emailAddressString: String) -> Bool {
 
-    let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
-    let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-    return emailTest.evaluate(with: emailAddressString)
+    func validateEmail(email:String)->Bool {
+        let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
+        return emailPredicate.evaluate(with: email)
     }
-    
 }
 extension UITextField {
     

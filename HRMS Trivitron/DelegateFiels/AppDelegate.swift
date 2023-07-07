@@ -23,8 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate ,CLLocationManagerDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
      
         IQKeyboardManager.shared.enable = true
-        var timer = Timer.scheduledTimer(timeInterval: TimeInterval(n), target: self, selector: #selector(getLocation), userInfo: nil, repeats: true)
-        getUserLocation()
+       //  var timer = Timer.scheduledTimer(timeInterval: TimeInterval(n), target: self, selector: #selector(getLocation), userInfo: nil, repeats: true)
+     //   getUserLocation()
        
         return true
     }
@@ -67,8 +67,8 @@ extension AppDelegate
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            self.lat = "Lat : \(location.coordinate.latitude) "
-            self.long = "Lng : \(location.coordinate.longitude)"
+            self.lat = "\(location.coordinate.latitude)"
+            self.long = "\(location.coordinate.longitude)"
 
             // getting address from coordinate using reverseGeocode
             let location = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)

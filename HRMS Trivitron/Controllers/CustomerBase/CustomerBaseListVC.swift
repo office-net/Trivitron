@@ -18,6 +18,7 @@ class CustomerBaseListVC: UIViewController {
         super.viewDidLoad()
         self.title = "Customer Base List"
         ApiCallingMaster()
+        btn_New.isHidden = true
         // Do any additional setup after loading the view.
     }
     
@@ -76,6 +77,7 @@ extension CustomerBaseListVC:UITableViewDelegate,UITableViewDataSource
             cell.btn_SetMeeting.isHidden = true
         }
         
+        cell.Btn_Active_Inactive.isHidden = true
         return cell
     }
     @objc func buttonSetmeeting(_ sender: UIButton) {

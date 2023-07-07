@@ -11,26 +11,49 @@ import RSSelectionMenu
 
 class DoorWiseBreakdownListVC: UIViewController {
     @IBOutlet weak var tbl:UITableView!
+    @IBOutlet weak var btn_ViewDetails: UIButton!
     var ListData:JSON = []
     var ReqID = ""
     var finalSubmit = ""
     var ActionShetArray = ["View In Details","Edit In Details","Download Indent File"]
     var simpleSelectedArray = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.btn_ViewDetails.isHidden = true
         tbl.delegate = self
         tbl.dataSource = self
-        self.title = " Door Wise Breakdown List"
-        APiNumberCheck(ReqID: ReqID, Type: "Breakdown")
+        self.title = "Door Wise Breakdown List"
         
+       
         if finalSubmit == "1"
         {
+            
             ActionShetArray = ["View In Details"]
+            
         }
+        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        APiNumberCheck(ReqID: ReqID, Type: "Breakdown")
+    }
 
- 
+    @IBAction func btn_ViewDetails(_ sender: Any)
+    {
+        let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
+        let secondVC = storyboard.instantiateViewController( withIdentifier: "BreakDownEditVC" ) as! BreakDownEditVC
+        secondVC.ReqID = self.ReqID
+
+            secondVC.FillIndent = "False"
+           
+     
+        self.navigationController?.pushViewController(secondVC, animated: true)
+        
+    }
+    
 
 }
 
@@ -68,9 +91,18 @@ extension DoorWiseBreakdownListVC:UITableViewDataSource,UITableViewDelegate
             case "View In Details":
                 let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
                 let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakDownViewDetailsVC")as! BreakDownViewDetailsVC
+                secondVC.ReqID = self?.ListData[sender.tag]["ReqID"].stringValue ?? ""
+                secondVC.ServiceID = self?.ListData[sender.tag]["ServiceID"].stringValue ?? ""
               self?.navigationController?.pushViewController(secondVC, animated: true)
-            case "Edit":
-                print("Edit")
+            case "Edit In Details":
+                let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
+                let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakDownEditVC")as! BreakDownEditVC
+                secondVC.FillIndent = "True"
+                secondVC.ReqID = self?.ListData[sender.tag]["ReqID"].stringValue ?? ""
+                secondVC.ServiceID = self?.ListData[sender.tag]["ServiceID"].stringValue ?? ""
+                
+                
+              self?.navigationController?.pushViewController(secondVC, animated: true)
                 
             default:
                 print("Unknown player")
@@ -94,11 +126,14 @@ extension DoorWiseBreakdownListVC
         let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
         let parameters = ["TokenNo":token!,"UserId":UserID!,"ReqID":ReqID,"Type":Type] as [String : Any]
         Networkmanager.postRequest(vv: self.view, remainingUrl:"ServicesPerDoorDetails", parameters: parameters) { (response,data) in
+            print(response)
             let Status = response["Status"].intValue
             if Status == 1
             {
                 self.ListData = response["ServicesPerDoorDetails"]
+            
                 self.tbl.reloadData()
+                self.btn_ViewDetails.isHidden = true
             }
             else
             {
@@ -108,7 +143,7 @@ extension DoorWiseBreakdownListVC
                 let okAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) {
                     UIAlertAction in
                  
-         
+                    self.btn_ViewDetails.isHidden = false
                 }
                 alertController.addAction(okAction)
                 DispatchQueue.main.async {

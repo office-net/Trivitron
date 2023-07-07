@@ -104,7 +104,7 @@ open class RSSelectionTableView<T: Equatable>: UITableView {
     
     // MARK: - Setup
     func setup() {
-        self.separatorStyle = .none
+      //  self.separatorStyle = .none
         self.selectionDataSource?.selectionTableView = self
         dataSource = self.selectionDataSource
         delegate = self.selectionDelegate

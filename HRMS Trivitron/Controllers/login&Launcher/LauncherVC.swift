@@ -14,7 +14,7 @@ import SwiftGifOrigin
 class LauncherVC: UIViewController {
 
 
-    var isnote = true
+    var isnote = false
     override func viewDidLoad() {
         super.viewDidLoad()
         apicalling()
@@ -82,8 +82,8 @@ extension LauncherVC
         Networkmanager.postRequest(vv: self.view, remainingUrl:"RegistrationBtnStatus", parameters: parameters) { (response,data) in
             print("beforeeeeeee\(self.isnote)")
             
-         //   self.isnote = response["ButtonStatus"].boolValue
-        
+            self.isnote = response["ButtonStatus"].boolValue
+           
             print("Afterrrrrrrr\(self.isnote)")
         }
  

@@ -48,7 +48,7 @@ class ShareInfoVC: UIViewController {
         }
         else if btn_checkBox.isSelected == false
         {
-            self.showAlert(message: "Please Select Check for Continue")
+            self.showAlert(message: "Please Select Check box for Continue")
         }
         else
         {
@@ -104,7 +104,7 @@ extension ShareInfoVC
                         let alertController = UIAlertController(title: base.alertname, message: msg, preferredStyle: .alert)
                         let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
                             UIAlertAction in
-                            self.dismissSemiModalView()
+                           // self.dismissSemiModalView()
                         }
                         alertController.addAction(okAction)
                         DispatchQueue.main.async {

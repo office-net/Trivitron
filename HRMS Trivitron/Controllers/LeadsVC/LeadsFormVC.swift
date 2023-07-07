@@ -325,9 +325,12 @@ extension LeadsFormVC
         Remarks.isUserInteractionEnabled = false
         btn_ChooseFile.isHidden = true
         btn_Submit.isHidden = true
+        Region.isUserInteractionEnabled = false
+        
     }//PLEADID      CustomerName.text = DetailsJson["UserViewLeadCustomerlst"][0]["PLEADID"].stringValue
     func setValue()
     {  // self.tbl_Image.reloadData()
+        ContactPersonNumber.isUserInteractionEnabled = false
         CustomerName.text = DetailsJson["UserViewLeadCustomerlst"][0]["PLEAD_NAME"].stringValue
         ContactPersonName.text = DetailsJson["UserViewLeadCustomerlst"][0]["PCONTACT_PERSON_NAME"].stringValue
         ContactPersonNumber.text = DetailsJson["UserViewLeadCustomerlst"][0]["PCONTACT_NO"].stringValue
@@ -688,10 +691,11 @@ extension LeadsFormVC
         {
             self.showAlert(message: "Please Enter Contact Person Number")
         }
-        else if ContactPersonEmailId.text == ""
+        else if self.validateEmail(email: ContactPersonEmailId.text!) == false
         {
-            self.showAlert(message: "Please Enter Contact Person Email Id")
+            self.showAlert(message: "Please Enter Contact Person Valid Email Id")
         }
+       
         else if LeadsStatusId == ""
         {
             self.showAlert(message: "Please Select Lead Status")
@@ -706,7 +710,7 @@ extension LeadsFormVC
         }
         else if TentiveAmmount.text == ""
         {
-            self.showAlert(message: "Please Enter Tentive Ammount")
+            self.showAlert(message: "Please Enter Tentative  Ammount")
         }
         else if unitId == ""
         {
@@ -1303,35 +1307,38 @@ extension LeadsFormVC:UITableViewDelegate,UITableViewDataSource
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let options: [SemiModalOption : Any] = [
-            SemiModalOption.pushParentBack: false
-        ]
-        let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
-        let pvc = storyboard.instantiateViewController(withIdentifier: "ViewImageVC") as! ViewImageVC
-        if IsFromViewDetails == ""
+        if tableView == tbl_Image
         {
-            pvc.image = imageArray[indexPath.row]["Image"] as? UIImage
-            pvc.Isfrom = true
-        }
-        else if IsFromViewDetails == "Edit"
-        {
-            pvc.image = imageArray[indexPath.row]["Image"] as? UIImage
-            pvc.Isfrom = true
-        }
-        else
-        {  let dic = DetailsJson["LeadCustomerDocumentslst"][indexPath.row]["IMAGE_Url"].stringValue
-            pvc.Isfrom = false
-            pvc.ImageUrl = dic
             
+            let options: [SemiModalOption : Any] = [
+                SemiModalOption.pushParentBack: false
+            ]
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let pvc = storyboard.instantiateViewController(withIdentifier: "ViewImageVC") as! ViewImageVC
+            if IsFromViewDetails == ""
+            {
+                pvc.image = imageArray[indexPath.row]["Image"] as? UIImage
+                pvc.Isfrom = true
+            }
+            else if IsFromViewDetails == "Edit"
+            {
+                pvc.image = imageArray[indexPath.row]["Image"] as? UIImage
+                pvc.Isfrom = true
+            }
+            else
+            {  let dic = DetailsJson["LeadCustomerDocumentslst"][indexPath.row]["IMAGE_Url"].stringValue
+                pvc.Isfrom = false
+                pvc.ImageUrl = dic
+                
+            }
+            pvc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 520)
+            
+            pvc.modalPresentationStyle = .overCurrentContext
+            presentSemiViewController(pvc, options: options, completion: {
+                print("Completed!")
+            }, dismissBlock: {
+            })
         }
-        pvc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 520)
-        
-        pvc.modalPresentationStyle = .overCurrentContext
-        presentSemiViewController(pvc, options: options, completion: {
-            print("Completed!")
-        }, dismissBlock: {
-        })
-        
     }
     
     
