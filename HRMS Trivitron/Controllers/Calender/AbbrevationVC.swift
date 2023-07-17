@@ -72,8 +72,9 @@ class AbbrevationVC: UIViewController {
         
         CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
         var parameters:[String:Any]?
+        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         if let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int {
-            parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserId":UserID,"Date":date]
+            parameters = ["TokenNo":token!,"UserId":UserID,"Date":date]
         }
         else{
             parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserId":"0","Date":""]

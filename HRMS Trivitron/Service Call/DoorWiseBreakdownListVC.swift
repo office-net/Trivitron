@@ -15,16 +15,16 @@ class DoorWiseBreakdownListVC: UIViewController {
     var ListData:JSON = []
     var ReqID = ""
     var finalSubmit = ""
-    var ActionShetArray = ["View In Details","Edit In Details","Download Indent File"]
+    var ActionShetArray = ["View In Details","Edit In Details","View Indent Details"]
     var simpleSelectedArray = [String]()
-    
+    var ServiceType = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.btn_ViewDetails.isHidden = true
         tbl.delegate = self
         tbl.dataSource = self
-        self.title = "Door Wise Breakdown List"
+        self.title = "Product Wise \(ServiceType) List"
         
        
         if finalSubmit == "1"
@@ -38,7 +38,7 @@ class DoorWiseBreakdownListVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        APiNumberCheck(ReqID: ReqID, Type: "Breakdown")
+        APiNumberCheck(ReqID: ReqID, Type: ServiceType)
     }
 
     @IBAction func btn_ViewDetails(_ sender: Any)
@@ -46,10 +46,10 @@ class DoorWiseBreakdownListVC: UIViewController {
         let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
         let secondVC = storyboard.instantiateViewController( withIdentifier: "BreakDownEditVC" ) as! BreakDownEditVC
         secondVC.ReqID = self.ReqID
-
-            secondVC.FillIndent = "False"
-           
-     
+        secondVC.PageServiceType = self.ServiceType
+        secondVC.FillIndent = "False"
+        secondVC.ServiceID = "0"
+        secondVC.typeOfUser = "New"
         self.navigationController?.pushViewController(secondVC, animated: true)
         
     }
@@ -93,6 +93,15 @@ extension DoorWiseBreakdownListVC:UITableViewDataSource,UITableViewDelegate
                 let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakDownViewDetailsVC")as! BreakDownViewDetailsVC
                 secondVC.ReqID = self?.ListData[sender.tag]["ReqID"].stringValue ?? ""
                 secondVC.ServiceID = self?.ListData[sender.tag]["ServiceID"].stringValue ?? ""
+                switch self?.ServiceType
+                {
+                case "Installation" :
+                    secondVC.PageServiceType = self?.ServiceType ?? ""
+                    
+                    
+                default:
+                    secondVC.PageServiceType = self?.ServiceType ?? ""
+                }
               self?.navigationController?.pushViewController(secondVC, animated: true)
             case "Edit In Details":
                 let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
@@ -100,12 +109,16 @@ extension DoorWiseBreakdownListVC:UITableViewDataSource,UITableViewDelegate
                 secondVC.FillIndent = "True"
                 secondVC.ReqID = self?.ListData[sender.tag]["ReqID"].stringValue ?? ""
                 secondVC.ServiceID = self?.ListData[sender.tag]["ServiceID"].stringValue ?? ""
-                
-                
+                 secondVC.PageServiceType = self?.ServiceType ?? ""
+        
               self?.navigationController?.pushViewController(secondVC, animated: true)
                 
             default:
-                print("Unknown player")
+                let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
+                let secondVC = storyboard.instantiateViewController(withIdentifier: "ViewIndentVC")as! ViewIndentVC
+                secondVC.ReqId = self?.ListData[sender.tag]["ReqID"].stringValue ?? ""
+                secondVC.ServiceID = self?.ListData[sender.tag]["ServiceID"].stringValue ?? ""
+              self?.navigationController?.pushViewController(secondVC, animated: true)
             }
             
         }

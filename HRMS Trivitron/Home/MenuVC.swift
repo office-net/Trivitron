@@ -16,7 +16,7 @@ class MenuVC: UIViewController{
     
     var imgString = ""
     
-    var menuAray = ["Profile","Notification","Directory","Notes","Suggestions","My Team"," Attendance Calendar"," Holiday Calendar"]
+    var menuAray = ["Profile","Notification","Directory","Notes","Suggestions","My Team"," Attendance Calendar"," Holiday Calendar","Delete Account"]
    // ,"Logout"
     var arrimg: [UIImage] = []
     
@@ -31,6 +31,7 @@ class MenuVC: UIViewController{
         arrimg.append(UIImage(named: "My_Team.png")!)
         arrimg.append(UIImage(named: "calendar-1.png")!)
         arrimg.append(UIImage(named: "calendar-1.png")!)
+        arrimg.append(UIImage(named: "delete.png")!)
        // arrimg.append(UIImage(named: "logout.png")!)
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -249,47 +250,81 @@ extension MenuVC:UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        switch indexPath.row
-        { case 0:
-            let vc =  storyboard?.instantiateViewController(identifier: "profileVC")as! profileVC
-            self.navigationController?.pushViewController(vc, animated: true)
-            return
-        case 1:
-            let vc =  storyboard?.instantiateViewController(identifier: "NotificationVC")as! NotificationVC
-            self.navigationController?.pushViewController(vc, animated: true)
-            return
-        case 2:
-            let vc =  storyboard?.instantiateViewController(identifier: "Directory")as! Directory
-            self.navigationController?.pushViewController(vc, animated: true)
-            return
-        case 3:
-            let vc =  storyboard?.instantiateViewController(identifier: "NotesVC")as! NotesVC
-            self.navigationController?.pushViewController(vc, animated: true)
-            return
-        case 4:
-            let vc =  storyboard?.instantiateViewController(identifier: "SuggestionVC")as! SuggestionVC
-            self.navigationController?.pushViewController(vc, animated: true)
-            return
-        case 5:
-            let vc =  storyboard?.instantiateViewController(identifier: "MyTeamVC")as! MyTeamVC
-            self.navigationController?.pushViewController(vc, animated: true)
-            return
-        case 6:
-                    UserDefaults.standard.set("False", forKey: "MyTeam") //EmployeeStatus
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CalenderViewController")
-                    self.navigationController?.pushViewController(vc!, animated: true)
-            return
-        case 7:
-                  
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "HolidayVC")as! HolidayVC
-                    self.navigationController?.pushViewController(vc, animated: true)
-            return
-
-      
-        default:
-            print("Defusalt")
-        }
+//        switch indexPath.row
+//        { case 0:
+//            let vc =  storyboard?.instantiateViewController(identifier: "profileVC")as! profileVC
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            return
+//        case 1:
+//            let vc =  storyboard?.instantiateViewController(identifier: "NotificationVC")as! NotificationVC
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            return
+//        case 2:
+//            let vc =  storyboard?.instantiateViewController(identifier: "Directory")as! Directory
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            return
+//        case 3:
+//            let vc =  storyboard?.instantiateViewController(identifier: "NotesVC")as! NotesVC
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            return
+//        case 4:
+//            let vc =  storyboard?.instantiateViewController(identifier: "SuggestionVC")as! SuggestionVC
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            return
+//        case 5:
+//            let vc =  storyboard?.instantiateViewController(identifier: "MyTeamVC")as! MyTeamVC
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            return
+//        case 6:
+//                    UserDefaults.standard.set("False", forKey: "MyTeam") //EmployeeStatus
+//                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CalenderViewController")
+//                    self.navigationController?.pushViewController(vc!, animated: true)
+//            return
+//        case 7:
+//
+//                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "HolidayVC")as! HolidayVC
+//                    self.navigationController?.pushViewController(vc, animated: true)
+//            return
+//
+//
+//        default:
+//            print("Defusalt")
+//        }
         
+        if indexPath.row == 8
+        {
+            workAfterThreeSeconds()
+        }
+        else
+        {
+            self.ShowAlertAutoDisable(message: "Coming Soon")
+        }
+    }
+    
+    func workAfterThreeSeconds() {
+        CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
+        let when = DispatchTime.now() + 5
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: self.view)
+            let alertController = UIAlertController(title: "ACME", message: "Your account deletion request has been accepted. Your account will be deactivated shortly. Please don't login for 8 hours. After deactivation, we will send you a confirmation email.", preferredStyle: .alert)
+         
+            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                UIAlertAction in
+                
+                UserDefaults.standard.set("False", forKey: "IsLogin")
+                  let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                  let mainTabBarController = storyboard.instantiateViewController(identifier: "LoginNavigationController")
+                  (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                
+     
+            }
+            // Add the actions
+            alertController.addAction(okAction)
+            // Present the controller
+            DispatchQueue.main.async {
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
     
 }

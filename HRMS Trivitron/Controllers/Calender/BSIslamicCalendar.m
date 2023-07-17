@@ -825,7 +825,7 @@ else
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
-    NSURL * url = [NSURL URLWithString:[ NSString stringWithFormat:@"https://indiasteel.officenet.in/MobileAPI/AppServices.svc/GetMyAttendance"]];;
+    NSURL * url = [NSURL URLWithString:[ NSString stringWithFormat:@"https://connect.trivitron.com/MobileAPI/AppServices.svc/GetMyAttendance"]];;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
                                                        timeoutInterval:60.0];
@@ -834,8 +834,10 @@ else
     [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
     [request setHTTPMethod:@"POST"];
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [standardUserDefaults objectForKey:@"TokenNo"];
     
-    NSDictionary *mapData = [[NSDictionary alloc] initWithObjectsAndKeys:@"abcHkl7900@8Uyhkj",@"TokenNo",userId,@"UserId",strDate,@"Date",
+    NSDictionary *mapData = [[NSDictionary alloc] initWithObjectsAndKeys:token,@"TokenNo",userId,@"UserId",strDate,@"Date",
                              nil];
     
     NSLog(@"mapData====== %@",mapData);

@@ -16,11 +16,13 @@ class base
     static var ok = ""
     static var cancel = ""
     static var yes = ""
-    static let url = "https://trivitron.officenet.in/MobileAPI/AppServices.svc/"
+    static let url = "https://connect.trivitron.com/MobileAPI/AppServices.svc/"
     static let alertname = "Trivitron"
     static let secondcolor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
     static let firstcolor = #colorLiteral(red: 0, green: 0.6791719198, blue: 0.6895478964, alpha: 1)
     //"https://connect.trivitron.com/MobileAPI/AppServices.svc/"
+    
+    //"https://trivitron.officenet.in/MobileAPI/AppServices.svc/"
     static func AlertsName(ok:String,cancel:String,yes:String,title:String)
     {
         self.ok = ok
@@ -31,11 +33,13 @@ class base
     }
     
    
-    
+
     
     static func openURLInSafari(urlString: String) {
+        
       guard let url = URL(string: urlString) else { return }
        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        
     }
     
     
@@ -80,6 +84,7 @@ class base
     
     
 }
+
 class CustomActivityIndicator {
     
     var container: UIView = UIView()

@@ -24,10 +24,10 @@ class MarkAttendanceVC: UIViewController,CLLocationManagerDelegate,MKMapViewDele
     @IBOutlet weak var mapview: MKMapView!
     
     @IBOutlet weak var lbl_Address: UILabel!
-    @IBOutlet weak var lb_intime: UILabel!
+
     
     @IBOutlet weak var btn_MarkAttendance: UIButton!
-    @IBOutlet weak var lbl_outTime: UILabel!
+   
     
     
     override func viewDidLoad() {
@@ -138,7 +138,7 @@ class MarkAttendanceVC: UIViewController,CLLocationManagerDelegate,MKMapViewDele
         let UserID = UserDefaults.standard.object(forKey: "UserID")as? Int
         parameters = ["TokenNo": "abcHkl7900@8Uyhkj", "UserID": UserID!, "VersionName": ""]
         AF.request( base.url+"GetPushNotificationList", method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
+            .responseDecodable(of:JSON.self)  { response in
                 switch response.result
                 {
                 case .success(let value):
@@ -229,7 +229,7 @@ class MarkAttendanceVC: UIViewController,CLLocationManagerDelegate,MKMapViewDele
         }
         
         AF.request( base.url+"GetInOutStatus", method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
+            .responseDecodable(of:JSON.self) { response in
                 switch response.result
                 {
                 
@@ -243,8 +243,7 @@ class MarkAttendanceVC: UIViewController,CLLocationManagerDelegate,MKMapViewDele
                     {
                         CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: self.view)
                         self.strmag =  json["distanceMessage"].stringValue
-                        self.lbl_outTime.text = json["OutTime"].stringValue
-                        self.lb_intime.text = json["InTime"].stringValue
+                       
                         let Intime =  json["InTime"].stringValue
                         self.strintime = Intime
                         let outtime = json["OutTime"].stringValue
@@ -292,18 +291,18 @@ class MarkAttendanceVC: UIViewController,CLLocationManagerDelegate,MKMapViewDele
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let myString = formatter.string(from: date)
-        
+        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         
         var parameters:[String:Any]?
         
         if let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int {
-            parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":UserID,"Latitude":lat ?? 0,"Longitude":long ?? 0,"Address":self.lbl_Address.text!,"Type":strPunchInOut,"DateTime":myString,"FileInBase64":"","FileExt":"","AttendanceType":"ONLINE","Intime":self.strintime,"OutTime":self.strouttime]
+            parameters = ["TokenNo":token!,"UserId":UserID,"Latitude":lat ?? 0,"Longitude":long ?? 0,"Address":self.lbl_Address.text!,"Type":strPunchInOut,"DateTime":myString,"FileInBase64":"","FileExt":"","AttendanceType":"ONLINE","Intime":self.strintime,"OutTime":self.strouttime]
         }
         else{
             parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":"0","PlantID":"0","Year":""]
         }
         AF.request( base.url+"SavePunchInOutDetails", method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
+            .responseDecodable(of:JSON.self) { response in
                 switch response.result
                 {
                 

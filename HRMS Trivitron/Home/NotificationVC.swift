@@ -51,7 +51,7 @@ class NotificationVC: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController!.view.backgroundColor = UIColor.clear
-        self.navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 0, green: 0.3647058824, blue: 0.6745098039, alpha: 1)
+        self.navigationController?.navigationBar.backgroundColor = base.firstcolor
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         
     }

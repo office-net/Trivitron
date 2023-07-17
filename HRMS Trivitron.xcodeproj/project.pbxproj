@@ -72,13 +72,14 @@
 		0B7824FA2A2881AD00F8EAD8 /* tvitron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0B7824F92A2881AD00F8EAD8 /* tvitron.gif */; };
 		0B78A97F2A3044510031D339 /* TaskPlannerETaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78A97E2A3044510031D339 /* TaskPlannerETaVC.swift */; };
 		0B88DB752A2F016C0090ED8D /* ReshchwduleTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B88DB742A2F016C0090ED8D /* ReshchwduleTaskVC.swift */; };
+		0B8E36522A5D26A600CAC61C /* regViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E36512A5D26A600CAC61C /* regViewController.swift */; };
+		0B8E36562A6109DA00CAC61C /* ViewIndentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E36552A6109DA00CAC61C /* ViewIndentVC.swift */; };
 		0B965DA22A49581300F2AA5F /* DoorWiseBreakdownListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B965DA12A49581300F2AA5F /* DoorWiseBreakdownListVC.swift */; };
 		0B965DA42A49749000F2AA5F /* BreakDownViewDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B965DA32A49749000F2AA5F /* BreakDownViewDetailsVC.swift */; };
 		0BA41CFE2959AFE0002958DB /* MarkAttendanceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA41CFD2959AFE0002958DB /* MarkAttendanceVC.swift */; };
 		0BA46CFA29F1132E00A9FEC4 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA46CF829F1132E00A9FEC4 /* ChangePasswordVC.swift */; };
 		0BA46CFB29F1132E00A9FEC4 /* profileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA46CF929F1132E00A9FEC4 /* profileVC.swift */; };
 		0BA46CFE29F1494100A9FEC4 /* DNotesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA46CFD29F1494100A9FEC4 /* DNotesVC.swift */; };
-		0BA46D0029F1495600A9FEC4 /* DNoteChildVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA46CFF29F1495600A9FEC4 /* DNoteChildVC.swift */; };
 		0BA53FEC2A4ADFF500C78231 /* BreakDownEditVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA53FEB2A4ADFF500C78231 /* BreakDownEditVC.swift */; };
 		0BB60771292364800051E61A /* TabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB60770292364800051E61A /* TabVC.swift */; };
 		0BB60775292365BF0051E61A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB60774292365BF0051E61A /* HomeVC.swift */; };
@@ -210,13 +211,14 @@
 		0B7824F92A2881AD00F8EAD8 /* tvitron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tvitron.gif; sourceTree = "<group>"; };
 		0B78A97E2A3044510031D339 /* TaskPlannerETaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPlannerETaVC.swift; sourceTree = "<group>"; };
 		0B88DB742A2F016C0090ED8D /* ReshchwduleTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReshchwduleTaskVC.swift; sourceTree = "<group>"; };
+		0B8E36512A5D26A600CAC61C /* regViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = regViewController.swift; sourceTree = "<group>"; };
+		0B8E36552A6109DA00CAC61C /* ViewIndentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewIndentVC.swift; sourceTree = "<group>"; };
 		0B965DA12A49581300F2AA5F /* DoorWiseBreakdownListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorWiseBreakdownListVC.swift; sourceTree = "<group>"; };
 		0B965DA32A49749000F2AA5F /* BreakDownViewDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakDownViewDetailsVC.swift; sourceTree = "<group>"; };
 		0BA41CFD2959AFE0002958DB /* MarkAttendanceVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkAttendanceVC.swift; sourceTree = "<group>"; };
 		0BA46CF829F1132E00A9FEC4 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		0BA46CF929F1132E00A9FEC4 /* profileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileVC.swift; sourceTree = "<group>"; };
 		0BA46CFD29F1494100A9FEC4 /* DNotesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNotesVC.swift; sourceTree = "<group>"; };
-		0BA46CFF29F1495600A9FEC4 /* DNoteChildVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNoteChildVC.swift; sourceTree = "<group>"; };
 		0BA53FEB2A4ADFF500C78231 /* BreakDownEditVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakDownEditVC.swift; sourceTree = "<group>"; };
 		0BB60770292364800051E61A /* TabVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabVC.swift; sourceTree = "<group>"; };
 		0BB60774292365BF0051E61A /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				0B27AD842A4E8BD400A3035A /* IndentCell.swift */,
 				0B27AD852A4E8BD400A3035A /* IndentCell.xib */,
 				0BCD08FD2A54174700F84E83 /* BreakDownImageCell.swift */,
+				0B8E36552A6109DA00CAC61C /* ViewIndentVC.swift */,
 			);
 			path = "Service Call";
 			sourceTree = "<group>";
@@ -556,7 +559,6 @@
 			isa = PBXGroup;
 			children = (
 				0BA46CFD29F1494100A9FEC4 /* DNotesVC.swift */,
-				0BA46CFF29F1495600A9FEC4 /* DNoteChildVC.swift */,
 			);
 			path = DummyNotes;
 			sourceTree = "<group>";
@@ -572,6 +574,7 @@
 		0BB60773292365A20051E61A /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				0B8E36512A5D26A600CAC61C /* regViewController.swift */,
 				0BA46CF829F1132E00A9FEC4 /* ChangePasswordVC.swift */,
 				0BA46CF929F1132E00A9FEC4 /* profileVC.swift */,
 				0BCAE347295AC798007FF7E8 /* HolidayVC.swift */,
@@ -868,6 +871,7 @@
 				0B7824F62A2705DF00F8EAD8 /* CustomerBaseListVC.swift in Sources */,
 				0BBF015D29F102E10038684A /* ShortLeaveVC.swift in Sources */,
 				0B66F71429262F7C00C13F52 /* CancellationDetailsVC.swift in Sources */,
+				0B8E36522A5D26A600CAC61C /* regViewController.swift in Sources */,
 				0BC89E8D292654F00001ABE7 /* BSIslamicCalendarCell.m in Sources */,
 				0BCAE34D295AD13C007FF7E8 /* GalleyDetailsVC.swift in Sources */,
 				0BC89E76292653B00001ABE7 /* Directory.swift in Sources */,
@@ -875,7 +879,6 @@
 				0BCD08FE2A54174700F84E83 /* BreakDownImageCell.swift in Sources */,
 				0BB60775292365BF0051E61A /* HomeVC.swift in Sources */,
 				0BBF015C29F102E10038684A /* SLArchive.swift in Sources */,
-				0BA46D0029F1495600A9FEC4 /* DNoteChildVC.swift in Sources */,
 				0BC89E3729263D150001ABE7 /* CoNewRequestVC.swift in Sources */,
 				0BC89E292926389B0001ABE7 /* ODPendingRequestVC.swift in Sources */,
 				0BA46CFA29F1132E00A9FEC4 /* ChangePasswordVC.swift in Sources */,
@@ -943,6 +946,7 @@
 				0B66F71529262F7C00C13F52 /* LeaveVC.swift in Sources */,
 				0BC89E88292654F00001ABE7 /* CalenderTableViewCell.m in Sources */,
 				0B4E91C62A2073290060E903 /* TaskDetailsCell.swift in Sources */,
+				0B8E36562A6109DA00CAC61C /* ViewIndentVC.swift in Sources */,
 				0B965DA22A49581300F2AA5F /* DoorWiseBreakdownListVC.swift in Sources */,
 				0B4E91BF2A2072DB0060E903 /* TaskVC.swift in Sources */,
 				0B7557A02A36D344006F6C25 /* ConcludeTaskVC.swift in Sources */,
@@ -1127,7 +1131,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "HRMS Trivitron/HRMS Trivitron.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 464X8SC6XY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "HRMS Trivitron/Info.plist";
@@ -1150,7 +1154,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Trivitron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1167,7 +1171,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "HRMS Trivitron/HRMS Trivitron.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 464X8SC6XY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "HRMS Trivitron/Info.plist";
@@ -1190,7 +1194,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Trivitron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

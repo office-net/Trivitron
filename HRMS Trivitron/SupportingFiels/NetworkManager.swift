@@ -50,7 +50,7 @@ class Networkmanager
         
         print("image Posted")
         print("Parameters Posted in image : ",parameters)
-        let completeUrl = "https://trivitron.officenet.in/MobileAPI/SaveLeadDetail.ashx"
+        let completeUrl = "https://connect.trivitron.com/MobileAPI/SaveLeadDetail.ashx"
         print("imgKey :",imgKey," imgName :",imgName)
         
         let imgData = img.jpegData(compressionQuality: 0.5)!
@@ -102,7 +102,7 @@ class Networkmanager
         
         print("image Posted")
         print("Parameters Posted in image : ",parameters)
-        let completeUrl = "https://trivitron.officenet.in/MobileAPI/LeadUploadDocument.ashx"
+        let completeUrl = "https://connect.trivitron.com/MobileAPI/LeadUploadDocument.ashx"
         print("imgKey :",imgKey," imgName :",imgName)
         
       //  let imgData = img.jpegData(compressionQuality: 0.5)
@@ -152,11 +152,11 @@ class Networkmanager
     
     
     
-    class func postAndGetData2(vv:UIView,parameters: [String:Any], imgSpare :UIImage,imgServices:[UIImage],PdfData:[Any], completion: @escaping ((_ data: JSON,_ responseData:Foundation.Data) -> Void)){
+    class func postAndGetData2(EndPoint:String,vv:UIView,parameters: [String:Any], imgSpare :UIImage,imgServices:[UIImage],PdfData:[Any], completion: @escaping ((_ data: JSON,_ responseData:Foundation.Data) -> Void)){
         
         print("image Posted")
         print("Parameters Posted in image : ",parameters)
-        let completeUrl = "https://trivitron.officenet.in/MobileAPI/Breakdownupdate.ashx"
+        let completeUrl = "https://connect.trivitron.com/MobileAPI/" + EndPoint
     
         
       //  let imgData = img.jpegData(compressionQuality: 0.5)

@@ -23,11 +23,12 @@ class LauncherVC: UIViewController {
         let seconds = 5.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             
-            if self.isnote
+            if self.isnote == true
             {
                 
                 if  let isLogin = UserDefaults.standard.object(forKey: "IsLogin") as? String{
                     print("==========================  \(isLogin)")
+                    
                     if isLogin == "True"
                     {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -56,9 +57,20 @@ class LauncherVC: UIViewController {
             }
             else
             {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let mainTabBarController = storyboard.instantiateViewController(identifier: "DNotesVC")
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                let isLogin = UserDefaults.standard.object(forKey: "IsLogin") as? String
+                if isLogin == "True"
+                {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                }
+                else
+                {
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let mainTabBarController = storyboard.instantiateViewController(identifier: "DNotesVC")
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                }
             }
             
             
@@ -67,6 +79,12 @@ class LauncherVC: UIViewController {
 
      
     }
+    
+    
+    
+    
+    
+    
     
 
 }
@@ -83,7 +101,7 @@ extension LauncherVC
             print("beforeeeeeee\(self.isnote)")
             
             self.isnote = response["ButtonStatus"].boolValue
-           
+          //  self.isnote = true
             print("Afterrrrrrrr\(self.isnote)")
         }
  

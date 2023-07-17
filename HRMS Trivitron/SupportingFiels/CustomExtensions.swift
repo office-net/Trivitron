@@ -179,6 +179,17 @@ extension UIViewController
       }
     
     
+    func ShowAlertAutoDisable(message:String)
+    {
+        let alertController = UIAlertController(title: "Trivitron", message: message, preferredStyle: UIAlertController.Style.alert)
+
+        present(alertController, animated: true, completion: nil)
+
+        let timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
+            alertController.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     func validMobileNumber(phoneNumber: Int) -> Bool {
         let characterSet = CharacterSet(charactersIn: " +()0123456789")
         let inputString = String(phoneNumber)

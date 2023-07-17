@@ -85,7 +85,18 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
     @IBOutlet weak var hTbl1: NSLayoutConstraint!
     @IBOutlet weak var hTbl2: NSLayoutConstraint!
     
+    @IBOutlet weak var scheduledFromDate: UITextField!
+    @IBOutlet weak var scheduledToDate: UITextField!
+    @IBOutlet weak var actuallyProductQty: UITextField!
+    @IBOutlet weak var ScheduleView: UIView!
+    @IBOutlet weak var HieghtSchedule: NSLayoutConstraint!
+    
+    
+    var typeOfUser = "existing"
+    
     var ServiceID = ""
+   
+    
     var ReqID = ""
     var DropDownData:JSON = []
     var gradePicker: UIPickerView!
@@ -115,9 +126,15 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
     var fileData = [Any]()
     var spareimage = UIImage()
     
+    var PageServiceType = ""
+    
+    var Spares = "1"
+    var SparesSheet = "1"
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("=====================================\(PageServiceType)")
         uisetup()
         
     }
@@ -162,12 +179,14 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
     }
     
     @IBAction func btn_FillOption(_ sender: Any) {
+        SparesSheet = "0"
         btn_FillOption.isSelected = true
         btn_UploadFile.isSelected = false
         btn_PleaseChooseFile.setTitle("  Click To Fill Indent Details", for: .normal)
     }
     
     @IBAction func btn_UploadFile(_ sender: Any) {
+        SparesSheet = "1"
         btn_FillOption.isSelected = false
         btn_UploadFile.isSelected = true
         btn_PleaseChooseFile.setTitle("  Please Choose File", for: .normal)
@@ -175,7 +194,8 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
     
     
     @IBAction func btn_UpdateDetails(_ sender: Any) {
-        self.Validation()
+        
+        Validation()
     }
     
     
@@ -198,8 +218,10 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
         {
             self.showAlert(message: "Please Select Is Chargable/Not Chargable")
         }
-        else if Reassigned_Emp.text == ""
+        else if Reassign.text == ""
         {
+            
+       
             self.showAlert(message: "Please Select Reassign Employee")
         }
         else if AdditionalContactPerson.text == ""
@@ -212,11 +234,43 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
         }
        else
         {
-           ApiUpdateDeails()
+           
+           
+           
+           
+        
+
+           switch self.PageServiceType
+           {
+           case "Installation":
+               
+               self.ApiUpdateDeails(EndPoint: "AmcUpdate.ashx")
+           case "Breakdown":
+               
+               self.ApiUpdateDeails(EndPoint: "Breakdownupdate.ashx")
+           case "Preventive Maintenance":
+               
+               self.ApiUpdateDeails(EndPoint: "Serviceupdate.ashx")
+           case "Spares":
+               
+               self.ApiUpdateDeails(EndPoint: "Spareupdate.ashx")
+           case "Application":
+               
+               self.ApiUpdateDeails(EndPoint: "ApplicationUpdate.ashx")
+           case "Training":
+               
+               self.ApiUpdateDeails(EndPoint: "TrainingUpdate.ashx")
+              
+               
+           default:
+               self.ApiUpdateDeails(EndPoint: "OtherUpdate.ashx")
+           }
+           
+          
         }
     }
     
-    func ApiUpdateDeails()
+    func ApiUpdateDeails(EndPoint:String)
     {
         let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
@@ -241,7 +295,7 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
         }
 
                 
-        let parameters : [String : Any] = ["AddDetail":[ "Type": "New",
+        let parameters : [String : Any] = ["AddDetail":[ "Type": typeOfUser,
                                                          "TokenNo": token!,
                                                          "UserId": UserID!,
                                                          "ReqID": self.ReqID,
@@ -261,15 +315,17 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
                                                          "ServiceReport": service_report_number.text ?? "",
                                                          "StageStatus": Id_Call_Status,
                                                          "StageDate": SelectStageDate.text ?? "",
-                                                         "Spares": "1",
+                                                         "Spares": self.Spares,
                                                          "Product": productId,
-                                                         "SparesSheet": "1",
+                                                         "SparesSheet": self.SparesSheet,
                                                          "DoorType": DoorTypeId,
                                                          "Model": Model.text ?? "",
                                                          "RefSONo": Ref_So_Number.text ?? "",
                                                          "Issues": Discription_of_issue.text ?? "",
                                                          "Remarks": Remarks.text ?? "",
-                                                         "LocalConveyanceDetails":NSNull()
+                                                         "LocalConveyanceDetails":NSNull(),
+                                                         "ScheduleEndDate":scheduledToDate.text!,
+                                                         "ScheduleStartDate":scheduledFromDate.text!
                                                        ] as [String : Any]
                                            
                                             ]
@@ -282,7 +338,7 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
                 serimgaray.append((ServiceImageArray[i]["Image"] as? UIImage)!)
             }
         }
-        Networkmanager.postAndGetData2(vv: self.view, parameters: parameters, imgSpare:spareimage , imgServices: serimgaray, PdfData: self.fileData) { (response,data) in
+        Networkmanager.postAndGetData2(EndPoint: EndPoint, vv: self.view, parameters: parameters, imgSpare:spareimage , imgServices: serimgaray, PdfData: self.fileData) { (response,data) in
             
             print(response)
             print(parameters)
@@ -318,19 +374,51 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
 
 extension BreakDownEditVC
 {
-    func APiCalling(ReqID:String,ServiceID:String)
+    func APiCalling(ReqID:String,ServiceID:String,EndPoint:String)
     {    let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
         let parameters = [    "TokenNo": token!,
                               "UserId": UserID!,
                               "ReqID": ReqID,
                               "ServiceID": ServiceID] as [String : Any]
-        Networkmanager.postRequest(vv: self.view, remainingUrl:"BreakdownListById", parameters: parameters) { (response,data) in
+        Networkmanager.postRequest(vv: self.view, remainingUrl:EndPoint, parameters: parameters) { (response,data) in
             let Status = response["Status"].intValue
             if Status == 1
-            {  // print(response)
+            {   print(response)
+                switch self.PageServiceType
+                {
+                    
+//                    "Preventive Maintenance"
+//                    "Spares"
+//                    "Application"
+//                    "Training"
+//                    "Others"
+                case "Installation":
+                    
+                    self.SetData(Json: response["AmcListById"][0])
+                case "Breakdown":
+                    
+                    self.SetData(Json: response["BreakdownListById"][0])
+                case "Preventive Maintenance":
+
+                    self.SetData(Json: response["ServiceListById"][0])
+                case "Spares":
+
+                    self.SetData(Json: response["SpareListById"][0])
+                case "Application":
+
+                    self.SetData(Json: response["ApplicationListById"][0])
+                case "Training":
+
+                    self.SetData(Json: response["TrainingListById"][0])
+                   
+                    
+                default:
+                    self.SetData(Json: response["OtherListById"][0])
+                }
                 
-                self.SetData(Json: response["BreakdownListById"][0])
+                
+            
                 
             }
             else
@@ -362,7 +450,7 @@ extension BreakDownEditVC
         let parameters = ["TokenNo":token!,"UserId":UserID!,"ServiceID":self.ServiceID] as [String : Any]
         Networkmanager.postRequest(vv: self.view, remainingUrl:"BindBreakdownDW", parameters: parameters) { (response,data) in
             let Status = response["status"].intValue
-            print(response)
+          //  print(response)
             if Status == 1
             {
                 self.DropDownData = response
@@ -452,6 +540,7 @@ extension BreakDownEditVC
         
         
     }
+    
 }
 
 
@@ -499,7 +588,37 @@ extension BreakDownEditVC
         btn_UploadFile.isSelected = true
         
         
-        APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID)
+        
+        
+        
+        
+        switch self.PageServiceType
+        {
+        case "Installation":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "AmcListById")
+        case "Breakdown":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "BreakdownListById")
+        case "Preventive Maintenance":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "ServiceListById")
+        case "Spares":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "SpareListById")
+        case "Application":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "ApplicationListById")
+        case "Training":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "TrainingListById")
+           
+            
+        default:
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "OtherListById")
+        }
+        
+        
         APiCallingDropDown()
         base.changeImageDropdown(textField: Product)
         base.changeImageDropdown(textField: DoorType)
@@ -510,13 +629,46 @@ extension BreakDownEditVC
         base.changeImageDropdown(textField: CallStage)
         base.changeImageCalender(textField: SelectStageDate)
         base.changeImageCalender(textField: Installed_On)
+        
+        base.changeImageCalender(textField: scheduledToDate)
+        base.changeImageCalender(textField: scheduledFromDate)
+        
         self.Installed_On.setInputViewDatePicker(target: self, selector: #selector(InstallDate))
         self.SelectStageDate.setInputViewDatePicker(target: self, selector: #selector(StageDate))
         let textFieldGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapTextField))
         let textFieldGestureRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(didTapTextField2))
         Product.addGestureRecognizer(textFieldGestureRecognizer)
         DoorType.addGestureRecognizer(textFieldGestureRecognizer2)
-        APiCalling(ReqID: ReqID, ServiceID: ServiceID)
+        
+        self.scheduledToDate.setInputViewDatePicker(target: self, selector: #selector(scheduleToDate))
+        self.scheduledFromDate.setInputViewDatePicker(target: self, selector: #selector(scheduleFromDate))
+      
+        self.scheduledToDate.text = Date.getCurrentDate()
+        self.scheduledFromDate.text = Date.getCurrentDate()
+    }
+    
+    @objc func scheduleToDate() {
+        if let datePicker = scheduledToDate.inputView as? UIDatePicker { // 2-1
+            let dateformatter = DateFormatter() // 2-2
+            
+            dateformatter.dateFormat = "dd/MM/yyyy"
+            
+            //dateformatter.dateStyle = .medium // 2-3
+            scheduledToDate.text = dateformatter.string(from: datePicker.date) //2-4
+        }
+        scheduledToDate.resignFirstResponder() // 2-5
+    }
+    
+    @objc func scheduleFromDate() {
+        if let datePicker = scheduledFromDate.inputView as? UIDatePicker { // 2-1
+            let dateformatter = DateFormatter() // 2-2
+            
+            dateformatter.dateFormat = "dd/MM/yyyy"
+            
+            //dateformatter.dateStyle = .medium // 2-3
+            scheduledFromDate.text = dateformatter.string(from: datePicker.date) //2-4
+        }
+        scheduledFromDate.resignFirstResponder() // 2-5
     }
     
 }
@@ -561,7 +713,7 @@ extension BreakDownEditVC
     }
     func Dealer()
     {
-        
+        Spares = "3"
         h_Yes.constant = 0
         
         btn_No.isSelected = false
@@ -581,7 +733,7 @@ extension BreakDownEditVC
     
     func bttOther()
     {
-        
+        Spares = "2"
         h_Yes.constant = 0
         
         btn_No.isSelected = false
@@ -600,7 +752,7 @@ extension BreakDownEditVC
     }
     
     func BttNo()
-    {
+    {  Spares = "1"
         
         btn_No.isSelected = true
         btn_Yes.isSelected = false
@@ -618,7 +770,7 @@ extension BreakDownEditVC
     }
     
     func BtnYes()
-    {
+    {   Spares = "0"
         h_Yes.constant = 90
         
         btn_No.isSelected = false

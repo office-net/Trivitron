@@ -60,13 +60,39 @@ class BreakDownViewDetailsVC: UIViewController {
     @IBOutlet weak var Action_Taken_Time:UILabel!
     
     
-    
+    var PageServiceType = ""
     var ServiceID = ""
     var ReqID = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Breakdown Details"
-       APiCalling(ReqID: ReqID, ServiceID: ServiceID)
+        self.title = "Details"
+        
+        switch self.PageServiceType
+        {
+        case "Installation":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "AmcListById")
+        case "Breakdown":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "BreakdownListById")
+        case "Preventive Maintenance":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "ServiceListById")
+        case "Spares":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "SpareListById")
+        case "Application":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "ApplicationListById")
+        case "Training":
+            
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "TrainingListById")
+           
+            
+        default:
+            APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "OtherListById")
+        }
+        
     }
     
 
@@ -76,18 +102,46 @@ class BreakDownViewDetailsVC: UIViewController {
 
 extension BreakDownViewDetailsVC
 {
-    func APiCalling(ReqID:String,ServiceID:String)
+    func APiCalling(ReqID:String,ServiceID:String ,EndPoint:String)
     {    let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
         let parameters = [    "TokenNo": token!,
                               "UserId": UserID!,
                               "ReqID": ReqID,
                               "ServiceID": ServiceID] as [String : Any]
-        Networkmanager.postRequest(vv: self.view, remainingUrl:"BreakdownListById", parameters: parameters) { (response,data) in
+        Networkmanager.postRequest(vv: self.view, remainingUrl:EndPoint, parameters: parameters) { (response,data) in
             let Status = response["Status"].intValue
             if Status == 1
             {
-                self.SetData(Json: response["BreakdownListById"][0])
+                switch self.PageServiceType
+                {
+
+                case "Installation":
+                    
+                    self.SetData(Json: response["AmcListById"][0])
+                case "Breakdown":
+                    
+                    self.SetData(Json: response["BreakdownListById"][0])
+                case "Preventive Maintenance":
+
+                    self.SetData(Json: response["ServiceListById"][0])
+                case "Spares":
+
+                    self.SetData(Json: response["SpareListById"][0])
+                case "Application":
+
+                    self.SetData(Json: response["ApplicationListById"][0])
+                case "Training":
+
+                    self.SetData(Json: response["TrainingListById"][0])
+                   
+                    
+                default:
+                    self.SetData(Json: response["OtherListById"][0])
+                }
+                
+                
+                
             }
             else
             {
