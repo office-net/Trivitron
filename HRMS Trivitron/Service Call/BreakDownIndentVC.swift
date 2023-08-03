@@ -61,6 +61,7 @@ class BreakDownIndentVC: UIViewController, UITextFieldDelegate,UIPickerViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        DerailsAPiCalling()
         UIsetup()
         
     }
@@ -155,7 +156,8 @@ extension BreakDownIndentVC
         Networkmanager.postRequest(vv: self.view, remainingUrl:"ViewBreakDownIndent", parameters: parameters) { (response,data) in
             let Status = response["Status"].intValue
             if Status == 1
-            {  print(response)
+            {   self.AddViewDewtails(data: response)
+                
                 if response["BreakdownIndent"].isEmpty
                 {
                     
@@ -180,7 +182,7 @@ extension BreakDownIndentVC
                         self.MaterialData.append(dic)
                         self.indentID = data["IndentId"].stringValue
                     }
-                    self.AddViewDewtails(data: response)
+                   
                     
                     self.tbl.reloadData()
                 }
@@ -220,7 +222,7 @@ extension BreakDownIndentVC
         
         UOM.delegate = self
         UOM.inputView = gradePicker
-        DerailsAPiCalling()
+     
     }
     func AddMore()
     {
@@ -260,6 +262,7 @@ extension BreakDownIndentVC
     
     func AddViewDewtails(data:JSON)
     {
+        print("==================sssss=s=s=s=s=s=s=s==ss=s=s==s=s=ss==ss==s=ss==ss=s=s=\(data)")
         ClientName.text = data["clientName"].stringValue
         Ticket_Ref_No.text = data["quotationno"].stringValue
         DAte.text = data["date"].stringValue

@@ -16,7 +16,7 @@ class TasKDetailsVC: UIViewController {
     var getdata:JSON = []
     var ADDITIONAL_PERSON:JSON = []
     var simpleSelectedArray = [String]()
-    var ActionArray = ["Edit Task Entry","Mark Meeting Over","Reschedule Meeting","Set ETA Info","Route Details","Share a Meeting Invitation","Report False Location"]
+    var ActionArray = [String]()
     @IBOutlet weak var tbl:UITableView!
     @IBOutlet weak var HieghtTbl:NSLayoutConstraint!
     
@@ -205,6 +205,12 @@ extension TasKDetailsVC
                     self?.present(anotherAlert, animated: true, completion: nil)
                 })
             }
+            
+        case "Fill CVR Report":
+            
+            let vc = self?.storyboard?.instantiateViewController(withIdentifier: "ConcludeTaskVC")as! ConcludeTaskVC
+            vc.backData = (self?.getdata)!
+            self?.navigationController?.pushViewController(vc, animated: true)
            
         default:
             print("Unknown player")

@@ -48,14 +48,33 @@ class LeadReClassifyVC: UIViewController {
     }
     
     @IBAction func btn_Save(_ sender: Any) {
-        switch LeadStatus.text
+        if Remarks.text == ""
         {
-        case "Won":
-            APiCalling(Quotation: "", AppropriateValue: txt.text ?? "", LostRemarks: "")
-        case "Lost":
-            APiCalling(Quotation: "", AppropriateValue:"", LostRemarks: txt.text ?? "")
-        default :
-            APiCalling(Quotation: "", AppropriateValue: "", LostRemarks: "")
+            self.showAlert(message: "Please enter remarks")
+        }
+        else if LeadStatus.text == "-Selected-"
+        {
+            self.showAlert(message: "Please Select Lead Status")
+        }
+        else if  LeadStatus.text == "-Select-"
+        {
+            self.showAlert(message: "Please Select Lead Status")
+        }
+        else if LeadStatus.text == ""
+        {
+            self.showAlert(message: "Please Select Lead Status")
+        }
+        else
+        {
+            switch LeadStatus.text
+            {
+            case "Won":
+                APiCalling(Quotation: "", AppropriateValue: txt.text ?? "", LostRemarks: "")
+            case "Lost":
+                APiCalling(Quotation: "", AppropriateValue:"", LostRemarks: txt.text ?? "")
+            default :
+                APiCalling(Quotation: "", AppropriateValue: "", LostRemarks: "")
+            }
         }
     }
     

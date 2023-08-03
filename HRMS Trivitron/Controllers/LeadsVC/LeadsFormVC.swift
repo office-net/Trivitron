@@ -546,7 +546,7 @@ extension LeadsFormVC
             let status = json["Status"].intValue
             if status == 1
             {
-                self.ProductegmentArray = json["Productlist"]
+               // self.ProductegmentArray = json["Productlist"]
                 
                 self.ProductIntrestArrray = json["ProductInterest"]
                 if response["ProductInterest"].count != 0
@@ -594,7 +594,7 @@ extension LeadsFormVC
                 self.CustomerTypeArray = response["LeadType"]
                 self.LeadsStatusArray = response["LeadStatus"]
                 self.regionList = response["Region"]
-                
+                self.ProductegmentArray = response["ProductSegment"]
                 
                 if self.IsFromViewDetails == "Edit"
                 {
@@ -1056,6 +1056,7 @@ extension LeadsFormVC
             dropDown?.selectRow(0, inComponent: 0, animated: true)
             txtproductSegment.text =  ProductegmentArray[0]["Name"].stringValue
             ProductegmentValue = ProductegmentArray[0]["Id"].stringValue
+            print("========================f=f=f=f=f=f=f=f=f=f=f==f=f=f==ff=f=f==ff=f=f=f=f=\(ProductegmentValue)")
             ApiCallingProductDetails( Productid: ProductegmentValue)
             self.SelectedPInterest = [String]()
             self.btn_ProductOfInterws.setTitle("NONE SELECTED", for: .normal)

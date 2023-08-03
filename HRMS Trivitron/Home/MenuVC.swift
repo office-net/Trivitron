@@ -16,7 +16,7 @@ class MenuVC: UIViewController{
     
     var imgString = ""
     
-    var menuAray = ["Profile","Notification","Directory","Notes","Suggestions","My Team"," Attendance Calendar"," Holiday Calendar","Delete Account"]
+    var menuAray = ["Profile","Notification","Directory","Notes","Suggestions","My Team"," Attendance Calendar"," Holiday Calendar","Leads","Customer Base","Task Planner","Service Call"]
    // ,"Logout"
     var arrimg: [UIImage] = []
     
@@ -32,6 +32,16 @@ class MenuVC: UIViewController{
         arrimg.append(UIImage(named: "calendar-1.png")!)
         arrimg.append(UIImage(named: "calendar-1.png")!)
         arrimg.append(UIImage(named: "delete.png")!)
+        
+        arrimg.append(UIImage(named: "approvals.png")!)
+        arrimg.append(UIImage(named: "customer_base.png")!)
+        arrimg.append(UIImage(named: "task_planner.png")!)
+        arrimg.append(UIImage(named: "reports.png")!)
+        
+        
+        
+        
+        
        // arrimg.append(UIImage(named: "logout.png")!)
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -69,8 +79,7 @@ class MenuVC: UIViewController{
         else{
             parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":"0","Notes":"Fufi"]
         }
-        //declare parameter as a dictionary which contains string as key and value combination. considering inputs are valid
-        //create the url with URL
+      
         let url = URL(string: base.url+"MyPage_UpdateProfilePic")! //change the url
         //create the session object
         let session = URLSession.shared

@@ -126,14 +126,17 @@ class LoginVC: UIViewController {
     {
         let parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserName":txt_empcode.text ?? "" ]
         
-        
+        CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
         
         AF.request(base.url+"ForgetPassword", method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
+            .responseDecodable (of:JSON.self) { response in
+                print(response.request!)
+                print(parameters)
                 switch response.result
                 {
-                
+               
                 case .success(let value):
+                    CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: self.view)
                     let json = JSON(value)
                     print(json)
                     
@@ -145,6 +148,8 @@ class LoginVC: UIViewController {
                     }
                     
                 case .failure(let error):
+                   // CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: self.view)
+                    self.showAlert(message: error.localizedDescription)
                     print(error.localizedDescription)
                 }
                 

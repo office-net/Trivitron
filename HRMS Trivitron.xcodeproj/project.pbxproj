@@ -133,6 +133,18 @@
 		0BCCD4F82959781400CD1CAC /* Notes_childVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCCD4F72959781400CD1CAC /* Notes_childVC.swift */; };
 		0BCD08FE2A54174700F84E83 /* BreakDownImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCD08FD2A54174700F84E83 /* BreakDownImageCell.swift */; };
 		0BDB727E2A1F122800804A95 /* CustomerDetailsFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDB727D2A1F122800804A95 /* CustomerDetailsFormVC.swift */; };
+		0BE525212A6E2C2A00DA71DE /* Travel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BE525202A6E2C2A00DA71DE /* Travel.storyboard */; };
+		0BE5253F2A6E308900DA71DE /* AddAccomadationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5253C2A6E308900DA71DE /* AddAccomadationCell.swift */; };
+		0BE525402A6E308900DA71DE /* TravelHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BE5253D2A6E308900DA71DE /* TravelHistoryCell.xib */; };
+		0BE525412A6E308900DA71DE /* TravelHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5253E2A6E308900DA71DE /* TravelHistoryCell.swift */; };
+		0BE525472A6E309E00DA71DE /* CellAccomodatinDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE525422A6E309E00DA71DE /* CellAccomodatinDetails.swift */; };
+		0BE525482A6E309E00DA71DE /* RequisitationDetailsVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE525432A6E309E00DA71DE /* RequisitationDetailsVc.swift */; };
+		0BE525492A6E309E00DA71DE /* CellAccomodatinDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BE525442A6E309E00DA71DE /* CellAccomodatinDetails.xib */; };
+		0BE5254A2A6E309E00DA71DE /* CellRequisitationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE525452A6E309E00DA71DE /* CellRequisitationDetails.swift */; };
+		0BE5254B2A6E309E00DA71DE /* CellRequisitationDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BE525462A6E309E00DA71DE /* CellRequisitationDetails.xib */; };
+		0BE5254E2A6E30AC00DA71DE /* TravelRequisitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5254C2A6E30AC00DA71DE /* TravelRequisitionVC.swift */; };
+		0BE5254F2A6E30AC00DA71DE /* TravelRequisitionFilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5254D2A6E30AC00DA71DE /* TravelRequisitionFilterVC.swift */; };
+		0BE525512A6E34B300DA71DE /* RequititionFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE525502A6E34B300DA71DE /* RequititionFormVC.swift */; };
 		0BE679042A29C663008C7838 /* LeadsUploadAndViewDocVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE679032A29C663008C7838 /* LeadsUploadAndViewDocVC.swift */; };
 		8D48686D1C6FDB01AA288A1B /* Pods_HRMS_Trivitron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0B67244E8AB78B9159C606 /* Pods_HRMS_Trivitron.framework */; };
 /* End PBXBuildFile section */
@@ -278,6 +290,18 @@
 		0BCCD4F72959781400CD1CAC /* Notes_childVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notes_childVC.swift; sourceTree = "<group>"; };
 		0BCD08FD2A54174700F84E83 /* BreakDownImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakDownImageCell.swift; sourceTree = "<group>"; };
 		0BDB727D2A1F122800804A95 /* CustomerDetailsFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDetailsFormVC.swift; sourceTree = "<group>"; };
+		0BE525202A6E2C2A00DA71DE /* Travel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Travel.storyboard; sourceTree = "<group>"; };
+		0BE5253C2A6E308900DA71DE /* AddAccomadationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAccomadationCell.swift; sourceTree = "<group>"; };
+		0BE5253D2A6E308900DA71DE /* TravelHistoryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TravelHistoryCell.xib; sourceTree = "<group>"; };
+		0BE5253E2A6E308900DA71DE /* TravelHistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelHistoryCell.swift; sourceTree = "<group>"; };
+		0BE525422A6E309E00DA71DE /* CellAccomodatinDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellAccomodatinDetails.swift; sourceTree = "<group>"; };
+		0BE525432A6E309E00DA71DE /* RequisitationDetailsVc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequisitationDetailsVc.swift; sourceTree = "<group>"; };
+		0BE525442A6E309E00DA71DE /* CellAccomodatinDetails.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellAccomodatinDetails.xib; sourceTree = "<group>"; };
+		0BE525452A6E309E00DA71DE /* CellRequisitationDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRequisitationDetails.swift; sourceTree = "<group>"; };
+		0BE525462A6E309E00DA71DE /* CellRequisitationDetails.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CellRequisitationDetails.xib; sourceTree = "<group>"; };
+		0BE5254C2A6E30AC00DA71DE /* TravelRequisitionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelRequisitionVC.swift; sourceTree = "<group>"; };
+		0BE5254D2A6E30AC00DA71DE /* TravelRequisitionFilterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelRequisitionFilterVC.swift; sourceTree = "<group>"; };
+		0BE525502A6E34B300DA71DE /* RequititionFormVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequititionFormVC.swift; sourceTree = "<group>"; };
 		0BE679032A29C663008C7838 /* LeadsUploadAndViewDocVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadsUploadAndViewDocVC.swift; sourceTree = "<group>"; };
 		2D95C9D6C58AF661BE0BEABE /* Pods-HRMS Trivitron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HRMS Trivitron.release.xcconfig"; path = "Target Support Files/Pods-HRMS Trivitron/Pods-HRMS Trivitron.release.xcconfig"; sourceTree = "<group>"; };
 		3D0B67244E8AB78B9159C606 /* Pods_HRMS_Trivitron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HRMS_Trivitron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -328,9 +352,10 @@
 		0B30D3192A15D3AC0041A565 /* StoryBoards */ = {
 			isa = PBXGroup;
 			children = (
-				0B69B7AB29235A5000002493 /* Main.storyboard */,
-				0B30D31A2A15D3F50041A565 /* LedMain.storyboard */,
-				0B30358A2A440C8B00863543 /* ServiceCall.storyboard */,
+				0BE525252A6E2DE300DA71DE /* TRAVEL */,
+				0BE525242A6E2DD400DA71DE /* SERVICE CALL */,
+				0BE525232A6E2DC600DA71DE /* LEADS */,
+				0BE525222A6E2DB800DA71DE /* HRMS */,
 			);
 			path = StoryBoards;
 			sourceTree = "<group>";
@@ -474,6 +499,7 @@
 				0BB60773292365A20051E61A /* Home */,
 				0B66F70729262F3400C13F52 /* Controllers */,
 				0B30358C2A4423FD00863543 /* Service Call */,
+				0BE525262A6E2E0400DA71DE /* TRAVEL  */,
 				0B69B7AE29235A5100002493 /* Assets.xcassets */,
 				0B69B7B029235A5100002493 /* LaunchScreen.storyboard */,
 				0B69B7B329235A5100002493 /* Info.plist */,
@@ -708,6 +734,88 @@
 			path = NotesVC;
 			sourceTree = "<group>";
 		};
+		0BE525222A6E2DB800DA71DE /* HRMS */ = {
+			isa = PBXGroup;
+			children = (
+				0B69B7AB29235A5000002493 /* Main.storyboard */,
+			);
+			path = HRMS;
+			sourceTree = "<group>";
+		};
+		0BE525232A6E2DC600DA71DE /* LEADS */ = {
+			isa = PBXGroup;
+			children = (
+				0B30D31A2A15D3F50041A565 /* LedMain.storyboard */,
+			);
+			path = LEADS;
+			sourceTree = "<group>";
+		};
+		0BE525242A6E2DD400DA71DE /* SERVICE CALL */ = {
+			isa = PBXGroup;
+			children = (
+				0B30358A2A440C8B00863543 /* ServiceCall.storyboard */,
+			);
+			path = "SERVICE CALL";
+			sourceTree = "<group>";
+		};
+		0BE525252A6E2DE300DA71DE /* TRAVEL */ = {
+			isa = PBXGroup;
+			children = (
+				0BE525202A6E2C2A00DA71DE /* Travel.storyboard */,
+			);
+			path = TRAVEL;
+			sourceTree = "<group>";
+		};
+		0BE525262A6E2E0400DA71DE /* TRAVEL  */ = {
+			isa = PBXGroup;
+			children = (
+				0BE525382A6E307900DA71DE /* TravelRequisition */,
+			);
+			path = "TRAVEL ";
+			sourceTree = "<group>";
+		};
+		0BE525382A6E307900DA71DE /* TravelRequisition */ = {
+			isa = PBXGroup;
+			children = (
+				0BE525392A6E307900DA71DE /* Cells */,
+				0BE5253A2A6E307900DA71DE /* TravelDetailsVC */,
+				0BE5253B2A6E307900DA71DE /* RequititionForm */,
+			);
+			path = TravelRequisition;
+			sourceTree = "<group>";
+		};
+		0BE525392A6E307900DA71DE /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0BE5253C2A6E308900DA71DE /* AddAccomadationCell.swift */,
+				0BE5253E2A6E308900DA71DE /* TravelHistoryCell.swift */,
+				0BE5253D2A6E308900DA71DE /* TravelHistoryCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		0BE5253A2A6E307900DA71DE /* TravelDetailsVC */ = {
+			isa = PBXGroup;
+			children = (
+				0BE525422A6E309E00DA71DE /* CellAccomodatinDetails.swift */,
+				0BE525442A6E309E00DA71DE /* CellAccomodatinDetails.xib */,
+				0BE525452A6E309E00DA71DE /* CellRequisitationDetails.swift */,
+				0BE525462A6E309E00DA71DE /* CellRequisitationDetails.xib */,
+				0BE525432A6E309E00DA71DE /* RequisitationDetailsVc.swift */,
+			);
+			path = TravelDetailsVC;
+			sourceTree = "<group>";
+		};
+		0BE5253B2A6E307900DA71DE /* RequititionForm */ = {
+			isa = PBXGroup;
+			children = (
+				0BE525502A6E34B300DA71DE /* RequititionFormVC.swift */,
+				0BE5254D2A6E30AC00DA71DE /* TravelRequisitionFilterVC.swift */,
+				0BE5254C2A6E30AC00DA71DE /* TravelRequisitionVC.swift */,
+			);
+			path = RequititionForm;
+			sourceTree = "<group>";
+		};
 		152ED5A5012B9D333E21E9D4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -792,6 +900,7 @@
 			files = (
 				0B69B7B229235A5100002493 /* LaunchScreen.storyboard in Resources */,
 				0B27AD872A4E8BD400A3035A /* IndentCell.xib in Resources */,
+				0BE525402A6E308900DA71DE /* TravelHistoryCell.xib in Resources */,
 				0BBF016629F105CC0038684A /* SuggestionCell.xib in Resources */,
 				0BC89E8C292654F00001ABE7 /* CalenderTableViewCell.xib in Resources */,
 				0BC89E79292653B00001ABE7 /* DirectorySearch.xib in Resources */,
@@ -803,11 +912,14 @@
 				0B69B7BF29235B9500002493 /* loader_office_net.gif in Resources */,
 				0B75579F2A36D344006F6C25 /* CompetitorCell.xib in Resources */,
 				0B7824FA2A2881AD00F8EAD8 /* tvitron.gif in Resources */,
+				0BE525212A6E2C2A00DA71DE /* Travel.storyboard in Resources */,
 				0B69B7AF29235A5100002493 /* Assets.xcassets in Resources */,
 				0B4E91B32A20729C0060E903 /* CalenderTaskCell.xib in Resources */,
 				0B75579D2A36D344006F6C25 /* ConcludeAddtionalCell.xib in Resources */,
 				0B69B7AD29235A5000002493 /* Main.storyboard in Resources */,
 				0B4E91C72A2073290060E903 /* TaskDetailsCell.xib in Resources */,
+				0BE5254B2A6E309E00DA71DE /* CellRequisitationDetails.xib in Resources */,
+				0BE525492A6E309E00DA71DE /* CellAccomodatinDetails.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -912,12 +1024,14 @@
 				0BBF015E29F102E10038684A /* SLPendingVC.swift in Sources */,
 				0B78A97F2A3044510031D339 /* TaskPlannerETaVC.swift in Sources */,
 				0BC89E3829263D150001ABE7 /* CODetailsVC.swift in Sources */,
+				0BE5254A2A6E309E00DA71DE /* CellRequisitationDetails.swift in Sources */,
 				0BC89E282926389B0001ABE7 /* ODNewRequestVC.swift in Sources */,
 				0B75578C2A305345006F6C25 /* EditTaskVC.swift in Sources */,
 				0BBF016529F105CC0038684A /* SuggestionCell.swift in Sources */,
 				0B69B7C729235EAD00002493 /* NetworkCheck.swift in Sources */,
 				0B75578E2A31AB1A006F6C25 /* ShareInvitationVC.swift in Sources */,
 				0B965DA42A49749000F2AA5F /* BreakDownViewDetailsVC.swift in Sources */,
+				0BE5254F2A6E30AC00DA71DE /* TravelRequisitionFilterVC.swift in Sources */,
 				0B3CB6812A1603B200A25074 /* ViewImageVC.swift in Sources */,
 				0BC89E2C2926389B0001ABE7 /* RegulazationDetailsVC.swift in Sources */,
 				0B6CF9ED2A15EDA400C5A84E /* LeadsFormVC.swift in Sources */,
@@ -938,17 +1052,22 @@
 				0B30358E2A44246000863543 /* BreakdownListVC.swift in Sources */,
 				0BC89E1E292636320001ABE7 /* NewTicketVC.swift in Sources */,
 				0BC89E2D2926389B0001ABE7 /* ODRequestDetailsVC.swift in Sources */,
+				0BE5253F2A6E308900DA71DE /* AddAccomadationCell.swift in Sources */,
+				0BE525472A6E309E00DA71DE /* CellAccomodatinDetails.swift in Sources */,
 				0B88DB752A2F016C0090ED8D /* ReshchwduleTaskVC.swift in Sources */,
 				0B69B7BC29235B1800002493 /* LauncherVC.swift in Sources */,
 				0BBF016029F102E10038684A /* SLNewRequest.swift in Sources */,
+				0BE525512A6E34B300DA71DE /* RequititionFormVC.swift in Sources */,
 				0BC89E8F292654F00001ABE7 /* AbbrevationVC.swift in Sources */,
 				0BC89E1D292636320001ABE7 /* PendingTicketVC.swift in Sources */,
 				0B66F71529262F7C00C13F52 /* LeaveVC.swift in Sources */,
 				0BC89E88292654F00001ABE7 /* CalenderTableViewCell.m in Sources */,
+				0BE525482A6E309E00DA71DE /* RequisitationDetailsVc.swift in Sources */,
 				0B4E91C62A2073290060E903 /* TaskDetailsCell.swift in Sources */,
 				0B8E36562A6109DA00CAC61C /* ViewIndentVC.swift in Sources */,
 				0B965DA22A49581300F2AA5F /* DoorWiseBreakdownListVC.swift in Sources */,
 				0B4E91BF2A2072DB0060E903 /* TaskVC.swift in Sources */,
+				0BE525412A6E308900DA71DE /* TravelHistoryCell.swift in Sources */,
 				0B7557A02A36D344006F6C25 /* ConcludeTaskVC.swift in Sources */,
 				0B69B7A629235A5000002493 /* AppDelegate.swift in Sources */,
 				0B75579C2A36D344006F6C25 /* FillCvrDetails.swift in Sources */,
@@ -962,6 +1081,7 @@
 				0B66F71229262F7C00C13F52 /* RequestDetailsVC.swift in Sources */,
 				0BB607792924935E0051E61A /* NotificationVC.swift in Sources */,
 				0BC89E8E292654F00001ABE7 /* CalenderViewController.m in Sources */,
+				0BE5254E2A6E30AC00DA71DE /* TravelRequisitionVC.swift in Sources */,
 				0B69B7C529235EAD00002493 /* CustomExtensions.swift in Sources */,
 				0BB607772924927A0051E61A /* AlertVc.swift in Sources */,
 				0B66F71129262F7C00C13F52 /* LeaveBalanceVC.swift in Sources */,
@@ -1154,7 +1274,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Trivitron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1194,7 +1314,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.1;
+				MARKETING_VERSION = 2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Trivitron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

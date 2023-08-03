@@ -35,10 +35,50 @@ class Networkmanager
                     
                 case.failure(let error):
                     print(error.localizedDescription)
+                    
                 }
                 
             }
     }
+    
+    
+    class func postRequestWithAlert(controller:UIViewController,vv:UIView,remainingUrl:String, parameters: [String:Any], completion: @escaping ((_ data: JSON, _ responseData:Foundation.Data) -> Void)) {
+        CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: vv)
+        
+        
+        print("parameters posted : ",parameters)
+        let completeUrl = base.url + remainingUrl
+        print ("complete url : ", completeUrl)
+        
+        AF.request(completeUrl, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .responseDecodable(of:JSON.self) { response in
+                
+                guard let data = response.data else { return }
+                
+                switch response.result
+                {
+                case .success(let value):
+                    CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: vv)
+                    
+                    let swiftyJsonVar = JSON(value)
+                    //print(swiftyJsonVar)
+                    completion(swiftyJsonVar, data)
+                    
+                case.failure(let error):
+                    print(error.localizedDescription)
+                    CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: vv)
+                    let alertController = UIAlertController(title: "Trivitron", message: "Internal Server Error", preferredStyle: UIAlertController.Style.alert)
+
+                    controller.present(alertController, animated: true, completion: nil)
+
+                    let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { timer in
+                        alertController.dismiss(animated: true, completion: nil)
+                    }
+                }
+                
+            }
+    }
+    
     
     
     
@@ -51,6 +91,7 @@ class Networkmanager
         print("image Posted")
         print("Parameters Posted in image : ",parameters)
         let completeUrl = "https://connect.trivitron.com/MobileAPI/SaveLeadDetail.ashx"
+        
         print("imgKey :",imgKey," imgName :",imgName)
         
         let imgData = img.jpegData(compressionQuality: 0.5)!
@@ -95,7 +136,7 @@ class Networkmanager
     
     
     
-    
+  
     
     
     class func postAndGetData(vv:UIView,parameters: [String:Any], img :[UIImage], imgKey:String, imgName:String, completion: @escaping ((_ data: JSON,_ responseData:Foundation.Data) -> Void)){
@@ -158,7 +199,7 @@ class Networkmanager
         print("Parameters Posted in image : ",parameters)
         let completeUrl = "https://connect.trivitron.com/MobileAPI/" + EndPoint
     
-        
+        print("Complete Url : ",completeUrl)
       //  let imgData = img.jpegData(compressionQuality: 0.5)
         
         CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: vv)

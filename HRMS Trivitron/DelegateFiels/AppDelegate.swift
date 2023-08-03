@@ -18,13 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate ,CLLocationManagerDelegate
     var lat = ""
     var long = ""
     var Address = ""
-    var n = 120
+    var n = 10
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
      
         IQKeyboardManager.shared.enable = true
-       //  var timer = Timer.scheduledTimer(timeInterval: TimeInterval(n), target: self, selector: #selector(getLocation), userInfo: nil, repeats: true)
-     //   getUserLocation()
+         var timer = Timer.scheduledTimer(timeInterval: TimeInterval(n), target: self, selector: #selector(getLocation), userInfo: nil, repeats: true)
+        getUserLocation()
        
         return true
     }
@@ -48,10 +48,15 @@ extension AppDelegate
 {
     @objc func getLocation()
     {
+        let defaults = UserDefaults.standard
 
+        let data = defaults.object(forKey: "IsLocationUpdate") as? Bool
 //
-        ApiCallingTrackLocation(lat: self.lat, long: self.long, Address: self.Address)
-
+        if data == true
+        {  print(data as Any)
+            ApiCallingTrackLocation(lat: self.lat, long: self.long, Address: self.Address)
+        }
+        
 
     }
 
@@ -147,3 +152,6 @@ extension AppDelegate
         }
     }
 }
+
+
+

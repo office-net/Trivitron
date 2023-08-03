@@ -549,7 +549,7 @@ extension CustomerDetailsFormVC
         }
         else  if TrivitronInstallationId == ""
         {
-            self.showAlert(message: "Please Enter Trivitron Instalation")
+            self.showAlert(message: "Please Enter Trivitron installation")
         }
         else  if BusinessUnitId == ""
         {

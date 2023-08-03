@@ -139,21 +139,24 @@ class BirthdayWishVC: UIViewController,UITextViewDelegate {
     {
         CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
         var parameters:[String:Any]?
+        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         if let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int {
-            parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":UserID,"EmpCode":self.empcode,"EncodedBase64Url":self.imgString,"WishMessage":self.txt_Text.text!,"Extension":".png","WishType":self.strWishType]
+            parameters = ["TokenNo":token!,"UserID":UserID,"EmpCode":self.empcode,"EncodedBase64Url":self.imgString,"WishMessage":self.txt_Text.text!,"Extension":".png","WishType":self.strWishType]
         }
         else{
             parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":"0"]
         }
         
         AF.request(base.url+"EmpWishesDetails", method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
+            .responseDecodable(of:JSON.self) { response in
+               // print(json)
+                print(parameters!)
+                print(response.request!)
+                
                 switch response.result
                 { case .success(let Value):
                     let json:JSON = JSON(Value)
-                    print(json)
-                    print(parameters!)
-                    print(response.request!)
+                   
                     let status = json["Status"].intValue
                     if status == 1
                     {
@@ -187,6 +190,8 @@ class BirthdayWishVC: UIViewController,UITextViewDelegate {
                         
                     }
                 case .failure(let error):
+                    self.showAlert(message: error.localizedDescription)
+                    self.dismissSemiModalView()
                     print(error.localizedDescription)
                 }
                 

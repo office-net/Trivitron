@@ -19,7 +19,7 @@ class BreakdownListVC: UIViewController {
         tbl.delegate = self
         tbl.dataSource = self
         
-        self.title = "Breakdown List"
+        self.title = "Details List"
         APiNumberCheck(EndPoint: EndPoint)
 
     }

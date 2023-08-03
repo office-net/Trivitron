@@ -48,10 +48,11 @@ class HomeVC: UIViewController{
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var pageControl: UIPageControl!
     
-    private let locationManager = CLLocationManager()
+    private var locationManager = CLLocationManager()
 
     @IBOutlet weak var lbl_NoBirthday: UILabel!
     @IBOutlet weak var lbl_NoNewJoinee: UILabel!
+    
     @IBOutlet weak var lbl_UserName: UILabel!
     @IBOutlet weak var UserImage: UIImageView!
     
@@ -65,9 +66,29 @@ class HomeVC: UIViewController{
     
     @IBOutlet weak var lbl_inOut: UILabel!
     
+    
+
+    var lat = ""
+    var long = ""
+    var Address = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let ProfileImage = UserDefaults.standard.object(forKey: "ImageURL") as? String {
+            UserImage?.sd_setImage(with: URL(string:ProfileImage), placeholderImage: UIImage())
+        }
+       
+        
+        self.getUserLocation()
         UISetup()
+        
+        let when = DispatchTime.now() + 6
+        DispatchQueue.main.asyncAfter(deadline: when) {
+          
+            self.getLocation()
+        }
     }
     
     
@@ -166,6 +187,13 @@ class HomeVC: UIViewController{
         
     }
     
+    @IBAction func btn_trvavelRequisition(_ sender: Any) {
+        
+        let storyboard = UIStoryboard(name: "Travel", bundle: nil)
+        let secondVC = storyboard.instantiateViewController(withIdentifier: "TravelRequisitionVC")as! TravelRequisitionVC
+        self.navigationController?.pushViewController(secondVC, animated: true)
+        
+    }
     
     
     
@@ -271,89 +299,54 @@ extension HomeVC:UICollectionViewDelegate,UICollectionViewDataSource
 
 extension HomeVC
 {
-    
-     func getinOutstatus()  {
-         
-         
-         var parameters:[String:Any]?
-         let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
-      
-         if let EmpCode = UserDefaults.standard.object(forKey: "EmpCode") as? String {
-             parameters = ["CategoryID":"","DepartmentID":"","DesignationID":"","DeviceID":"","EmpCode":EmpCode,"FromDate":"","LocationID":"","Name":"","PlantID":"","ReqID":"","Status":"","StatusID":"","SubCategoryID":"","SubmittedByID":"","TicketNo":"","ToDate":"","TokenNo":token!,"UserID":"2285","VersionName":"","Year":""]
-         }
-         else{
-             parameters = ["TokenNo":"abcHkl7900@8Uyhkj","EmpCode":"0"]
-         }
-         
-         AF.request( base.url+"GetInOutStatus", method: .post, parameters: parameters, encoding: JSONEncoding.default)
-             .responseDecodable (of: JSON.self) { response in
-                 switch response.result
-                 {
-                     
-                 case .success(let value):
-                     let json:JSON = JSON(value)
-                     print(json)
-                     print(response.request!)
-                     print(parameters!)
-                     let status =  json["Status"].intValue
-                     if status == 1
-                     {
-                          self.lbl_Intime.text = json["InTimeLive"].stringValue
-                         self.lbl_OutTime.text = json["OutTimeLive"].stringValue
-                         CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: self.view)
-                         
-                         let instatus = json["IsInButtonVisable"].intValue
-                         let outstatus = json["IsOutButtonVisable"].intValue
-                         
-                         if instatus == 1
-                         {
-                             self.lbl_inOut.text = "Punch In"
-                         }
-                         else if outstatus == 1
-                         {
-                             self.lbl_inOut.text = "Punch Out"
-                         }
-                         else
-                         {
-                             print("Unknowmn")
-                         }
-                         
-                     }
-                     else
-                     {
-                         CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: self.view)
-                     }
-                 case .failure(let error ):
-                     print(error.localizedDescription)
-                 }
-                 
-                 
-             }
-     }
-    
-    //=================================================================================================================================================
+    //================================================================================================================================
     
     
     func getdetailsApi()
     {
         CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
         var parameters:[String:Any]?
-
+        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         if let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int {
-            parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":UserID,"VersionName":""]
+            parameters = ["TokenNo":token!,"UserId":UserID,"VersionName":""]
         }
-        Networkmanager.postRequest(vv: self.view, remainingUrl:"GetPushNotificationList", parameters: parameters!) { (response,data) in
+        Networkmanager.postRequest(vv: self.view, remainingUrl:"GetBannerImages", parameters: parameters!) { (response,data) in
             let json:JSON = response
-          //  print(json)
+            print(json)
             let status =  json["Status"].intValue
             if status == 1
             {
                 let Attendanceinput = json["AttendanceInput"].stringValue
                 UserDefaults.standard.set(Attendanceinput, forKey: "AttendanceInput")
                 self.imgaray = json["SliderImageList"]
-                print(self.imgaray)
                 self.pageControl.numberOfPages = self.imgaray.count
                 self.pageControl.currentPage = 0
+                self.lbl_Intime.text = json["InPunchTime"].stringValue
+                self.lbl_OutTime.text = json["OutPunchTime"].stringValue
+                let inOutstatus = json["IsPunch"].intValue
+                let defaults = UserDefaults.standard
+
+          
+                if inOutstatus == 1
+                {
+                    self.lbl_inOut.text = "Punch Out"
+                    
+                }
+                else
+                {
+                    self.lbl_inOut.text = "Punch In"
+       
+                  
+                }
+            
+                if json["InPunchTime"].stringValue == "" || json["OutPunchTime"].stringValue != ""
+                {
+                    defaults.set(false, forKey: "IsLocationUpdate")
+                }
+                else
+                {
+                    defaults.set(true, forKey: "IsLocationUpdate")
+                }
                 
                 DispatchQueue.main.async {
                     self.timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.changeImage), userInfo: nil, repeats: true)
@@ -788,7 +781,7 @@ extension HomeVC:Birthday,newjoiner, reloadData
 {
     func ab() {
         print("============================================================= (Hello from MarkAttendance)")
-        getinOutstatus()
+ 
         getdetailsApi()
     }
     
@@ -813,10 +806,10 @@ extension HomeVC:Birthday,newjoiner, reloadData
         
         let userName = UserDefaults.standard.object(forKey: "UserName") as? String
         lbl_UserName.text = userName
-        getinOutstatus()
+      
         birthdayAPI()
         NewJoineeAPI()
-        getdetailsApi()
+        
     
     }
     
@@ -837,5 +830,126 @@ extension HomeVC:Birthday,newjoiner, reloadData
         SideMenuManager.default.leftMenuNavigationController = storyboard?.instantiateViewController(withIdentifier: "LeftMenuNavigationController") as? SideMenuNavigationController
         SideMenuManager.default.addPanGestureToPresent(toView: navigationController!.navigationBar)
         SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: view)
+    }
+}
+
+
+
+
+
+
+
+
+
+//====================================Get User location 1 time =============================================================
+
+
+
+extension HomeVC:CLLocationManagerDelegate
+{
+    @objc func getLocation()
+    {
+        let defaults = UserDefaults.standard
+
+        let data = defaults.object(forKey: "IsLocationUpdate") as? Bool
+//
+        if data == true
+        {
+            ApiCallingTrackLocation(lat: self.lat, long: self.long, Address: self.Address)
+        }
+        
+
+    }
+
+
+    func getUserLocation() {
+        locationManager = CLLocationManager()
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.allowsBackgroundLocationUpdates = true
+
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            self.lat = "\(location.coordinate.latitude)"
+            self.long = "\(location.coordinate.longitude)"
+
+            // getting address from coordinate using reverseGeocode
+            let location = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        
+                 
+                   let geocoder = CLGeocoder()
+                   geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarkArray, error) in
+                       guard let placemarks = placemarkArray, let placemark = placemarks.first else {
+                           return
+                       }
+                 
+                       // creating complete address
+                       var address = ""
+//                       if let name = placemark.name {
+//                           address += "\(name))"
+//                       }
+                       if let thoroughfare = placemark.thoroughfare {
+                           address += "\(thoroughfare), "
+                       }
+                       if let subThoroughfare = placemark.subThoroughfare {
+                           address += "\(subThoroughfare)"
+                       }
+                       if let locality = placemark.locality {
+                           address += "\(locality)"
+                       }
+                       if let subLocality = placemark.subLocality {
+                           address += ", \(subLocality)"
+                       }
+                       if let administrativeArea = placemark.administrativeArea {
+                           address += ", \(administrativeArea)"
+                       }
+                       if let postalCode = placemark.postalCode {
+                           address += ", \(postalCode)"
+                       }
+                       if let country = placemark.country {
+                           address += ", \(country)"
+                       }
+                       self.Address = address
+                     //  print(address)
+                   })
+
+            
+            
+            
+            
+            
+            
+
+        }
+    }
+
+
+
+
+    func ApiCallingTrackLocation(lat:String , long:String , Address:String)
+    {  var parameters:[String:Any]?
+        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+       if let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
+       
+
+        { parameters = ["TokenNo":token ?? "","UserId":UserID,"LocationArrList":[["LocationID":0,"Latitude":lat,"Longitude":long,"Timestamp":"","AccuracyMeters":"100","Address":Address] as [String : Any]] ]
+          }
+        else
+        {
+            parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserId":0,"LocationArrList":[["LocationID":0,"Latitude":lat,"Longitude":long,"Timestamp":"","AccuracyMeters":"100","Address":Address] as [String : Any]] ]
+        }
+
+        Networkmanager2.postRequest(remainingUrl:"TrackedUserLocations", parameters: parameters!) { (response,data) in
+            let json:JSON = response
+            let status = json["Status"].intValue
+            if status == 1
+            {
+                print(json)
+            }
+
+        }
     }
 }

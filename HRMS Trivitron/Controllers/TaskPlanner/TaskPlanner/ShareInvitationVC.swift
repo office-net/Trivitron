@@ -13,6 +13,7 @@ class ShareInvitationVC: UIViewController {
     var GetData:JSON = []
     var TaskID = ""
     var Emp_Code = ""
+    var selectedbtn = Int()
     
     @IBOutlet weak var tbl: UITableView!
     override func viewDidLoad() {
@@ -74,37 +75,22 @@ extension ShareInvitationVC:UITableViewDelegate,UITableViewDataSource
         cell.desigination.text =  GetData["EmpConList"][indexPath.row]["EmpDesignation"].stringValue
         cell.btn.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         cell.btn.tag = indexPath.row
+        if selectedbtn ==  indexPath.row
+        {
+            cell.btn.isSelected = true
+            self.Emp_Code = GetData["EmpConList"][indexPath.row]["Emp_Code"].stringValue
+        }
+        else
+        {
+            cell.btn.isSelected = false
+        }
         return cell
     }
     @objc func buttonTapped(_ sender: UIButton)
     
     {
-       if sender.isSelected == true
-        {
-     
-           for i in 0..<GetData["EmpConList"].count
-           {
-               let index = IndexPath(row: i, section: 0)
-               let cell: ShareCell = self.tbl.cellForRow(at: index) as! ShareCell
-               cell.btn.isSelected = false
-           }
-           sender.isSelected = false
-           self.Emp_Code = ""
-        
-         }
-        else
-        {
-            
-            for i in 0..<GetData["EmpConList"].count
-            {
-                let index = IndexPath(row: i, section: 0)
-                let cell: ShareCell = self.tbl.cellForRow(at: index) as! ShareCell
-                cell.btn.isSelected = false
-            }
-            sender.isSelected = true
-            self.Emp_Code = GetData["EmpConList"][sender.tag]["Emp_Code"].stringValue
-            
-        }
+        self.selectedbtn = sender.tag
+        self.tbl.reloadData()
     }
     
     

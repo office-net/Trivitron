@@ -42,7 +42,7 @@ class TaskCalendarVC: UIViewController, FSCalendarDelegate {
     @IBOutlet weak var tbl:UITableView!
     @IBOutlet weak var cc: FSCalendar!
     
-  
+  var ismarkVisitrIsHidden = false
     
     var GetData:JSON = []
     override func viewDidLoad() {
@@ -127,6 +127,14 @@ extension TaskCalendarVC:GoMeetingButton,ViewDetailsTask,TravelBackButon,EndTask
     func ButtonPressed(IndexPath: Int) {
         let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TasKDetailsVC")as! TasKDetailsVC
+        if ismarkVisitrIsHidden == false
+        {
+            vc.ActionArray = ["Edit Task Entry","Mark Meeting Over","Reschedule Meeting","Set ETA Info","Route Details","Share a Meeting Invitation","Report False Location"]
+        }
+        else
+        {
+            vc.ActionArray = ["Fill CVR Report"]
+        }
         vc.getdata = self.GetData["TaskList"][IndexPath]
         vc.ADDITIONAL_PERSON = self.GetData["TaskList"][IndexPath]["ADDITIONAL_PERSON"]
         self.navigationController?.pushViewController(vc, animated: true)
@@ -250,11 +258,14 @@ extension TaskCalendarVC:UITableViewDelegate,UITableViewDataSource
         {
             cell.Btn_MarkVisit.isHidden = true
             cell.vv_MatkVisit.isHidden = true
+            self.ismarkVisitrIsHidden = true
+            
         }
         else
         {
             cell.Btn_MarkVisit.isHidden = false
             cell.vv_MatkVisit.isHidden = false
+            self.ismarkVisitrIsHidden = false
         }
         //Gomeetingbutton
         
