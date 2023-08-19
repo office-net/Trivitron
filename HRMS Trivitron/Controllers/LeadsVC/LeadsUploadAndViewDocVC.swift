@@ -27,20 +27,22 @@ class LeadsUploadAndViewDocVC: UIViewController {
     }
     
     @IBAction func btn_ChoseFile(_ sender: Any) {
+        getImage()
+        
+    }
+    
+    @IBAction func btn_Submit(_ sender: Any) {
         if imageArray.isEmpty
         {
             self.showAlert(message: "Please Choose Image First.")
         }
         else
         {
-            getImage()
+           
+            ApiCalling(DocViewSave: "Upload")
             
         }
-        
-    }
     
-    @IBAction func btn_Submit(_ sender: Any) {
-        ApiCalling(DocViewSave: "Upload")
     }
     
     

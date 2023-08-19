@@ -216,7 +216,7 @@ class LeadsFormVC: UIViewController{
         }
         else
         {//
-            ApiCallingSaveData(NOOFUNIT: txt_NoOfunit.text!, INTERESTID: PInterestId, SEGEMENTID:productsegmentId )
+            ApiCallingSaveData(NOOFUNIT: txt_NoOfunit.text!, INTERESTID: PInterestId, SEGEMENTID:ProductegmentValue )
             let UserName  = UserDefaults.standard.object(forKey: "UserName") as? String
             let dic = ["segment":txt_ProductOfSegment.text ?? "","Interest":txt_Product_Intrest.text!,"unit":txt_NoOfunit.text ?? "","CreatedDate":Date.getCurrentDate(),"CreatedBy":UserName ?? "" ]
             self.localData.append(dic)
@@ -363,7 +363,7 @@ extension LeadsFormVC
         ProjectLocation.text = DetailsJson["UserViewLeadCustomerlst"][0]["PROJECTLOCATION"].stringValue
         plant.text = DetailsJson["UserViewLeadCustomerlst"][0]["PLANTID"].stringValue
         Remarks.text = DetailsJson["UserViewLeadCustomerlst"][0]["REMARKS"].stringValue
-        
+        Region.text = DetailsJson["UserViewLeadCustomerlst"][0]["REGIONNAME"].stringValue
         
         
     }
@@ -441,6 +441,32 @@ extension LeadsFormVC
             if plant.text == plantArray[i]["Name"].stringValue
             {
                 self.plantId = plantArray[i]["Id"].stringValue
+                break
+            }
+        }
+        
+        for i in 0 ..< AssignToArray.count
+        {
+            if AssignTo.text == AssignToArray[i]["Name"].stringValue
+            {
+                self.AssignToId = AssignToArray[i]["Id"].stringValue
+                break
+            }
+        }
+        
+        for i in 0 ..< regionList.count
+        {
+            if Region.text == regionList[i]["Name"].stringValue
+            {
+                self.regionId = regionList[i]["Id"].stringValue
+                break
+            }
+        }
+        for i in 0 ..< IndustryArray.count
+        {
+            if Industry.text == IndustryArray[i]["Name"].stringValue
+            {
+                self.IndustryId = IndustryArray[i]["Id"].stringValue
                 break
             }
         }
@@ -614,7 +640,9 @@ extension LeadsFormVC
     
     func ApiCallingSaveData(NOOFUNIT:String,INTERESTID:String,SEGEMENTID:String)
     
-    {    let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+    {
+        
+    let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
         let parameters = [    "TokenNo": token!,
                               "UserId": UserID!,
@@ -628,15 +656,15 @@ extension LeadsFormVC
             if Status == 1
             {    let Message = response["Message"].stringValue
                 self.showAlert(message: Message)
-                
+
             }
             else
             {   let Message = response["Message"].stringValue
                 self.showAlert(message: Message)
             }
-            
-            
-            
+
+
+
         }
     }
     
@@ -728,6 +756,15 @@ extension LeadsFormVC
         {
             self.showAlert(message: "Please select a single image. it's mandatory.")
         }
+        else if PostalCode.text == ""
+        {
+            self.showAlert(message: "Please Enter Postal Code")
+        }
+        else if AssignToId == ""
+        {
+            self.showAlert(message: "Please Select Assign To")
+        }
+        
         else
         {  if IsFromViewDetails == "Edit"
                 
@@ -932,6 +969,7 @@ extension LeadsFormVC: UIPickerViewDelegate, UIPickerViewDataSource
         {
             txtproductSegment.text =  ProductegmentArray[row]["Name"].stringValue
             productsegmentId =  ProductegmentArray[row]["Id"].stringValue
+           
             ApiCallingProductDetails(Productid: productsegmentId)
             self.SelectedPInterest = [String]()
             

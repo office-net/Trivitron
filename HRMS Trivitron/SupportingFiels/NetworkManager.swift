@@ -90,7 +90,7 @@ class Networkmanager
         
         print("image Posted")
         print("Parameters Posted in image : ",parameters)
-        let completeUrl = "https://connect.trivitron.com/MobileAPI/SaveLeadDetail.ashx"
+        let completeUrl = base.url2 + "SaveLeadDetail.ashx"
         
         print("imgKey :",imgKey," imgName :",imgName)
         
@@ -143,7 +143,7 @@ class Networkmanager
         
         print("image Posted")
         print("Parameters Posted in image : ",parameters)
-        let completeUrl = "https://connect.trivitron.com/MobileAPI/LeadUploadDocument.ashx"
+        let completeUrl = base.url2 + "LeadUploadDocument.ashx"
         print("imgKey :",imgKey," imgName :",imgName)
         
       //  let imgData = img.jpegData(compressionQuality: 0.5)
@@ -197,7 +197,7 @@ class Networkmanager
         
         print("image Posted")
         print("Parameters Posted in image : ",parameters)
-        let completeUrl = "https://connect.trivitron.com/MobileAPI/" + EndPoint
+        let completeUrl = base.url2 + EndPoint
     
         print("Complete Url : ",completeUrl)
       //  let imgData = img.jpegData(compressionQuality: 0.5)

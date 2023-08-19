@@ -95,17 +95,28 @@ class NewTaskVC: UIViewController,AdditionalPeron {
     
     
     @IBAction func btn_meetongNow(_ sender: Any) {
-        self.StrMeetingNow = "Meeting Now"
+        self.startDate.text = Date.getCurrentDate()
+        self.EndDate.text = Date.getCurrentDate()
+        self.startTime.text = Date.getCurrentTime()
+        self.startDate.isUserInteractionEnabled = false
+        self.EndDate.isUserInteractionEnabled = false
+        self.startTime.isUserInteractionEnabled = false
         btn_MeetingLater.isSelected = false
         btn_MeetingNow.isSelected = true
+        
     }
     
     
     
     @IBAction func mrrtingLater(_ sender: Any) {
-        self.strMeetingType = "Meeting Later"
+        self.startDate.text = ""
+        self.EndDate.text = ""
+        self.startTime.text = ""
         btn_MeetingLater.isSelected = true
         btn_MeetingNow.isSelected = false
+        self.startDate.isUserInteractionEnabled = true
+        self.EndDate.isUserInteractionEnabled = true
+        self.startTime.isUserInteractionEnabled = true
     }
     
     
@@ -329,8 +340,8 @@ extension NewTaskVC:UITableViewDataSource,UITableViewDelegate
         base.changeImageClock(textField: self.startTime)
         
         
-        self.startDate.setInputViewDatePicker(target: self, selector: #selector(tapDonestartDate))
-        self.EndDate.setInputViewDatePicker(target: self, selector: #selector(tapDoneEndDate))
+        self.startDate.setInputViewDatePicker2(target: self, selector: #selector(tapDonestartDate))
+        self.EndDate.setInputViewDatePicker2(target: self, selector: #selector(tapDoneEndDate))
         self.startTime.setInputViewDateTimePicker(target: self, selector: #selector(tapDoneStartTime))
         self.EndTime.setInputViewDateTimePicker(target: self, selector: #selector(tapDoneEndTime))
         self.txt_SetReminder.setInputViewDateTimePicker(target: self, selector: #selector(tapDoneReminderTime))

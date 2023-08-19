@@ -8,41 +8,56 @@ import SDWebImage
 class MenuVC: UIViewController{
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var btn_profile: UIButton!
+  
     @IBOutlet weak var lblEmailId: UILabel!
     
     @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var imgProfile: UIImageView!
     
     var imgString = ""
-    
-    var menuAray = ["Profile","Notification","Directory","Notes","Suggestions","My Team"," Attendance Calendar"," Holiday Calendar","Leads","Customer Base","Task Planner","Service Call"]
+  //
+   // var menuAray = ["Task Planner","Customer Base","Leads","Service Call","Logout"]
    // ,"Logout"
-    var arrimg: [UIImage] = []
+ //   var arrimg: [UIImage] = []
     
-    
+    var getData:JSON = []
     override func viewDidLoad() {
         super.viewDidLoad()
-        arrimg.append(UIImage(named: "profileBottom.png")!)
-        arrimg.append(UIImage(named: "bell.png")!)
-        arrimg.append(UIImage(named: "Directoryy.png")!)
-        arrimg.append(UIImage(named: "notes-2.png")!)
-        arrimg.append(UIImage(named: "suggestion.png")!)
-        arrimg.append(UIImage(named: "My_Team.png")!)
-        arrimg.append(UIImage(named: "calendar-1.png")!)
-        arrimg.append(UIImage(named: "calendar-1.png")!)
-        arrimg.append(UIImage(named: "delete.png")!)
+        UiSetup()
         
-        arrimg.append(UIImage(named: "approvals.png")!)
-        arrimg.append(UIImage(named: "customer_base.png")!)
-        arrimg.append(UIImage(named: "task_planner.png")!)
-        arrimg.append(UIImage(named: "reports.png")!)
+        if let jsonString = UserDefaults.standard.string(forKey: "Modules") {
+            // Convert the string to a SwiftyJSON array
+
+            if let jsonArray = try? JSONSerialization.jsonObject(with: jsonString.data(using: .utf8)!, options: []) as? [Any] {
+                // Use the SwiftyJSON array
+                self.getData = JSON(jsonArray)
+                print(self.getData)
+            }
+        }
+        }
         
-        
-        
-        
-        
-       // arrimg.append(UIImage(named: "logout.png")!)
+    }
+
+    
+    
+    
+    
+    
+    
+
+ 
+
+
+
+
+
+
+extension MenuVC
+{
+    func UiSetup()
+    {
+
+      
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.imgProfile.makeRounded()
@@ -57,177 +72,6 @@ class MenuVC: UIViewController{
         lblName.text = UserName
         let EmailID = UserDefaults.standard.object(forKey: "EmailID") as? String
         self.lblEmailId.text = EmailID
-        
-    }
-    
-    @IBAction func ProfileAction(_ sender: AnyObject) {
-        
-        callImagePicker()
-        
-    }
-    
-    
-    func MyPage_UpdateProfilePicAPI()  {
-        
-        CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
-        let EmpCode = UserDefaults.standard.object(forKey: "EmpCode") as? String
-
-        var parameters:[String:Any]?
-        if let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int {
-            parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":UserID,"EmpCode":EmpCode ?? "","FileInBase64":imgString, "FileExt":".png"]
-        }
-        else{
-            parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":"0","Notes":"Fufi"]
-        }
-      
-        let url = URL(string: base.url+"MyPage_UpdateProfilePic")! //change the url
-        //create the session object
-        let session = URLSession.shared
-        //now create the URLRequest object using the url object
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST" //set http method as POST
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters!, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-        } catch let error {
-            print(error.localizedDescription)
-        }
-        
-        // request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.setValue("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJlbmRlciI6Im5hbmRhbiIsImlhdCI6MTU4MDIwNTI5OH0.ATXxNeOUdiCmqQlCFf0ZxHoNA7g9NrCwqRDET6mVP7k", forHTTPHeaderField:"x-access-token" )
-        
-        
-        //create dataTask using the session object to send data to the server
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            
-            guard error == nil else {
-                return
-            }
-            guard let data = data else {
-                return
-            }
-            
-            do {
-                
-                DispatchQueue.main.async {
-                CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: self.view)
-                }
-                //create json object from data
-                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
-                    print(json)
-                    let status = json["Status"] as? Int
-                    if status == 1 {
-                        
-                       let ImagePath =  json["ImagePath"] as? String
-                       UserDefaults.standard.set(ImagePath, forKey: "ImageURL") //EmployeeStatus
-
-                        let Message = json["Message"] as? String
-                        let path =  json["ImagePath"] as? String
-                        // Create the alert controller
-                                                   let alertController = UIAlertController(title: base.alertname, message: Message, preferredStyle: .alert)
-
-                                                   // Create the actions
-                                                   let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-                                                       UIAlertAction in
-                                                   }
-                                                   // Add the actions
-                                                   alertController.addAction(okAction)
-                                                   // Present the controller
-                                                   DispatchQueue.main.async {
-                                                   
-                                                    self.present(alertController, animated: true)
-                                                   }
-                       
-                    }else {
-                        
-                        let Message = json["Message"] as? String
-                        // Create the alert controller
-                        let alertController = UIAlertController(title: base.alertname, message: Message, preferredStyle: .alert)
-                        
-                        // Create the actions
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-                            UIAlertAction in
-                        }
-                        // Add the actions
-                        alertController.addAction(okAction)
-                        // Present the controller
-                        DispatchQueue.main.async {
-                            self.present(alertController, animated: true)
-                        }
-                    }
-                }
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        })
-        task.resume()
-        
-        
-    }
-    
-    
-    
-    // Service Call
-    func logoutApi()
-    {
-        var parameters:[String:Any]?
-        CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
-        if let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int {
-            parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":UserID]
-        }
-        else{
-            parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":"0"]
-        }
-        AF.request( base.url+"LogoutAuth", method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
-                
-                switch response.result
-                {
-                    
-                case .success(let Value):
-                    let json:JSON = JSON(Value)
-                    print(json)
-                    let status = json["Status"].intValue
-                    let Message = json["Message"].stringValue
-                    
-                    if status == 1 {
-                        CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: self.view)
-                        UserDefaults.standard.set("False", forKey: "IsLogin") //setObject
-                        // Create the alert controller
-                        let alertController = UIAlertController(title: base.alertname, message: Message, preferredStyle: .alert)
-                        // Create the actions
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-                            UIAlertAction in
-                            self.pushToLoginVc()
-                            
-                        }
-                        // Add the actions
-                        alertController.addAction(okAction)
-                        // Present the controller
-                        DispatchQueue.main.async {
-                            
-                            self.present(alertController, animated: true)
-                        }
-                    }
-                    else{
-                        
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-                
-                
-            }
-        
-    }
-    
-    func pushToLoginVc()
-    {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainTabBarController = storyboard.instantiateViewController(identifier: "LoginNavigationController")
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
     }
 }
 
@@ -239,13 +83,28 @@ extension MenuVC:UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.menuAray.count
+        return getData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuTableViewCell") as! MenuTableViewCell
-        cell.lblTitle.text = menuAray[indexPath.row]
-        cell.imgView.image =  arrimg[indexPath.row]
+      
+        cell.lblTitle.text = getData[indexPath.row]["ModuleName"].stringValue
+        let ModuleId = getData[indexPath.row]["ModuleId"].stringValue
+        switch ModuleId
+        {
+        case "1":
+            cell.imgView.image = UIImage(named: "CustomerBase.png")
+        case "2":
+            cell.imgView.image = UIImage(named: "suggestion.png")
+        case "3":
+            cell.imgView.image = UIImage(named: "LeadsMegneg.png")
+        case "266":
+            cell.imgView.image = UIImage(named: "ServiceCall.png")
+        default:
+            print("No Image For this Module")
+        }
+        
         let templateImage = cell.imgView.image?.withRenderingMode(.alwaysTemplate)
         cell.imgView.image = templateImage
         cell.imgView.tintColor = base.secondcolor
@@ -254,88 +113,129 @@ extension MenuVC:UITableViewDataSource,UITableViewDelegate{
         
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 45.0
+        let ModuleId = getData[indexPath.row]["ModuleId"].stringValue
+        switch ModuleId
+        {
+        case "5":
+            return 0.0
+        case "62":
+            return 0.0
+       
+        default:
+            return 45.0
+        }
+      
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-//        switch indexPath.row
-//        { case 0:
-//            let vc =  storyboard?.instantiateViewController(identifier: "profileVC")as! profileVC
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            return
-//        case 1:
-//            let vc =  storyboard?.instantiateViewController(identifier: "NotificationVC")as! NotificationVC
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            return
-//        case 2:
-//            let vc =  storyboard?.instantiateViewController(identifier: "Directory")as! Directory
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            return
-//        case 3:
-//            let vc =  storyboard?.instantiateViewController(identifier: "NotesVC")as! NotesVC
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            return
-//        case 4:
-//            let vc =  storyboard?.instantiateViewController(identifier: "SuggestionVC")as! SuggestionVC
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            return
-//        case 5:
-//            let vc =  storyboard?.instantiateViewController(identifier: "MyTeamVC")as! MyTeamVC
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            return
-//        case 6:
-//                    UserDefaults.standard.set("False", forKey: "MyTeam") //EmployeeStatus
-//                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "CalenderViewController")
-//                    self.navigationController?.pushViewController(vc!, animated: true)
-//            return
-//        case 7:
-//
-//                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "HolidayVC")as! HolidayVC
-//                    self.navigationController?.pushViewController(vc, animated: true)
-//            return
-//
-//
-//        default:
-//            print("Defusalt")
-//        }
-        
-        if indexPath.row == 8
+        let ModuleId = getData[indexPath.row]["ModuleId"].stringValue
+        switch ModuleId
         {
-            workAfterThreeSeconds()
-        }
-        else
-        {
+        case "1":
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "CustomerBaseListVC")as! CustomerBaseListVC
+            self.navigationController?.pushViewController(secondVC, animated: true)
+        case "2":
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "TaskPlannerVC")as! TaskPlannerVC
+            self.navigationController?.pushViewController(secondVC, animated: true)
+        case "3":
+            let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadsListVC")as! LeadsListVC
+            self.navigationController?.pushViewController(secondVC, animated: true)
+        case "266":
+            showAlert()
+        default:
             self.ShowAlertAutoDisable(message: "Coming Soon")
         }
+
     }
     
-    func workAfterThreeSeconds() {
-        CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
-        let when = DispatchTime.now() + 5
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            CustomActivityIndicator.sharedInstance.hideActivityIndicator(uiView: self.view)
-            let alertController = UIAlertController(title: "ACME", message: "Your account deletion request has been accepted. Your account will be deactivated shortly. Please don't login for 8 hours. After deactivation, we will send you a confirmation email.", preferredStyle: .alert)
+    func showAlert() {
+
+        let alert = UIAlertController(title: "Service Calls", message: nil, preferredStyle: .alert)
+
+ 
+       let option1Button = UIAlertAction(title: "Breakdown", style: .default, handler: { action in
+           
+           let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
+           let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
+           secondVC.ServiceType = "Breakdown"
+           secondVC.EndPoint = "BreakdownList"
+           self.navigationController?.pushViewController(secondVC, animated: true)
+       })
+
+       let option2Button = UIAlertAction(title: "Installation", style: .default, handler: { action in
+           
+           let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
+           let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
+           secondVC.ServiceType = "Installation"
+           secondVC.EndPoint = "AmcList"
+           self.navigationController?.pushViewController(secondVC, animated: true)
+       })
+
+       let option3Button = UIAlertAction(title: "Preventive Maintenance", style: .default, handler: { action in
+           
+           let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
+           let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
+           secondVC.ServiceType = "Preventive Maintenance"
+           secondVC.EndPoint = "ServiceList"
+           self.navigationController?.pushViewController(secondVC, animated: true)
          
-            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-                UIAlertAction in
-                
-                UserDefaults.standard.set("False", forKey: "IsLogin")
-                  let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                  let mainTabBarController = storyboard.instantiateViewController(identifier: "LoginNavigationController")
-                  (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
-                
-     
-            }
-            // Add the actions
-            alertController.addAction(okAction)
-            // Present the controller
-            DispatchQueue.main.async {
-                self.present(alertController, animated: true, completion: nil)
-            }
-        }
+       })
+
+       let option4Button = UIAlertAction(title: "Spares", style: .default, handler: { action in
+           let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
+           let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
+           secondVC.ServiceType = "Spares"
+           secondVC.EndPoint = "SpareList"
+           self.navigationController?.pushViewController(secondVC, animated: true)
+       })
+        
+        let optionButton5 = UIAlertAction(title: "Application", style: .default, handler: { action in
+            let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
+            secondVC.ServiceType = "Application"
+            secondVC.EndPoint = "ApplicationList"
+            self.navigationController?.pushViewController(secondVC, animated: true)
+          
+        })
+
+        let optionButton6 = UIAlertAction(title: "Training", style: .default, handler: { action in
+            let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
+            secondVC.ServiceType = "Training"
+            secondVC.EndPoint = "TraningList"
+            self.navigationController?.pushViewController(secondVC, animated: true)
+        })
+        let optionButton7 = UIAlertAction(title: "Others", style: .default, handler: { action in
+            let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
+            secondVC.ServiceType = "Others"
+            secondVC.EndPoint = "OtherList"
+            self.navigationController?.pushViewController(secondVC, animated: true)
+        })
+      alert.addAction(option1Button)
+      alert.addAction(option2Button)
+      alert.addAction(option3Button)
+      alert.addAction(option4Button)
+        alert.addAction(optionButton5)
+        alert.addAction(optionButton6)
+        alert.addAction(optionButton7)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+      present(alert, animated: true, completion: nil)
+  }
+ 
+    
+    func pushToLoginVc()
+    {       UserDefaults.standard.set("False", forKey: "IsLogin")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainTabBarController = storyboard.instantiateViewController(identifier: "LoginNavigationController")
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
     }
     
+
 }
 
 //MARK:-MenuTableViewCell
@@ -353,53 +253,4 @@ class MenuTableViewCell: UITableViewCell {
 }
 
 
-
-extension MenuVC : UIImagePickerControllerDelegate,UINavigationControllerDelegate{
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        if let imagePicked = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
-            let imageData: Data? = imagePicked.jpegData(compressionQuality: 0.4)
-            
-            self.imgProfile.image = imagePicked
-            imgString = imageData?.base64EncodedString(options: .lineLength64Characters) ?? ""
-            
-            MyPage_UpdateProfilePicAPI()
-            
-            
-        }
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func callImagePicker() {
-        
-        let imagePicker=UIImagePickerController()
-        
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        let optionMenu = UIAlertController(title : nil , message: "Choose preferred source type", preferredStyle: UIAlertController.Style.actionSheet)
-        let camera = UIAlertAction(title: "Camera", style: UIAlertAction.Style.default, handler: { action in
-            
-            imagePicker.sourceType = UIImagePickerController.SourceType.camera
-            self.present(imagePicker, animated: true, completion: nil)
-        })
-        optionMenu.addAction(camera)
-        optionMenu.addAction(UIAlertAction(title: "Photo Library", style: UIAlertAction.Style.default, handler: { action in
-            imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-            self.present(imagePicker, animated: true, completion: nil)
-            
-        }))
-        optionMenu.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: {
-            action in
-            optionMenu.dismiss(animated: true, completion: nil)}))
-        self.present(optionMenu, animated: true, completion: nil)
-    }
-    
-    
-}
 

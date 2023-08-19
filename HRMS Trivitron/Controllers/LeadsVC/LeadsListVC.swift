@@ -16,13 +16,15 @@ class LeadsListVC: UIViewController {
     var getData:JSON = []
     var LeadType:JSON = []
    
+    @IBOutlet weak var seg: UISegmentedControl!
     var simpleSelectedArray = [String]()
     var ActionArray = ["View Details","Edit","Re classify","Add Notes","Set Meeting","Upload/View/Document"]
     @IBOutlet weak var tbl: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Leads List"
-        
+ 
+        seg.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
         ApiCallingMaster()
     }
   
@@ -45,12 +47,28 @@ class LeadsListVC: UIViewController {
           self.navigationController!.view.backgroundColor = UIColor.clear
        self.navigationController?.navigationBar.backgroundColor = base.firstcolor
           self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-
-        apicalling()
+        if seg.selectedSegmentIndex == 0
+        {
+            apicalling(DataGetBy: "0")
+        }
+        else
+        {
+            apicalling(DataGetBy: "1")
+        }
     }
     
   
-
+    @IBAction func action_Seg(_ sender: Any) {
+        if seg.selectedSegmentIndex == 0
+        {
+            apicalling(DataGetBy: "0")
+        }
+        else
+        {
+            apicalling(DataGetBy: "1")
+        }
+    }
+    
 }
 
 
@@ -98,10 +116,10 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: "leadsCell", for: indexPath) as! leadsCell
-        cell.lbl_cName.text = getData[indexPath.row]["LEAD_NAME"].stringValue
-        cell.lbl_Industry.text = getData[indexPath.row]["CATE_OF_INDUSTRYN"].stringValue
-        cell.lbl_CPerson.text = getData[indexPath.row]["CONTACT_PERSON_NAME"].stringValue
-        cell.lbl_Date.text = getData[indexPath.row]["CREATEDDT"].stringValue
+        cell.lbl_cName.text = ": " + getData[indexPath.row]["LEAD_NAME"].stringValue
+        cell.LeadNumber.text = ": " + getData[indexPath.row]["LeadNo"].stringValue
+        cell.lbl_CPerson.text = ": " + getData[indexPath.row]["CONTACT_PERSON_NAME"].stringValue
+        cell.lbl_Date.text = ": " + getData[indexPath.row]["CREATEDDT"].stringValue
         cell.btn.tag = indexPath.row
         cell.btn.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
         return cell
@@ -136,7 +154,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
             self?.simpleSelectedArray = [String]()
             let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
             let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadReClassifyVC")as! LeadReClassifyVC
-            secondVC.LeadId = (self?.getData[sender.tag]["LeadNo"].stringValue)!
+            secondVC.LeadId = (self?.getData[sender.tag]["LEAD_ID"].stringValue)!
             secondVC.MasterData = JSON(rawValue: (self?.LeadType)!)!
             secondVC.BackData = JSON(rawValue: (self?.getData[sender.tag])!)!
             self?.navigationController?.pushViewController(secondVC, animated: true)
@@ -158,7 +176,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
             ]
             let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
             let pvc = storyboard.instantiateViewController(withIdentifier: "LeadsAddNotesVC") as! LeadsAddNotesVC
-            pvc.LeadId = (self?.getData[sender.tag]["LeadNo"].stringValue)!
+            pvc.LeadId = (self?.getData[sender.tag]["LEAD_ID"].stringValue)!
             pvc.view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 520)
             
             pvc.modalPresentationStyle = .overCurrentContext
@@ -170,7 +188,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
             self?.simpleSelectedArray = [String]()
             let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
             let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadsUploadAndViewDocVC")as! LeadsUploadAndViewDocVC
-            secondVC.LeadId = (self?.getData[sender.tag]["LeadNo"].stringValue)!
+            secondVC.LeadId = (self?.getData[sender.tag]["LEAD_ID"].stringValue)!
             self?.navigationController?.pushViewController(secondVC, animated: true)
             
        
@@ -229,7 +247,7 @@ extension LeadsListVC:UITableViewDelegate,UITableViewDataSource
 
 extension LeadsListVC
 {
-    func apicalling()
+    func apicalling(DataGetBy:String)
     {
         CustomActivityIndicator.sharedInstance.showActivityIndicator(uiView: self.view)
         var parameters:[String:Any]?
@@ -246,7 +264,8 @@ extension LeadsListVC
                            "Status": "0",
                            "PCATE_OF_INDUSTRY": "0",
                            "REGIONID": "0",
-                           "MOBILENO": ""]
+                           "MOBILENO": ""
+                           ,"DataGetBy":DataGetBy]
           
         }
         else{
@@ -254,7 +273,7 @@ extension LeadsListVC
         }
         
         AF.request( base.url+"LeadCustomerList", method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .responseJSON { response in
+            .responseDecodable(of:JSON.self) { response in
                 switch response.result
                 {
                 case .success(let value):
@@ -316,7 +335,7 @@ class leadsCell:UITableViewCell
    
     @IBOutlet weak var lbl_cName: UILabel!
     
-    @IBOutlet weak var lbl_Industry: UILabel!
+    @IBOutlet weak var LeadNumber: UILabel!
     @IBOutlet weak var lbl_CPerson: UILabel!
     @IBOutlet weak var lbl_Date: UILabel!
     @IBOutlet weak var btn: UIButton!

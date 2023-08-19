@@ -25,8 +25,6 @@ protocol newjoiner
 
 class HomeVC: UIViewController{
  
-    var simpleSelectedArray = [String]()
-    var ActionArray = ["Breakdown","Installation","Preventive Maintenance","Spares"]
     
     var x = 1
     var imgaray:JSON = []
@@ -152,48 +150,15 @@ class HomeVC: UIViewController{
         
     }
    
-    @IBAction func btn_Lead(_ sender: Any) {
-        
-        let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
-        let secondVC = storyboard.instantiateViewController(withIdentifier: "LeadsListVC")as! LeadsListVC
-        self.navigationController?.pushViewController(secondVC, animated: true)
-    }
+
     
-    @IBAction func btn_TaskPlanner(_ sender: Any) {
-        
-        let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
-        let secondVC = storyboard.instantiateViewController(withIdentifier: "TaskPlannerVC")as! TaskPlannerVC
-        self.navigationController?.pushViewController(secondVC, animated: true)
-        
-        
-    }
+    
+  
     
     
     
-    
-    @IBAction func btn_CustomerBase(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
-        let secondVC = storyboard.instantiateViewController(withIdentifier: "CustomerBaseListVC")as! CustomerBaseListVC
-        self.navigationController?.pushViewController(secondVC, animated: true)
-    }
-    
-    
-    
-    @IBAction func ServiceCall(_ sender: Any) {
-        
-        self.ServiceCallSetup(sender: sender as! UIButton)
-        
-        
-        
-    }
-    
-    @IBAction func btn_trvavelRequisition(_ sender: Any) {
-        
-        let storyboard = UIStoryboard(name: "Travel", bundle: nil)
-        let secondVC = storyboard.instantiateViewController(withIdentifier: "TravelRequisitionVC")as! TravelRequisitionVC
-        self.navigationController?.pushViewController(secondVC, animated: true)
-        
-    }
+ 
+ 
     
     
     
@@ -326,7 +291,13 @@ extension HomeVC
                 let inOutstatus = json["IsPunch"].intValue
                 let defaults = UserDefaults.standard
 
-          
+                 let Modules = json["Module"]
+              //  UserDefaults.standard.set(Modules, forKey: "Modules")
+                if let jsonString = Modules.rawString() {
+                    // Save the string value in UserDefaults
+                    UserDefaults.standard.set(jsonString, forKey: "Modules")
+                }
+                
                 if inOutstatus == 1
                 {
                     self.lbl_inOut.text = "Punch Out"
@@ -681,90 +652,10 @@ extension HomeVC
             showAlert(message: "You Are not Allowed to Mark Attendance")
         }
     }
+
     
     
-    func ServiceCallSetup(sender:UIButton)
-    {
-        showAlert()
-        
-      }
-    
-    
-    func showAlert() {
-
-        let alert = UIAlertController(title: "Service Calls", message: nil, preferredStyle: .alert)
-
- 
-       let option1Button = UIAlertAction(title: "Breakdown", style: .default, handler: { action in
-           
-           let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
-           let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
-           secondVC.ServiceType = "Breakdown"
-           secondVC.EndPoint = "BreakdownList"
-           self.navigationController?.pushViewController(secondVC, animated: true)
-       })
-
-       let option2Button = UIAlertAction(title: "Installation", style: .default, handler: { action in
-           
-           let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
-           let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
-           secondVC.ServiceType = "Installation"
-           secondVC.EndPoint = "AmcList"
-           self.navigationController?.pushViewController(secondVC, animated: true)
-       })
-
-       let option3Button = UIAlertAction(title: "Preventive Maintenance", style: .default, handler: { action in
-           
-           let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
-           let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
-           secondVC.ServiceType = "Preventive Maintenance"
-           secondVC.EndPoint = "ServiceList"
-           self.navigationController?.pushViewController(secondVC, animated: true)
-         
-       })
-
-       let option4Button = UIAlertAction(title: "Spares", style: .default, handler: { action in
-           let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
-           let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
-           secondVC.ServiceType = "Spares"
-           secondVC.EndPoint = "SpareList"
-           self.navigationController?.pushViewController(secondVC, animated: true)
-       })
-        
-        let optionButton5 = UIAlertAction(title: "Application", style: .default, handler: { action in
-            let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
-            let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
-            secondVC.ServiceType = "Application"
-            secondVC.EndPoint = "ApplicationList"
-            self.navigationController?.pushViewController(secondVC, animated: true)
-          
-        })
-
-        let optionButton6 = UIAlertAction(title: "Training", style: .default, handler: { action in
-            let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
-            let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
-            secondVC.ServiceType = "Training"
-            secondVC.EndPoint = "TraningList"
-            self.navigationController?.pushViewController(secondVC, animated: true)
-        })
-        let optionButton7 = UIAlertAction(title: "Others", style: .default, handler: { action in
-            let storyboard = UIStoryboard(name: "ServiceCall", bundle: nil)
-            let secondVC = storyboard.instantiateViewController(withIdentifier: "BreakdownListVC")as! BreakdownListVC
-            secondVC.ServiceType = "Others"
-            secondVC.EndPoint = "OtherList"
-            self.navigationController?.pushViewController(secondVC, animated: true)
-        })
-      alert.addAction(option1Button)
-      alert.addAction(option2Button)
-      alert.addAction(option3Button)
-      alert.addAction(option4Button)
-        alert.addAction(optionButton5)
-        alert.addAction(optionButton6)
-        alert.addAction(optionButton7)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancel)
-      present(alert, animated: true, completion: nil)
-  }
+  
  
 
 }

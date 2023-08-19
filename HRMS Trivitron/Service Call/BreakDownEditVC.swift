@@ -9,7 +9,7 @@ import UIKit
 import SwiftyJSON
 
 class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource {
-  
+    
     @IBOutlet weak var ticketnumber:UILabel!
     @IBOutlet weak var ticketType:UILabel!
     @IBOutlet weak var ModeOfCall:UILabel!
@@ -91,11 +91,16 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
     @IBOutlet weak var ScheduleView: UIView!
     @IBOutlet weak var HieghtSchedule: NSLayoutConstraint!
     
+    @IBOutlet weak var ViewOTP: UIView!
+    @IBOutlet weak var EnterOtp: UITextField!
+    @IBOutlet weak var btn_SendOtp: UIButton!
+    @IBOutlet weak var ResendOtp: UIButton!
+    @IBOutlet weak var HieghtViewOTP: NSLayoutConstraint!
     
     var typeOfUser = "existing"
     
     var ServiceID = ""
-   
+    
     
     var ReqID = ""
     var DropDownData:JSON = []
@@ -130,6 +135,10 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
     
     var Spares = "1"
     var SparesSheet = "1"
+    
+
+    var VeryFY_OTP = false
+    var OTP_RequestID = ""
     
     
     override func viewDidLoad() {
@@ -198,6 +207,94 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
         Validation()
     }
     
+    @IBAction func btn_SendOtp(_ sender: Any) {
+        
+        if btn_SendOtp.titleLabel?.text == "Send OTP"
+        {
+            self.ApiSendOTP(ACTION: "Insert")
+        }
+        else
+        {
+            if EnterOtp.text == ""
+            {
+                self.showAlert(message: "Please Enter Otp First")
+            }
+            else
+            {
+                self.ApiSendOTP(ACTION: "Select")
+            }
+        }
+    }
+    
+    @IBAction func ReSendOtp(_ sender: Any) {
+        self.ApiSendOTP(ACTION: "Insert")
+    }
+    
+    
+    
+    
+    
+    
+    func ApiSendOTP(ACTION:String)
+    {    let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
+        var   parameters = [String : Any]()
+        if ACTION == "Insert"
+        {
+            parameters =  [ "TokenNo":token!,
+                            "UserId": UserID!,
+                            "ACTION": ACTION,
+                            "TICKETNO": ticketnumber.text ?? "",
+                            "CallStatus": Id_Call_Status,
+                            "ReAssign2": Id_Reassign,
+                            "CUSTOMER_MOBILE": PersonNumber.text ?? "",
+                            "CUSTOMER_EMAIL": PersonEmail.text ?? "",
+                            "CUSTOMERNAME": CustomerName.text ?? ""] as [String : Any]
+        }
+        else
+        {
+            parameters = ["TokenNo":token!,"UserId":UserID!,"ACTION":ACTION,"TICKETNO":ticketnumber.text ?? "","CallStatus":Id_Call_Status,"OtpReqId":OTP_RequestID,"OTP":EnterOtp.text ?? ""]
+        }
+        
+        Networkmanager.postRequest(vv: self.view, remainingUrl:"SendOTP", parameters: parameters) { (response,data) in
+            print(response)
+            
+            let Status = response["Status"].intValue
+            if Status == 1
+            {
+                if ACTION == "Insert"
+                {
+                    self.ResendOtp.isHidden = false
+                    self.btn_SendOtp.setTitle("verify OTP", for: .normal)
+                    self.OTP_RequestID = response["OtpReqId"].stringValue
+                }
+                else
+                {
+                    self.ViewOTP.isHidden = true
+                    self.HieghtViewOTP.constant = 0
+                    self.VeryFY_OTP = true
+                }
+                self.showAlert(message: response["Message"].stringValue)
+            }
+            else
+            {
+                if ACTION == "Insert"
+                {
+                    self.ResendOtp.isHidden = true
+                    self.btn_SendOtp.setTitle("Send OTP", for: .normal)
+                }
+                else
+                {   self.ViewOTP.isHidden = false
+                    self.HieghtViewOTP.constant = 50
+                    self.VeryFY_OTP = true
+                }
+                self.showAlert(message: response["Message"].stringValue)
+            }
+        }
+        
+    }
+    
+    
     
     
     func Validation()
@@ -221,49 +318,47 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
         else if Reassign.text == ""
         {
             
-       
+            
             self.showAlert(message: "Please Select Reassign Employee")
         }
-     
+        
         else if CallStage.text == ""
         {
             self.showAlert(message: "Please Select Call Status")
         }
-       else
+        else if HieghtViewOTP.constant == 50 && VeryFY_OTP == false
         {
-           
-           
-           
-           
-        
-
-           switch self.PageServiceType
-           {
-           case "Installation":
-               
-               self.ApiUpdateDeails(EndPoint: "AmcUpdate.ashx")
-           case "Breakdown":
-               
-               self.ApiUpdateDeails(EndPoint: "Breakdownupdate.ashx")
-           case "Preventive Maintenance":
-               
-               self.ApiUpdateDeails(EndPoint: "Serviceupdate.ashx")
-           case "Spares":
-               
-               self.ApiUpdateDeails(EndPoint: "Spareupdate.ashx")
-           case "Application":
-               
-               self.ApiUpdateDeails(EndPoint: "ApplicationUpdate.ashx")
-           case "Training":
-               
-               self.ApiUpdateDeails(EndPoint: "TrainingUpdate.ashx")
-              
-               
-           default:
-               self.ApiUpdateDeails(EndPoint: "OtherUpdate.ashx")
-           }
-           
-          
+            self.showAlert(message: "Please Verify OTP First. Otherwise change call Status Type")
+        }
+        else
+        {
+            switch self.PageServiceType
+            {
+            case "Installation":
+                
+                self.ApiUpdateDeails(EndPoint: "AmcUpdate.ashx")
+            case "Breakdown":
+                
+                self.ApiUpdateDeails(EndPoint: "Breakdownupdate.ashx")
+            case "Preventive Maintenance":
+                
+                self.ApiUpdateDeails(EndPoint: "Serviceupdate.ashx")
+            case "Spares":
+                
+                self.ApiUpdateDeails(EndPoint: "Spareupdate.ashx")
+            case "Application":
+                
+                self.ApiUpdateDeails(EndPoint: "ApplicationUpdate.ashx")
+            case "Training":
+                
+                self.ApiUpdateDeails(EndPoint: "TrainingUpdate.ashx")
+                
+                
+            default:
+                self.ApiUpdateDeails(EndPoint: "OtherUpdate.ashx")
+            }
+            
+            
         }
     }
     
@@ -290,83 +385,83 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
                 break
             }
         }
-
-                var   parameters = [String : Any]()
-
+        
+        var   parameters = [String : Any]()
+        
         
         if PageServiceType == "Installation"
         {
-             parameters = ["AddDetail":[ "Type": typeOfUser,
-                                                             "TokenNo": token!,
-                                                             "UserId": UserID!,
-                                                             "ReqID": self.ReqID,
-                                                             "ServiceID": self.ServiceID,
-                                                             "ServiceType": Id_Type_Of_Service,
-                                                             "TicketNo": ticketnumber.text ?? "",
-                                                             "IsCharge": Id_Chareeable,
-                                                             "DoorNo": Door_number.text ?? "",
-                                                             "InstalledDate": Installed_On.text ?? "",
-                                                             "Root": Root_cause.text ?? "",
-                                                             "Correction": Corrective_action.text ?? "",
-                                                             "ReAssign2": Id_Reassign,
-                                                             "Additionalperson": Id_AdditionalPerson,
-                                                             "Contractor": Contractor_wo_number.text ?? "",
-                                                             "Observation": Observation_work_done.text ?? "",
-                                                             "ServiceNo": service_number.text ?? "",
-                                                             "ServiceReport": service_report_number.text ?? "",
-                                                             "StageStatus": Id_Call_Status,
-                                                             "StageDate": SelectStageDate.text ?? "",
-                                                             "Spares": self.Spares,
-                                                             "Product": productId,
-                                                             "SparesSheet": self.SparesSheet,
-                                                             "DoorType": DoorTypeId,
-                                                             "Model": Model.text ?? "",
-                                                             "RefSONo": Ref_So_Number.text ?? "",
-                                                             "Issues": Discription_of_issue.text ?? "",
-                                                             "Remarks": Remarks.text ?? "",
-                                                             "LocalConveyanceDetails":NSNull(),
-                                                             "ScheduleEndDate":scheduledToDate.text!,
-                                                             "ScheduleStartDate":scheduledFromDate.text!,
-                                                             "TotalPOSchedule":""
-                                                           ] as [String : Any]
-                                               
-                                                ]
+            parameters = ["AddDetail":[ "Type": typeOfUser,
+                                        "TokenNo": token!,
+                                        "UserId": UserID!,
+                                        "ReqID": self.ReqID,
+                                        "ServiceID": self.ServiceID,
+                                        "ServiceType": Id_Type_Of_Service,
+                                        "TicketNo": ticketnumber.text ?? "",
+                                        "IsCharge": Id_Chareeable,
+                                        "DoorNo": Door_number.text ?? "",
+                                        "InstalledDate": Installed_On.text ?? "",
+                                        "Root": Root_cause.text ?? "",
+                                        "Correction": Corrective_action.text ?? "",
+                                        "ReAssign2": Id_Reassign,
+                                        "Additionalperson": Id_AdditionalPerson,
+                                        "Contractor": Contractor_wo_number.text ?? "",
+                                        "Observation": Observation_work_done.text ?? "",
+                                        "ServiceNo": service_number.text ?? "",
+                                        "ServiceReport": service_report_number.text ?? "",
+                                        "StageStatus": Id_Call_Status,
+                                        "StageDate": SelectStageDate.text ?? "",
+                                        "Spares": self.Spares,
+                                        "Product": productId,
+                                        "SparesSheet": self.SparesSheet,
+                                        "DoorType": DoorTypeId,
+                                        "Model": Model.text ?? "",
+                                        "RefSONo": Ref_So_Number.text ?? "",
+                                        "Issues": Discription_of_issue.text ?? "",
+                                        "Remarks": Remarks.text ?? "",
+                                        "LocalConveyanceDetails":NSNull(),
+                                        "ScheduleEndDate":scheduledToDate.text!,
+                                        "ScheduleStartDate":scheduledFromDate.text!,
+                                        "TotalPOSchedule":""
+                                      ] as [String : Any]
+                          
+            ]
         }
         else
-        {   let local = [String]()
-             parameters  = ["AddDetail":[ "Type": typeOfUser,
-                                                             "TokenNo": token!,
-                                                             "UserId": UserID!,
-                                                             "ReqID": self.ReqID,
-                                                             "ServiceID": self.ServiceID,
-                                                             "ServiceType": Id_Type_Of_Service,
-                                                             "TicketNo": ticketnumber.text ?? "",
-                                                             "IsCharge": Id_Chareeable,
-                                                             "DoorNo": Door_number.text ?? "",
-                                                             "InstalledDate": Installed_On.text ?? "",
-                                                             "Root": Root_cause.text ?? "",
-                                                             "Correction": Corrective_action.text ?? "",
-                                                             "ReAssign2": Id_Reassign,
-                                                             "Additionalperson": Id_AdditionalPerson,
-                                                             "Contractor": Contractor_wo_number.text ?? "",
-                                                             "Observation": Observation_work_done.text ?? "",
-                                                             "ServiceNo": service_number.text ?? "",
-                                                             "ServiceReport": service_report_number.text ?? "",
-                                                             "StageStatus": Id_Call_Status,
-                                                             "StageDate": SelectStageDate.text ?? "",
-                                                             "Spares": self.Spares,
-                                                             "Product": productId,
-                                                             "SparesSheet": self.SparesSheet,
-                                                             "DoorType": DoorTypeId,
-                                                             "Model": Model.text ?? "",
-                                                             "RefSONo": Ref_So_Number.text ?? "",
-                                                             "Issues": Discription_of_issue.text ?? "",
-                                                             "Remarks": Remarks.text ?? "",
-                                                             "LocalConveyanceDetails":NSNull(),
-                                                        
-                                                           ] as [String : Any]
-                                               
-                                                ]
+        {
+            parameters  = ["AddDetail":[ "Type": typeOfUser,
+                                         "TokenNo": token!,
+                                         "UserId": UserID!,
+                                         "ReqID": self.ReqID,
+                                         "ServiceID": self.ServiceID,
+                                         "ServiceType": Id_Type_Of_Service,
+                                         "TicketNo": ticketnumber.text ?? "",
+                                         "IsCharge": Id_Chareeable,
+                                         "DoorNo": Door_number.text ?? "",
+                                         "InstalledDate": Installed_On.text ?? "",
+                                         "Root": Root_cause.text ?? "",
+                                         "Correction": Corrective_action.text ?? "",
+                                         "ReAssign2": Id_Reassign,
+                                         "Additionalperson": Id_AdditionalPerson,
+                                         "Contractor": Contractor_wo_number.text ?? "",
+                                         "Observation": Observation_work_done.text ?? "",
+                                         "ServiceNo": service_number.text ?? "",
+                                         "ServiceReport": service_report_number.text ?? "",
+                                         "StageStatus": Id_Call_Status,
+                                         "StageDate": SelectStageDate.text ?? "",
+                                         "Spares": self.Spares,
+                                         "Product": productId,
+                                         "SparesSheet": self.SparesSheet,
+                                         "DoorType": DoorTypeId,
+                                         "Model": Model.text ?? "",
+                                         "RefSONo": Ref_So_Number.text ?? "",
+                                         "Issues": Discription_of_issue.text ?? "",
+                                         "Remarks": Remarks.text ?? "",
+                                         "LocalConveyanceDetails":NSNull(),
+                                         
+                                       ] as [String : Any]
+                           
+            ]
         }
         
         var serimgaray = [UIImage]()
@@ -426,12 +521,7 @@ extension BreakDownEditVC
             {   print(response)
                 switch self.PageServiceType
                 {
-                    
-//                    "Preventive Maintenance"
-//                    "Spares"
-//                    "Application"
-//                    "Training"
-//                    "Others"
+                
                 case "Installation":
                     
                     self.SetData(Json: response["AmcListById"][0])
@@ -439,25 +529,25 @@ extension BreakDownEditVC
                     
                     self.SetData(Json: response["BreakdownListById"][0])
                 case "Preventive Maintenance":
-
+                    
                     self.SetData(Json: response["ServiceListById"][0])
                 case "Spares":
-
+                    
                     self.SetData(Json: response["SpareListById"][0])
                 case "Application":
-
+                    
                     self.SetData(Json: response["ApplicationListById"][0])
                 case "Training":
-
+                    
                     self.SetData(Json: response["TrainingListById"][0])
-                   
+                    
                     
                 default:
                     self.SetData(Json: response["OtherListById"][0])
                 }
                 
                 
-            
+                
                 
             }
             else
@@ -489,7 +579,7 @@ extension BreakDownEditVC
         let parameters = ["TokenNo":token!,"UserId":UserID!,"ServiceID":self.ServiceID] as [String : Any]
         Networkmanager.postRequest(vv: self.view, remainingUrl:"BindBreakdownDW", parameters: parameters) { (response,data) in
             let Status = response["status"].intValue
-          //  print(response)
+            //  print(response)
             if Status == 1
             {
                 self.DropDownData = response
@@ -626,7 +716,9 @@ extension BreakDownEditVC
         
         btn_UploadFile.isSelected = true
         
-        
+        HieghtViewOTP.constant = 0
+        ViewOTP.isHidden = true
+        ResendOtp.isHidden = true
         
         
         
@@ -651,7 +743,7 @@ extension BreakDownEditVC
         case "Training":
             
             APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "TrainingListById")
-           
+            
             
         default:
             APiCalling(ReqID: self.ReqID, ServiceID: self.ServiceID, EndPoint: "OtherListById")
@@ -681,7 +773,7 @@ extension BreakDownEditVC
         
         self.scheduledToDate.setInputViewDatePicker(target: self, selector: #selector(scheduleToDate))
         self.scheduledFromDate.setInputViewDatePicker(target: self, selector: #selector(scheduleFromDate))
-      
+        
         self.scheduledToDate.text = Date.getCurrentDate()
         self.scheduledFromDate.text = Date.getCurrentDate()
     }
@@ -920,7 +1012,16 @@ extension BreakDownEditVC
         {
             CallStage.text =  DropDownData["StageList"][row]["Name"].stringValue
             Id_Call_Status =  DropDownData["StageList"][row]["Id"].stringValue
-            
+            if CallStage.text == "Fully Completed"
+            {
+                HieghtViewOTP.constant = 50
+                self.ViewOTP.isHidden = false
+            }
+            else
+            {
+                HieghtViewOTP.constant = 0
+                self.ViewOTP.isHidden = true
+            }
             
         }
         
@@ -1241,7 +1342,7 @@ extension BreakDownEditVC: UIDocumentPickerDelegate {
         //print(myURL.lastPathComponent)
         
         
-       // let fileData = try! Data(contentsOf: myURL)
+        // let fileData = try! Data(contentsOf: myURL)
         print("=========================\(myURL)")
         self.fileData.append(myURL)
         let dic = ["Name":myURL.lastPathComponent,"FileData":myURL] as [String : Any]
@@ -1260,7 +1361,7 @@ extension BreakDownEditVC: UIDocumentPickerDelegate {
         print("view was cancelled")
         
         
-   }
+    }
     
     
     func getDocuments()

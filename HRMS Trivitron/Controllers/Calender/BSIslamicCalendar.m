@@ -136,46 +136,7 @@ alpha:1.0]
     lblNoDateFound.textColor = [UIColor lightGrayColor];
     lblNoDateFound.text = @"No data found";
     [self addSubview:lblNoDateFound];
-    
-//    ViewForTableHeader = [[UIButton alloc] initWithFrame:CGRectMake(0, 70, collectionVew.frame.size.width, 25)];
-//    ViewForTableHeader.backgroundColor = [UIColor lightGrayColor];
-//    [self  addSubview:ViewForTableHeader];
-//    [ViewForTableHeader setHidden:YES];
-    
-//    UILabel * lblDateHeader =[[UILabel alloc] initWithFrame:CGRectMake(5, 0, 50, 25)];
-//    [lblDateHeader setFont:[UIFont systemFontOfSize:12]];
-//    lblDateHeader.textAlignment=NSTextAlignmentCenter;
-//    lblDateHeader.text = @"Date";
-//
-//    lblDateHeader.textColor = [UIColor blackColor];
-//    [ViewForTableHeader addSubview:lblDateHeader];
-//
-//    UILabel * lblInTimeHeader =[[UILabel alloc] initWithFrame:CGRectMake(80, 0, 50, 25)];
-//    [lblInTimeHeader setFont:[UIFont systemFontOfSize:12]];
-//    lblInTimeHeader.textAlignment=NSTextAlignmentCenter;
-//    lblInTimeHeader.text = @"In Time";
-//
-//    lblInTimeHeader.textColor = [UIColor blackColor];
-//    [ViewForTableHeader addSubview:lblInTimeHeader];
-//
-//
-//    UILabel * lblOutTimeHeader =[[UILabel alloc] initWithFrame:CGRectMake(160, 0, 60, 25)];
-//    [lblOutTimeHeader setFont:[UIFont systemFontOfSize:12]];
-//    lblOutTimeHeader.textAlignment=NSTextAlignmentCenter;
-//    lblOutTimeHeader.text = @"Out Time";
-//
-//    lblOutTimeHeader.textColor = [UIColor blackColor];
-//    [ViewForTableHeader addSubview:lblOutTimeHeader];
-//
-//    UILabel * lblStatusHeader =[[UILabel alloc] initWithFrame:CGRectMake(240, 0, 50, 25)];
-//    [lblStatusHeader setFont:[UIFont systemFontOfSize:12]];
-//    lblStatusHeader.textAlignment=NSTextAlignmentCenter;
-//    lblStatusHeader.text = @"Status";
-//
-//    lblStatusHeader.textColor = [UIColor blackColor];
-//    [ViewForTableHeader addSubview:lblStatusHeader];
-//
-//
+
     
     
     
@@ -188,7 +149,8 @@ alpha:1.0]
 //#colorLiteral(red: 0.4131571949, green: 0.6051561832, blue: 0.188331902, alpha: 1)
     
     //#colorLiteral(red: 0, green: 0.3719885647, blue: 0.697519362, alpha: 1)
-    ViewForCustom.backgroundColor = [UIColor colorWithRed:0 green:0.3719885647 blue:0.697519362 alpha:1];
+    //#colorLiteral(red: 0, green: 0.6791719198, blue: 0.6895478964, alpha: 1)
+    ViewForCustom.backgroundColor = [UIColor colorWithRed:0 green:0.6791719198 blue:0.6895478964 alpha:1];
     [self addSubview:ViewForCustom];
     lblMonth=[[UILabel alloc] initWithFrame:CGRectMake((rect.size.width-100)*0.5, (ViewForCustom.frame.origin.y/2)-5, 100, 30)];
     [lblMonth setFont:[UIFont boldSystemFontOfSize:14]];
@@ -455,7 +417,7 @@ else
             titelLbl.textColor = [UIColor whiteColor];//daysNameColor;
             detailLbl.textColor=[UIColor whiteColor];//dateTextColor;
         }
-        titelLbl.superview.backgroundColor = [UIColor colorWithRed:0 green:0.3719885647 blue:0.697519362 alpha:1];
+        titelLbl.superview.backgroundColor = [UIColor colorWithRed:0 green:0.6791719198 blue:0.6895478964 alpha:1];
         
     }else{
         long indexItem  = 0;

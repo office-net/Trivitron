@@ -119,7 +119,7 @@ class regViewController: UIViewController {
      
            else
         {
-        
+              
             self.submitApi()
         }
     }
