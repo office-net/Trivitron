@@ -17,7 +17,11 @@ class TravelRequisitionVC: UIViewController {
     var count = 0
     var method = "Requisition_List"
     var type = "Userview"
-
+  
+    
+    
+    @IBOutlet weak var Lable_Data_Found: UILabel!
+    
     @IBOutlet weak var seg: UISegmentedControl!
     
     @IBAction func segMent(_ sender: Any) {
@@ -27,20 +31,20 @@ class TravelRequisitionVC: UIViewController {
             
             self.method = "Requisition_List"
             self.type = "Userview"
-            ComonApi(FromDate: "01/01/1900", toDate: "01/01/2023", RequestNumver: "", Type: "Userview", Method: self.method)
+            ComonApi(FromDate: previousMonthStr, toDate: nextMonthStr, RequestNumver: "", Type: "", Method: self.method)
         }
         else if seg.selectedSegmentIndex == 1
         {
             self.method = "Requisition_List"
             self.type = "Pending"
-            ComonApi(FromDate: "01/01/1900", toDate: "01/01/2023", RequestNumver: "", Type: "Pending", Method: self.method)
+            ComonApi(FromDate: previousMonthStr, toDate: nextMonthStr, RequestNumver: "", Type: "Pending", Method: self.method)
             
         }
         else
         {
             self.method = "Requisition_List"
             self.type = "Archived"
-            ComonApi(FromDate: "01/01/1900", toDate: "01/01/2023", RequestNumver: "", Type: "Archived", Method: self.method)
+            ComonApi(FromDate: previousMonthStr, toDate: nextMonthStr, RequestNumver: "", Type: "Archived", Method: self.method)
         }
         
     }
@@ -52,11 +56,32 @@ class TravelRequisitionVC: UIViewController {
         super.viewDidLoad()
         
         UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
-        ComonApi(FromDate: "01/01/1900", toDate: "01/01/2023", RequestNumver: "", Type: "Userview", Method: self.method)
+        let nextMonth = Calendar.current.date(byAdding: .year, value: 1, to: Date())
+        let PreviousMonth = Calendar.current.date(byAdding: .year, value: -1, to: Date())
+        
+        let formatter = DateFormatter()
+        // initially set the format based on your datepicker date / server String
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let myString = formatter.string(from: nextMonth!) // string purpose I add here
+        let yourDate = formatter.date(from: myString)
+        formatter.dateFormat = "dd/MM/yyyy"
+        let strNextMonth = formatter.string(from: yourDate!)
+        
+        
+        let myStringPrevious = formatter.string(from: PreviousMonth!) // string purpose I add here
+        let yourDatePrevious = formatter.date(from: myStringPrevious)
+        formatter.dateFormat = "dd/MM/yyyy"
+        let strPreviousMonth = formatter.string(from: yourDatePrevious!)
+        
+        
+        previousMonthStr = strPreviousMonth
+        nextMonthStr = strNextMonth
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden =  true
+        ComonApi(FromDate: previousMonthStr, toDate: nextMonthStr, RequestNumver: "", Type: "Userview", Method: self.method)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -82,21 +107,20 @@ class TravelRequisitionVC: UIViewController {
     {    let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
         var parameters:[String:Any]?
-         parameters = ["TokenNo":token!,"UserID":UserID!,"FromDate":FromDate,"ToDate":toDate,"Type":Type,"RequestNo":RequestNumver]
+         parameters =    ["CountryID":"","EmpCode":"","FromDate":FromDate,"Id":"","Mode":"","ReqType":"","RequestNo":RequestNumver,"ToDate":toDate,"TokenNo":token!,"Type":Type,"UserID":UserID!]
         Networkmanager.postRequestWithAlert(controller: self, vv: self.view, remainingUrl:Method, parameters: parameters!) { (response,data) in
-            
-            let json:JSON = response
-            let status = json["Status"].intValue
+            print(response)
+            let status = response["Status"].intValue
             if status == 1
             {
-                self.GetData = json["RequisitionList"]
-                print(self.GetData)
+                self.GetData = response["RequisitionList"]
+                self.tbl.isHidden = false
                 self.tbl.reloadData()
             }
             else
             {
-                let mag = json["Message"].stringValue
-                self.showAlert(message: mag)
+                
+                self.tbl.isHidden = true
             }
          
     }
@@ -170,8 +194,6 @@ extension TravelRequisitionVC
         
         pvc.modalPresentationStyle = .overCurrentContext
         pvc.delegate = self
-        //  pvc.transitioningDelegate = self
-        
         presentSemiViewController(pvc, options: options, completion: {
             print("Completed!")
         }, dismissBlock: {
@@ -185,10 +207,6 @@ extension TravelRequisitionVC
 
 extension TravelRequisitionVC:ReloadTableView {
     func ReloadApi(txt_Fromdate: String, txt_todate: String, txt_RequestNumber: String, txt_Empcide: String) {
-      
-        
-        
-        //self.ApiCalling(FromDate: "23-Jul-2022", toDate: "23-Sep-2022", RequestNumver: "", Type: txt_Empcide, Method: self.method)
         ComonApi(FromDate: txt_Fromdate, toDate: txt_todate, RequestNumver: txt_RequestNumber, Type: self.type, Method: self.method)
     }
     

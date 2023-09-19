@@ -89,6 +89,17 @@ class HomeVC: UIViewController{
         }
     }
     
+    @IBAction func btn_Travel(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Travel", bundle: nil)
+        let secondVC = storyboard.instantiateViewController(withIdentifier: "TravelRequisitionVC")as! TravelRequisitionVC
+        self.navigationController?.pushViewController(secondVC, animated: true)
+ 
+        
+    }
+    
+    
+    
+    
     
     
     @IBAction func btn_All(_ sender: UIButton) {

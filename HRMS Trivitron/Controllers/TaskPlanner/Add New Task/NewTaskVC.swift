@@ -18,7 +18,7 @@ class NewTaskVC: UIViewController,AdditionalPeron {
     @IBOutlet weak var txt_StateName: UITextField!
     
     var TaskType = ""
-    
+    var isfromService = false
     var CUST_TYPE = ""
     var CUSTOMER_NAME = ""
     var AdditionalPersonCount = ["1"]
@@ -304,12 +304,23 @@ extension NewTaskVC:UITableViewDataSource,UITableViewDelegate
             self.txtContactPersonName.text = CustomerData["Contactpersonname"].stringValue
             self.txtContactPersonEmail.text = CustomerData["ContactpersonEmail"].stringValue
             self.txtContactPersonNumber.text = CustomerData["Contactpersonno"].stringValue
-            self.CUSTOMER_NAME = CustomerData["CustomerName"].stringValue
-            self.txtContactPersonName.isUserInteractionEnabled = false
-            self.txtContactPersonEmail.isUserInteractionEnabled = false
-            self.txtContactPersonNumber.isUserInteractionEnabled = false
-            CUST_TYPE = "E"
+          
+          
             
+            CUST_TYPE = "E"
+            if self.isfromService ==  false
+            {
+                self.CUSTOMER_NAME = CustomerData["CustomerName"].stringValue
+                self.txtContactPersonName.isUserInteractionEnabled = false
+                self.txtContactPersonEmail.isUserInteractionEnabled = false
+                self.txtContactPersonNumber.isUserInteractionEnabled = false
+            }
+            else
+            {
+                print("================\(CUSTOMER_NAME)")
+            }
+            
+         
         case "New":
           
             

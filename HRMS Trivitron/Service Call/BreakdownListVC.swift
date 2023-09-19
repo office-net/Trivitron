@@ -69,8 +69,35 @@ extension BreakdownListVC:UITableViewDataSource,UITableViewDelegate
         }
         cell.btn_FinalSubmit.tag = indexPath.row
         cell.btn_FinalSubmit.addTarget(self, action: #selector(btn), for: .touchUpInside)
+        cell.btn_Setmeeting.tag = indexPath.row
+        cell.btn_Setmeeting.addTarget(self, action: #selector(btnSetmeeting), for: .touchUpInside)
         return cell
     }
+    
+    @objc func btnSetmeeting(_sender:UIButton)
+    {
+        
+       
+        let alertController = UIAlertController(title: "Trivitron", message: "Do you want to set a meeting?", preferredStyle: .alert)
+           let setMeetingAction = UIAlertAction(title: "Set Meeting", style: .default) { _ in
+               let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
+               let secondVC = storyboard.instantiateViewController(withIdentifier: "NewTaskVC")as! NewTaskVC
+               secondVC.CUSTOMER_NAME = self.ListData[_sender.tag]["CustomerName"].stringValue
+               secondVC.TaskType = "Existing Customer"
+               secondVC.isfromService = true
+               self.navigationController?.pushViewController(secondVC, animated: true)
+               
+            }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                  // Handle Cancel action
+                  print("Cancel tapped")
+              }
+        
+             alertController.addAction(setMeetingAction)
+        alertController.addAction(cancelAction)
+            present(alertController, animated: true, completion: nil)
+        }
+   
     
     @objc func btn(_sender:UIButton)
     {
@@ -255,6 +282,7 @@ class BreakdownListCell:UITableViewCell
     @IBOutlet weak var CustomerName:UILabel!
     @IBOutlet weak var IndustryCatagory:UILabel!
     @IBOutlet weak var btn_FinalSubmit:UIButton!
+    @IBOutlet weak var btn_Setmeeting: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

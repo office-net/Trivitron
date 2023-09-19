@@ -12,7 +12,7 @@ import RSSelectionMenu
 
 class TaskPlannerVC: UIViewController, LZViewPagerDelegate, LZViewPagerDataSource {
     var simpleSelectedArray = [String]()
-    var ActionArray = ["Existing-Customer","Lead","New-Customer"]
+    var ActionArray = ["Potential-Customer","Lead","New-Customer"]
     @IBOutlet weak var pagerView: LZViewPager!
     private var subControllers:[UIViewController] = []
     override func viewDidLoad() {
@@ -81,7 +81,7 @@ class TaskPlannerVC: UIViewController, LZViewPagerDelegate, LZViewPagerDataSourc
         
         
         switch value {
-        case "Existing-Customer":
+        case "Potential-Customer":
             self?.simpleSelectedArray = [String]()
             let storyboard = UIStoryboard(name: "LedMain", bundle: nil)
             let secondVC = storyboard.instantiateViewController(withIdentifier: "CustomerBaseListVC")as! CustomerBaseListVC

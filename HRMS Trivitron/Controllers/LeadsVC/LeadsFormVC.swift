@@ -78,6 +78,7 @@ class LeadsFormVC: UIViewController{
     
     @IBOutlet weak var unit: UITextField!
     var unitArray:JSON = []
+    var UnitArrayNew:JSON = []
     var unitId = ""
     
     @IBOutlet weak var currency: UITextField!
@@ -173,13 +174,13 @@ class LeadsFormVC: UIViewController{
             setValue()
             ApiCalling()
             
-            ApiCallingProductDetails(Productid:"")
+            ApiCallingProductDetails(Productid:"", businessuId: "")
         }
         
         else
         {     HideProductsegmentSetup()
             ApiCalling()
-            ApiCallingProductDetails(Productid:"")
+            ApiCallingProductDetails(Productid:"", businessuId: "")
         }
         tbl2.delegate = self
         tbl2.dataSource = self
@@ -560,21 +561,23 @@ extension LeadsFormVC
     }
     
     
-    func ApiCallingProductDetails(Productid:String)
+    func ApiCallingProductDetails(Productid:String,businessuId:String)
     {    self.PInterestArray = [String]()
         
         let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
-        let parameters = ["TokenNo":token ?? "","UserId":UserID ?? 0,"TaskId":"","Productid":Productid] as [String : Any]
+        let parameters = ["TokenNo":token ?? "","UserId":UserID ?? 0,"TaskId":"","Productid":Productid,"businessuId":businessuId] as [String : Any]
         
         Networkmanager.postRequest(vv: self.view, remainingUrl:"SpinnerCRVentry", parameters: parameters) { (response,data) in
             let json:JSON = response
             let status = json["Status"].intValue
             if status == 1
             {
-               // self.ProductegmentArray = json["Productlist"]
+              
                 
                 self.ProductIntrestArrray = json["ProductInterest"]
+                self.UnitArrayNew = json["BusinessUnitid"]
+                self.ProductegmentArray = json["Productlist"]
                 if response["ProductInterest"].count != 0
                 {
                     for i in 0...response["ProductInterest"].count - 1
@@ -620,10 +623,10 @@ extension LeadsFormVC
                 self.CustomerTypeArray = response["LeadType"]
                 self.LeadsStatusArray = response["LeadStatus"]
                 self.regionList = response["Region"]
-                self.ProductegmentArray = response["ProductSegment"]
+         
                 
                 if self.IsFromViewDetails == "Edit"
-                {
+                {    self.ProductegmentArray = response["ProductSegment"]
                     self.getId()
                 }
                 
@@ -875,7 +878,7 @@ extension LeadsFormVC: UIPickerViewDelegate, UIPickerViewDataSource
         }
         else if unit.isFirstResponder
         {
-            return unitArray.count
+            return UnitArrayNew.count
         }
         else if currency.isFirstResponder
         {
@@ -936,7 +939,7 @@ extension LeadsFormVC: UIPickerViewDelegate, UIPickerViewDataSource
         }
         else if unit.isFirstResponder
         {
-            return unitArray[row]["Name"].stringValue
+            return UnitArrayNew[row]["Name"].stringValue
         }
         else if currency.isFirstResponder
         {
@@ -970,7 +973,7 @@ extension LeadsFormVC: UIPickerViewDelegate, UIPickerViewDataSource
             txtproductSegment.text =  ProductegmentArray[row]["Name"].stringValue
             productsegmentId =  ProductegmentArray[row]["Id"].stringValue
            
-            ApiCallingProductDetails(Productid: productsegmentId)
+            ApiCallingProductDetails(Productid: productsegmentId, businessuId: unitId)
             self.SelectedPInterest = [String]()
             
             
@@ -980,7 +983,7 @@ extension LeadsFormVC: UIPickerViewDelegate, UIPickerViewDataSource
         {
             txt_ProductOfSegment.text =  ProductegmentArray[row]["Name"].stringValue
             ProductegmentValue =  ProductegmentArray[row]["Id"].stringValue
-            ApiCallingProductDetails(Productid: ProductegmentValue)
+            ApiCallingProductDetails(Productid: ProductegmentValue, businessuId: unitId)
             txt_Product_Intrest.text =  ""
             PInterestId = ""
             
@@ -1005,8 +1008,9 @@ extension LeadsFormVC: UIPickerViewDelegate, UIPickerViewDataSource
         }
         else if unit.isFirstResponder
         {
-            unit.text =  unitArray[row]["Name"].stringValue
-            unitId =  unitArray[row]["Id"].stringValue
+            unit.text =  UnitArrayNew[row]["Name"].stringValue
+            unitId =  UnitArrayNew[row]["Id"].stringValue
+            ApiCallingProductDetails(Productid: "", businessuId: unitId)
         }
         else if currency.isFirstResponder
         {
@@ -1095,7 +1099,7 @@ extension LeadsFormVC
             txtproductSegment.text =  ProductegmentArray[0]["Name"].stringValue
             ProductegmentValue = ProductegmentArray[0]["Id"].stringValue
             print("========================f=f=f=f=f=f=f=f=f=f=f==f=f=f==ff=f=f==ff=f=f=f=f=\(ProductegmentValue)")
-            ApiCallingProductDetails( Productid: ProductegmentValue)
+            ApiCallingProductDetails( Productid: ProductegmentValue, businessuId: unitId)
             self.SelectedPInterest = [String]()
             self.btn_ProductOfInterws.setTitle("NONE SELECTED", for: .normal)
             
@@ -1106,7 +1110,7 @@ extension LeadsFormVC
         {
             txt_ProductOfSegment.text =  ProductegmentArray[0]["Name"].stringValue
             productsegmentId =  ProductegmentArray[0]["Id"].stringValue
-            ApiCallingProductDetails(Productid: productsegmentId)
+            ApiCallingProductDetails(Productid: productsegmentId, businessuId: unitId)
             txt_Product_Intrest.text =  ""
             PInterestId = ""
             
@@ -1158,8 +1162,9 @@ extension LeadsFormVC
         {
             let dropDown = textField.inputView as? UIPickerView
             dropDown?.selectRow(0, inComponent: 0, animated: true)
-            unit.text =  unitArray[0]["Name"].stringValue
-            unitId = unitArray[0]["Id"].stringValue
+            unit.text =  UnitArrayNew[0]["Name"].stringValue
+            unitId = UnitArrayNew[0]["Id"].stringValue
+            ApiCallingProductDetails(Productid: "", businessuId: unitId)
             
         }
         if textField == currency
