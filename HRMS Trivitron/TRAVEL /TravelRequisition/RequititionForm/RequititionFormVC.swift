@@ -13,7 +13,7 @@ class RequititionFormVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var SelectTourType: UITextField!
     @IBOutlet weak var btn_ISAccomadation: UIButton!
-   
+    
     @IBOutlet weak var Hieght_AddAccomadation: NSLayoutConstraint!
     @IBOutlet weak var view_AddAccomodation: UIView!
     @IBOutlet weak var txt_ToDate: UITextField!
@@ -66,9 +66,11 @@ class RequititionFormVC: UIViewController, UITextFieldDelegate {
     
     
     var History_ARRAY = [[String:Any]]()
-
+    
     var Accomadation_ARRAY = [[String:Any]]()
-
+    var AccomadationJSON:JSON = []
+    var HistoryJSON:JSON = []
+    
     
     
     
@@ -98,7 +100,8 @@ class RequititionFormVC: UIViewController, UITextFieldDelegate {
         
         self.title = "Fill Requitition Details"
         self.UiSetup()
-     
+       
+        
         
         
         
@@ -118,7 +121,7 @@ class RequititionFormVC: UIViewController, UITextFieldDelegate {
         HideAndShowView()
         
     }
-
+    
     
     @IBAction func btn_Advance(_ sender: Any) {
         if btn_Advancee.isSelected == false
@@ -140,15 +143,15 @@ class RequititionFormVC: UIViewController, UITextFieldDelegate {
         
     }
     
-    @IBAction func btn_Save(_ sender: Any) {
-        ApiSave_Submit(SaveStatus: "1")
-    }
+    
+    
     
     @IBAction func btn_Submit(_ sender: Any) {
-        ApiSave_Submit(SaveStatus: "0")
+        SubmitDetails()
     }
     
     @IBAction func btn_reset(_ sender: Any) {
+        ApiSave_Submit(SaveStatus: "2")
     }
     
 }
@@ -197,13 +200,101 @@ extension RequititionFormVC
             let Msg = response["Message"].stringValue
             if Status == 1
             {
-                self.showAlertWithAction(message: Msg)
+               
+                if SaveStatus == "0"
+                {   self.showAlert(message: Msg)
+                    self.TRID = response["TRID"].stringValue
+                    self.apiCalling_Request_Details()
+                }
+                else
+                {
+                    self.showAlertWithAction(message: Msg)
+                }
             }
             else
             {
                 self.showAlert(message: Msg)
             }
         }
+    }
+    
+    
+    func apiCalling_Request_Details()
+    {
+        var parameters:[String:Any]?
+        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
+        parameters = ["TokenNo":token!,"UserID":UserID!,"TRID":self.TRID]
+        Networkmanager.postRequest(vv: self.view, remainingUrl:"Request_Details", parameters: parameters!) { (response,data) in
+            self.Accomadation_ARRAY = [[String:Any]]()
+            self.AccomadationJSON = response["AccomodationData"]
+            self.History_ARRAY = [[String:Any]]()
+            self.HistoryJSON = response["TravelData"]
+            self.txt_FromDate.text = response["tourFromDate"].stringValue
+            self.txt_ToDate.text = response["tourToDate"].stringValue
+            
+            
+            
+            self.txt_CostCenter.text = response["COSTCENTER"].stringValue
+            for i in 0..<self.MasterData["CostCenterList"].count {
+                if self.MasterData["CostCenterList"][i]["Value"].stringValue == self.txt_CostCenter.text {
+                    self.Cost_Center_ID = self.MasterData["CostCenterList"][i]["ID"].stringValue
+                    break
+                }
+            }
+            
+            self.SelectTourType.text = response["tourtype"].stringValue
+            for i in 0..<self.MasterData["RequisitionTourTypeList"].count {
+                if self.MasterData["RequisitionTourTypeList"][i]["Value"].stringValue == self.SelectTourType.text {
+                    self.Tour_Type_ID = self.MasterData["RequisitionTourTypeList"][i]["ID"].stringValue
+                    break
+                }
+            }
+            
+            self.txt_Contry.text = response["COUNTRYID"].stringValue
+            for i in 0..<self.MasterData["RequisitionCountryList"].count {
+                if self.MasterData["RequisitionCountryList"][i]["Value"].stringValue == self.txt_Contry.text {
+                    self.Country_ID = self.MasterData["RequisitionCountryList"][i]["ID"].stringValue
+                    self.apicalling_City_List(CountryID: self.Country_ID)
+                    break
+                }
+            }
+            
+            self.txt_Traveller_Type.text = response["travellerType"].stringValue
+            for i in 0..<self.MasterData["RequisitionTravelerTypeList"].count {
+                if self.MasterData["RequisitionTravelerTypeList"][i]["Value"].stringValue == self.txt_Traveller_Type.text {
+                    self.Travellet_Type_ID = self.MasterData["RequisitionTravelerTypeList"][i]["ID"].stringValue
+                    break
+                }
+            }
+            
+            self.txt_Booked_By.text = response["bookedBy"].stringValue
+            for i in 0..<self.MasterData["RequisitionTicketBookedByList"].count {
+                if self.MasterData["RequisitionTicketBookedByList"][i]["Value"].stringValue == self.txt_Booked_By.text {
+                    self.Booked_By_ID = self.MasterData["RequisitionTicketBookedByList"][i]["ID"].stringValue
+                    break
+                }
+            }
+            
+            self.tbl2.reloadData()
+            self.tbl_TravelHistory.reloadData()
+            if response["AccomodationData"].isEmpty ==  false
+            {
+                self.btn_ISAccomadation.isSelected = true
+                self.view_AddAccomodation.isHidden = false
+                self.Hieght_AddAccomadation.constant = 280
+                self.IsAccomadation = true
+            }
+            else
+            {     self.btn_ISAccomadation.isSelected =  false
+                self.view_AddAccomodation.isHidden = true
+                self.Hieght_AddAccomadation.constant = 0
+                self.IsAccomadation = false
+                
+            }
+            print(response)
+        }
+        
     }
     
     func SubmitDetails()
@@ -220,17 +311,13 @@ extension RequititionFormVC
         { self.showAlert(message: "Please Select Tour Type")}
         else if Travellet_Type_ID == ""
         { self.showAlert(message: "Please select Traveller Type")}
-        else if IsAccomadation == true && Accomadation_ARRAY.isEmpty == true
-        {
-            self.showAlert(message: "Please Add Accomadation Details")
-        }
-        else if History_ARRAY.isEmpty == true
+        else if HistoryJSON.count == 0
         {
             self.showAlert(message: "Please Add Travel History details")
         }
         else
         {
-            
+            ApiSave_Submit(SaveStatus: "1")
         }
     }
     
@@ -271,13 +358,15 @@ extension RequititionFormVC
                           "DesCity": Accomadation_DestinatrionCity_ID,
                           "Hotel": Hotel_Name.text!]
             self.Accomadation_ARRAY.append(dic)
+            self.ApiSave_Submit(SaveStatus: "0")
+            
             Destination_City.text = ""
             Hotel_Name.text = ""
             CheckIn_Date.text = ""
             CheckInTime.text = ""
             Check_OutDate.text = ""
             Check_OutTime.text = ""
-            self.tbl2.reloadData()
+           
         }
     }
     
@@ -336,7 +425,7 @@ extension RequititionFormVC
                        "Mode": Mode.text!,
                        "Name": Traveller_Name.text ?? ""]
             self.History_ARRAY.append(dic)
-            self.tbl_TravelHistory.reloadData()
+            self.ApiSave_Submit(SaveStatus: "0")
             Arrival_Date.text = ""
             Arrival_Time.text = ""
             Departure_Date.text = ""
@@ -383,33 +472,42 @@ extension RequititionFormVC:UITableViewDataSource,UITableViewDelegate
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let dataArray: [Any]
-         var heightConstraint: NSLayoutConstraint
-
+        
          if tableView == tbl2 {
-             dataArray = Accomadation_ARRAY
-             heightConstraint = Hieght_Tbl_2
+             if AccomadationJSON.count == 0
+             {
+                 Hieght_Tbl_2.constant = CGFloat(35 * AccomadationJSON.count)
+             }
+             else
+             {
+                 Hieght_Tbl_2.constant = CGFloat(35 * AccomadationJSON.count) + 40
+             }
+             return AccomadationJSON.count
+           
          } else {
-             dataArray = History_ARRAY
-             heightConstraint = Hieght_Tbl_History
+             if HistoryJSON.count == 0
+             {
+                 Hieght_Tbl_History.constant = CGFloat(35 * HistoryJSON.count)
+             }
+             else
+             {
+                 Hieght_Tbl_History.constant = CGFloat(35 * HistoryJSON.count) + 35
+             }
+             return HistoryJSON.count
          }
 
-         let rowCount = dataArray.count
-         heightConstraint.constant = CGFloat(rowCount * 35 + (rowCount > 0 ? 40 : 0))
-         
-         return rowCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == tbl2
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddAccomadationCell", for: indexPath)as! AddAccomadationCell
-            let DestinationCity = Accomadation_ARRAY[indexPath.row]["DesCity"] as? String
-            cell.HotelName.text = Accomadation_ARRAY[indexPath.row]["Hotel"] as? String
-            cell.CheckInDate.text = Accomadation_ARRAY[indexPath.row]["CheckInDate"] as? String
-            cell.CheckInTime.text = Accomadation_ARRAY[indexPath.row]["CheckInTime"] as? String
-            cell.CheckOutDate.text = Accomadation_ARRAY[indexPath.row]["CheckOutDate"] as? String
-            cell.CheckOutTime.text = Accomadation_ARRAY[indexPath.row]["CheckOutTime"] as? String
+            let DestinationCity = AccomadationJSON[indexPath.row]["DesCity"].stringValue
+            cell.HotelName.text = AccomadationJSON[indexPath.row]["Hotel"].stringValue
+            cell.CheckInDate.text = AccomadationJSON[indexPath.row]["CheckInDate"].stringValue
+            cell.CheckInTime.text = AccomadationJSON[indexPath.row]["CheckInTime"].stringValue
+            cell.CheckOutDate.text = AccomadationJSON[indexPath.row]["CheckOutDate"].stringValue
+            cell.CheckOutTime.text = AccomadationJSON[indexPath.row]["CheckOutTime"].stringValue
             cell.btnremove.tag =  indexPath.row
             cell.btnremove.addTarget(self, action: #selector(RemoveAccomadation(_sender:)), for: .touchUpInside)
             
@@ -427,12 +525,14 @@ extension RequititionFormVC:UITableViewDataSource,UITableViewDelegate
         else
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TravelHistoryCell", for: indexPath)as! TravelHistoryCell
-            cell.txtDeparturedate.text = History_ARRAY[indexPath.row]["DepDate"] as? String
-            cell.txtDepartureTime.text = History_ARRAY[indexPath.row]["DepTime"] as? String
-            cell.txtArrivaldate.text = History_ARRAY[indexPath.row]["ArrDate"] as? String
-            cell.txtArrivalTime.text = History_ARRAY[indexPath.row]["ArrTime"] as? String
-            let departutrCityId = History_ARRAY[indexPath.row]["DepCity"] as? String
-            let arrId = History_ARRAY[indexPath.row]["ArrCity"] as? String
+            cell.txtDeparturedate.text = HistoryJSON[indexPath.row]["DepDate"].stringValue
+            cell.txtDepartureTime.text = HistoryJSON[indexPath.row]["DepTime"].stringValue
+
+            cell.txtArrivaldate.text = HistoryJSON[indexPath.row]["ArrDate"].stringValue
+
+            cell.txtArrivalTime.text = HistoryJSON[indexPath.row]["ArrTime"].stringValue
+            let departutrCityId = HistoryJSON[indexPath.row]["DepCity"].stringValue
+            let arrId = HistoryJSON[indexPath.row]["ArrCity"].stringValue
             //Master_City_List["City"][0]["ID"].stringValue
             for i in 0...Master_City_List["City"].count
             {
@@ -447,10 +547,10 @@ extension RequititionFormVC:UITableViewDataSource,UITableViewDelegate
                 }
             }
             
-            cell.txtSelectMode.text = History_ARRAY[indexPath.row]["Mode"] as? String
-            cell.txtSelectClass.text = History_ARRAY[indexPath.row]["Class"] as? String
-            cell.txtTravellerName.text = History_ARRAY[indexPath.row]["Name"] as? String
-            cell.txtRemarks.text = History_ARRAY[indexPath.row]["Remark"] as? String
+            cell.txtSelectMode.text = HistoryJSON[indexPath.row]["Mode"].stringValue
+            cell.txtSelectClass.text = HistoryJSON[indexPath.row]["Class"].stringValue
+            cell.txtTravellerName.text = HistoryJSON[indexPath.row]["Name"].stringValue
+            cell.txtRemarks.text = HistoryJSON[indexPath.row]["Remark"].stringValue
             
             
             
@@ -473,14 +573,12 @@ extension RequititionFormVC:UITableViewDataSource,UITableViewDelegate
     }
     @objc func RemoveHistory (_sender:UIButton)
     {
-        self.History_ARRAY.remove(at: _sender.tag)
-        self.tbl_TravelHistory.reloadData()
+        self.DeleteRow(ReqType: "TRAVEL", Id: HistoryJSON[_sender.tag]["Id"].stringValue)
     }
     
     @objc func RemoveAccomadation (_sender:UIButton)
     {
-        self.Accomadation_ARRAY.remove(at: _sender.tag)
-        self.tbl2.reloadData()
+        self.DeleteRow(ReqType: "ACCOMODATION", Id: AccomadationJSON[_sender.tag]["Id"].stringValue)
     }
     
     
@@ -504,12 +602,23 @@ extension RequititionFormVC
        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
        let parameters = ["TokenNo":token!,"Type":"","UserID":UserID!] as [String : Any]
         Networkmanager.postRequest(vv: self.view, remainingUrl:"RequisitionMaster_List", parameters: parameters) { (response,data) in
-      // print(response)
+            print("===================TrId===\(response["TRID"].stringValue)")
             let Status = response["Status"].intValue
             if Status == 1
             {
                 self.MasterData = response
                 self.TRID = response["TRID"].stringValue
+                self.apiCalling_Request_Details()
+                if self.TRID != "0"
+                {
+                    self.SelectTourType.isUserInteractionEnabled = false
+                    self.txt_Contry.isUserInteractionEnabled = false
+                    self.txt_CostCenter.isUserInteractionEnabled = false
+                    self.txt_Traveller_Type.isUserInteractionEnabled = false
+                    self.txt_Booked_By.isUserInteractionEnabled = false
+                    self.txt_FromDate.isUserInteractionEnabled = false
+                    self.txt_ToDate.isUserInteractionEnabled = false
+                }
             }
             else
             {  let Msg = response["Message"].stringValue
@@ -531,6 +640,8 @@ extension RequititionFormVC
                 self.Master_City_List = response
                 self.ArrivalCity.text = ""
                 self.Departure_City.text = ""
+                self.tbl2.reloadData()
+                self.tbl_TravelHistory.reloadData()
             }
             else
             {   self.ArrivalCity.text = ""
@@ -1198,3 +1309,27 @@ extension RequititionFormVC
 }
 
 
+
+extension RequititionFormVC
+{
+    func DeleteRow(ReqType:String,Id:String)
+    {     let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+          let parameters = ["TokenNo":token!,"ReqType":ReqType,"Id":Id] as [String : Any]
+         Networkmanager.postRequest(vv: self.view, remainingUrl:"delete_Requisition", parameters: parameters) { (response,data) in
+        print(response)
+             let Status = response["Status"].intValue
+             if Status == 1
+             {
+                 let Msg = response["Message"].stringValue
+                     self.showAlert(message: Msg)
+                 self.apiCalling_Request_Details()
+             }
+             else
+             {  let Msg = response["Message"].stringValue
+                 self.showAlert(message: Msg)
+                
+             }
+         }
+  
+     }
+}

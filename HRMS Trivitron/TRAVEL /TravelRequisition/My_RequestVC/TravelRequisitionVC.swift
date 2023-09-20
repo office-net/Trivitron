@@ -31,7 +31,7 @@ class TravelRequisitionVC: UIViewController {
             
             self.method = "Requisition_List"
             self.type = "Userview"
-            ComonApi(FromDate: previousMonthStr, toDate: nextMonthStr, RequestNumver: "", Type: "", Method: self.method)
+            ComonApi(FromDate: previousMonthStr, toDate: nextMonthStr, RequestNumver: "", Type: "Userview", Method: self.method)
         }
         else if seg.selectedSegmentIndex == 1
         {
@@ -107,7 +107,7 @@ class TravelRequisitionVC: UIViewController {
     {    let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
         let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
         var parameters:[String:Any]?
-         parameters =    ["CountryID":"","EmpCode":"","FromDate":FromDate,"Id":"","Mode":"","ReqType":"","RequestNo":RequestNumver,"ToDate":toDate,"TokenNo":token!,"Type":Type,"UserID":UserID!]
+         parameters =    ["FromDate":FromDate,"RequestNo":RequestNumver,"ToDate":toDate,"TokenNo":token!,"Type":Type,"UserID":UserID!]
         Networkmanager.postRequestWithAlert(controller: self, vv: self.view, remainingUrl:Method, parameters: parameters!) { (response,data) in
             print(response)
             let status = response["Status"].intValue
@@ -159,6 +159,16 @@ extension TravelRequisitionVC:UITableViewDataSource,UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "RequisitationDetailsVc")as! RequisitationDetailsVc
         vc.trID = GetData[indexPath.row]["TR_ID"].stringValue
+        vc.IsApproved = GetData[indexPath.row]["FinalStatus"].stringValue
+        switch self.type
+        {
+        case "Pending":
+            vc.IsFrom = "Pending"
+        case "Archived":
+            vc.IsFrom = "Archived"
+        default:
+            vc.IsFrom = "Userview"
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
 

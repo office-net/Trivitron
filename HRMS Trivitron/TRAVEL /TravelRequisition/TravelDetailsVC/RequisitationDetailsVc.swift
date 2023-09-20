@@ -9,20 +9,19 @@ import UIKit
 import SwiftyJSON
 
 class RequisitationDetailsVc: UIViewController {
-
+    
     @IBOutlet weak var Hieght_Tbl2: NSLayoutConstraint!
     @IBOutlet weak var tblView2: UITableView!
     @IBOutlet weak var Hieght_Tbl1: NSLayoutConstraint!
     @IBOutlet weak var tblView: UITableView!
- //====================Lable OutLet=======================
+    //====================Lable OutLet=======================
     @IBOutlet weak var empCode:UILabel!
     @IBOutlet weak var Name:UILabel!
     @IBOutlet weak var Department:UILabel!
     @IBOutlet weak var Location:UILabel!
     @IBOutlet weak var grade:UILabel!
     @IBOutlet weak var Division:UILabel!
-    @IBOutlet weak var designation:UILabel!
-    @IBOutlet weak var plant:UILabel!
+    
     @IBOutlet weak var travellertType:UILabel!
     @IBOutlet weak var ticketBookedBy:UILabel!
     @IBOutlet weak var Fromdate:UILabel!
@@ -33,6 +32,21 @@ class RequisitationDetailsVc: UIViewController {
     @IBOutlet weak var RmRemarks:UILabel!
     @IBOutlet weak var HodStatus:UILabel!
     @IBOutlet weak var HodRemarks:UILabel!
+    @IBOutlet weak var Advance_Ammount: UILabel!
+    @IBOutlet weak var Currency: UILabel!
+    @IBOutlet weak var Approved_Ammount_Status: UILabel!
+    
+    @IBOutlet weak var trave_Desk_Admin_Status: UILabel!
+    @IBOutlet weak var trave_Desk_Admin_Remarks: UILabel!
+    @IBOutlet weak var Finance_Status: UILabel!
+    @IBOutlet weak var Finance_remarks: UILabel!
+    @IBOutlet weak var btn1: UIButton!
+    @IBOutlet weak var btn2: UIButton!
+    @IBOutlet weak var txt_Remark: UITextField!
+    @IBOutlet weak var Hieght_Remark: NSLayoutConstraint!
+    @IBOutlet weak var CancelStatus: UILabel!
+    var IsApproved = ""
+    var IsFrom = ""
     var trID = ""
     var TravelData:JSON = []
     var AccomodationData:JSON = []
@@ -40,13 +54,97 @@ class RequisitationDetailsVc: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title  = "View Travel Requisitions Details"
+        //Pending Archived Userview
+        switch IsFrom
+        {
+        case "Pending":
+            self.btn1.setTitle("Approve", for: .normal)
+            self.btn2.setTitle("Disapprove", for: .normal)
+            self.btn1.backgroundColor = UIColor.green
+            self.btn2.backgroundColor = UIColor.red
+            self.txt_Remark.isHidden = false
+            self.Hieght_Remark.constant = 45
+        case "Userview":
+            self.btn1.setTitle("Revert Request", for: .normal)
+            self.btn2.setTitle("Cancel Request", for: .normal)
+            self.btn1.backgroundColor = UIColor.darkGray
+            self.btn2.backgroundColor = UIColor.red
+            self.txt_Remark.isHidden = true
+            self.Hieght_Remark.constant = 0
+            
+        default:
+            self.btn1.isHidden = true
+            self.btn2.isHidden = true
+            self.txt_Remark.isHidden = true
+            self.Hieght_Remark.constant = 0
+        }
+        if IsApproved == "Approved"
+        {
+            self.btn1.isHidden = true
+            self.btn2.isHidden = true
+            self.CancelStatus.isHidden = true
+        }
+        
+        
         SetupTableView()
         apiCalling()
     }
     
     
+    @IBAction func btn_1(_ sender: Any) {
+        if btn1.titleLabel?.text == "Approve"
+        {
+            self.APiAction(SaveStatus: "1")
+        }
+        else
+        {
+            self.APiAction(SaveStatus: "4")
+        }
+        
+    }
     
-    
+    @IBAction func btn_2(_ sender: Any) {
+        if btn2.titleLabel?.text == "Disapprove"
+        {   if txt_Remark.text == ""
+            {
+            self.showAlert(message: "Please Fill Remarks!")
+        }
+            else
+            {
+                self.APiAction(SaveStatus: "2")
+            }
+        }
+        else
+        
+        {
+            
+                    self.APiAction(SaveStatus: "3")
+                
+            
+        }
+    }
+    func APiAction(SaveStatus:String)
+    {
+        var parameters:[String:Any]?
+        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
+        parameters = ["TokenNo":token!,"UserID":UserID!,"TRID":self.trID,"Remarks":txt_Remark.text ?? "","SaveStatus":SaveStatus]
+        Networkmanager.postRequest(vv: self.view, remainingUrl:"Update_Status", parameters: parameters!) { (response,data) in
+            print(response)
+            let Status = response["Status"].intValue
+            let msg  = response["Message"].stringValue
+            if Status == 1
+            {
+                self.showAlertWithAction(message: msg)
+            }
+            else
+            {
+                self.showAlert(message: msg)
+            }
+            
+            
+        }
+    }
     
 }
 
@@ -72,7 +170,7 @@ extension RequisitationDetailsVc:UITableViewDataSource,UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == tblView{
             self.Hieght_Tbl1.constant = CGFloat((self.TravelData.count ) * 340)
-        return  self.TravelData.count
+            return  self.TravelData.count
         }
         
         else
@@ -84,8 +182,8 @@ extension RequisitationDetailsVc:UITableViewDataSource,UITableViewDelegate
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == tblView{
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellRequisitationDetails", for: indexPath) as! CellRequisitationDetails
-        cell.lbl_DetailsNumber.text = "Requisition Detail : \(indexPath.row + 1)"
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CellRequisitationDetails", for: indexPath) as! CellRequisitationDetails
+            cell.lbl_DetailsNumber.text = "Requisition Detail : \(indexPath.row + 1)"
             cell.DepartureDate.text = TravelData[indexPath.row]["DepDate"].stringValue
             cell.DepartureTime.text = TravelData[indexPath.row]["DepTime"].stringValue
             cell.ArrivalDate.text = TravelData[indexPath.row]["ArrDate"].stringValue
@@ -99,7 +197,7 @@ extension RequisitationDetailsVc:UITableViewDataSource,UITableViewDelegate
             cell.Name.text = "Name: "+TravelData[indexPath.row]["Name"].stringValue
             cell.Remarks.text = "Remarks: "+TravelData[indexPath.row]["Remark"].stringValue
             
-        return  cell
+            return  cell
         }
         else
         {
@@ -118,7 +216,7 @@ extension RequisitationDetailsVc:UITableViewDataSource,UITableViewDelegate
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == tblView{
-        return 340
+            return 340
         }
         else
         {
@@ -135,8 +233,9 @@ extension RequisitationDetailsVc
     func apiCalling()
     {
         var parameters:[String:Any]?
-     
-        parameters = ["TokenNo":"abcHkl7900@8Uyhkj","UserID":"1","TRID":self.trID]
+        let token  = UserDefaults.standard.object(forKey: "TokenNo") as? String
+        let UserID = UserDefaults.standard.object(forKey: "UserID") as? Int
+        parameters = ["TokenNo":token!,"UserID":UserID!,"TRID":self.trID]
         Networkmanager.postRequest(vv: self.view, remainingUrl:"Request_Details", parameters: parameters!) { (response,data) in
             let json:JSON = response
             print(json)
@@ -152,14 +251,17 @@ extension RequisitationDetailsVc
                 self.Department.text = json["department"].stringValue
                 self.Location.text = json["location"].stringValue
                 self.grade.text = json["grade"].stringValue
-                self.Division.text = json["division"].stringValue
-                self.designation.text = json["designation"].stringValue
-                self.plant.text = json["plant"].stringValue
-                
+                self.Division.text = json["UNIT_NAME"].stringValue
                 self.travellertType.text = json["travellerType"].stringValue
-              //  self.ticketBookedBy.text = json["plant"].stringValue
+                //  self.ticketBookedBy.text = json["plant"].stringValue
                 self.Fromdate.text = json["tourFromDate"].stringValue
                 self.ToDate.text = json["tourToDate"].stringValue
+                
+                self.Advance_Ammount.text = json["ADVANCE_AMOUNT"].stringValue
+                self.Currency.text = json["CURRENCY"].stringValue
+                self.Approved_Ammount_Status.text = json[""].stringValue
+                
+                
                 
                 self.RmStatus.text = "  "+json["rmStatus"].stringValue
                 self.RmRemarks.text = "  "+json["rmRemarks"].stringValue
@@ -167,9 +269,29 @@ extension RequisitationDetailsVc
                 self.HodRemarks.text = "  "+json["hodRemarks"].stringValue
                 self.PurposeOfTravel.text = "  "+json["travelPurpose"].stringValue
                 self.Remarks.text = "  "+json["travelRemarks"].stringValue
+                
+                self.trave_Desk_Admin_Status.text = "  "+json["adminStatus"].stringValue
+                self.trave_Desk_Admin_Remarks.text = "  "+json["adminRemarks"].stringValue
+                
+                self.Finance_Status.text = "  "+json["financeStatus"].stringValue
+                self.Finance_remarks.text = "  "+json["financeRemarks"].stringValue
+                
+                
+                
+                
                 self.tblView.reloadData()
                 self.tblView2.reloadData()
-               
+                
+                let CancelStatus = response["CancelStatus"].stringValue
+                if CancelStatus != ""
+             
+                {
+                    self.btn1.isHidden = true
+                    self.btn2.isHidden = true
+                    self.CancelStatus.isHidden = false
+                    self.CancelStatus.text = CancelStatus
+                }
+                
                 
             }
             else
