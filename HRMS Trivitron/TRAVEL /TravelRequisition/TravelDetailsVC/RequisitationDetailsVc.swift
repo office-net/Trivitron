@@ -282,16 +282,23 @@ extension RequisitationDetailsVc
                 self.tblView.reloadData()
                 self.tblView2.reloadData()
                 
-                let CancelStatus = response["CancelStatus"].stringValue
-                if CancelStatus != ""
-             
+                if self.IsFrom != "Pending"
                 {
-                    self.btn1.isHidden = true
-                    self.btn2.isHidden = true
+                    let CancelStatus = response["CancelStatus"].stringValue
+                    if CancelStatus != ""
+                        
+                    {
+                        self.btn1.isHidden = true
+                        self.btn2.isHidden = true
+                        self.CancelStatus.isHidden = false
+                        self.CancelStatus.text = CancelStatus
+                    }
+                }
+                else
+                {  let CancelStatus = response["CancelStatus"].stringValue
                     self.CancelStatus.isHidden = false
                     self.CancelStatus.text = CancelStatus
                 }
-                
                 
             }
             else

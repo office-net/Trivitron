@@ -81,7 +81,7 @@ class TravelRequisitionVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden =  true
-        ComonApi(FromDate: previousMonthStr, toDate: nextMonthStr, RequestNumver: "", Type: "Userview", Method: self.method)
+        ComonApi(FromDate: previousMonthStr, toDate: nextMonthStr, RequestNumver: "", Type: self.type, Method: self.method)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
