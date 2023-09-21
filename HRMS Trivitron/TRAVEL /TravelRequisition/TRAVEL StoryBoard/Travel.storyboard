@@ -51,19 +51,8 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="P3v-sV-B6g">
                                         <rect key="frame" x="295" y="5" width="70" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xl8-yJ-lcS">
-                                                <rect key="frame" x="0.0" y="0.0" width="32.5" height="40"/>
-                                                <inset key="contentEdgeInsets" minX="0.0" minY="7" maxX="7" maxY="7"/>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal">
-                                                    <imageReference key="image" image="line.3.horizontal" catalog="system" symbolScale="large"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="btn_filetr:" destination="Xml-1m-xzs" eventType="touchUpInside" id="iiG-3o-VFU"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3J-eq-t1D">
-                                                <rect key="frame" x="37.5" y="0.0" width="32.5" height="40"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="40"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" image="Plus"/>
                                                 <connections>
@@ -1923,7 +1912,6 @@
         <!--Requisitation Details Vc-->
         <scene sceneID="h8i-eP-JjX">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tyo-H7-sWc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="RequisitationDetailsVc" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2BI-8B-ef9" customClass="RequisitationDetailsVc" customModule="HRMS_Trivitron" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3RL-ej-m3n">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="2000"/>
@@ -2828,6 +2816,7 @@
                         <outlet property="txt_Remark" destination="RhG-S1-EgZ" id="Ql0-Xj-AeJ"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tyo-H7-sWc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="10327" y="3181"/>
         </scene>
@@ -2836,7 +2825,6 @@
         <image name="Plus" width="24" height="24"/>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>
         <image name="chevron.backward" catalog="system" width="97" height="128"/>
-        <image name="line.3.horizontal" catalog="system" width="128" height="65"/>
         <image name="square" catalog="system" width="128" height="114"/>
         <image name="square.fill" catalog="system" width="128" height="114"/>
         <systemColor name="labelColor">

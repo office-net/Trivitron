@@ -17,6 +17,8 @@
 		0B30D31B2A15D3F50041A565 /* LedMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B30D31A2A15D3F50041A565 /* LedMain.storyboard */; };
 		0B30D3212A15DCD70041A565 /* LeadsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B30D31E2A15DCD60041A565 /* LeadsListVC.swift */; };
 		0B3CB6812A1603B200A25074 /* ViewImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3CB6802A1603B100A25074 /* ViewImageVC.swift */; };
+		0B45F6F72ABC474E00849695 /* ExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B45F6F52ABC474E00849695 /* ExpenseCell.swift */; };
+		0B45F6F82ABC474E00849695 /* ExpenseCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B45F6F62ABC474E00849695 /* ExpenseCell.xib */; };
 		0B4E91B32A20729C0060E903 /* CalenderTaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B4E91B02A20729C0060E903 /* CalenderTaskCell.xib */; };
 		0B4E91B42A20729C0060E903 /* TaskCalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E91B12A20729C0060E903 /* TaskCalendarVC.swift */; };
 		0B4E91B52A20729C0060E903 /* CalenderTaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B4E91B22A20729C0060E903 /* CalenderTaskCell.swift */; };
@@ -71,7 +73,12 @@
 		0B7824F62A2705DF00F8EAD8 /* CustomerBaseListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7824F52A2705DF00F8EAD8 /* CustomerBaseListVC.swift */; };
 		0B7824FA2A2881AD00F8EAD8 /* tvitron.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0B7824F92A2881AD00F8EAD8 /* tvitron.gif */; };
 		0B78A97F2A3044510031D339 /* TaskPlannerETaVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B78A97E2A3044510031D339 /* TaskPlannerETaVC.swift */; };
+		0B87ED112ABC01F000B020F9 /* Travel_Expense.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B87ED102ABC01F000B020F9 /* Travel_Expense.storyboard */; };
+		0B87ED132ABC059500B020F9 /* Travel_Expense_List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B87ED122ABC059500B020F9 /* Travel_Expense_List.swift */; };
 		0B88DB752A2F016C0090ED8D /* ReshchwduleTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B88DB742A2F016C0090ED8D /* ReshchwduleTaskVC.swift */; };
+		0B8D49772ABC0DED00C5AB1D /* Expense_Select_Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D49762ABC0DED00C5AB1D /* Expense_Select_Request.swift */; };
+		0B8D49792ABC219D00C5AB1D /* Expense_Select_Catagory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D49782ABC219D00C5AB1D /* Expense_Select_Catagory.swift */; };
+		0B8D497B2ABC3CB700C5AB1D /* Travlling_Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8D497A2ABC3CB700C5AB1D /* Travlling_Expense.swift */; };
 		0B8E36522A5D26A600CAC61C /* regViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E36512A5D26A600CAC61C /* regViewController.swift */; };
 		0B8E36562A6109DA00CAC61C /* ViewIndentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8E36552A6109DA00CAC61C /* ViewIndentVC.swift */; };
 		0B965DA22A49581300F2AA5F /* DoorWiseBreakdownListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B965DA12A49581300F2AA5F /* DoorWiseBreakdownListVC.swift */; };
@@ -163,6 +170,8 @@
 		0B30D31E2A15DCD60041A565 /* LeadsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadsListVC.swift; sourceTree = "<group>"; };
 		0B3755E22A53F5D400FDC88E /* HRMS Trivitron.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "HRMS Trivitron.entitlements"; sourceTree = "<group>"; };
 		0B3CB6802A1603B100A25074 /* ViewImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImageVC.swift; sourceTree = "<group>"; };
+		0B45F6F52ABC474E00849695 /* ExpenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCell.swift; sourceTree = "<group>"; };
+		0B45F6F62ABC474E00849695 /* ExpenseCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExpenseCell.xib; sourceTree = "<group>"; };
 		0B4E91B02A20729C0060E903 /* CalenderTaskCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalenderTaskCell.xib; sourceTree = "<group>"; };
 		0B4E91B12A20729C0060E903 /* TaskCalendarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCalendarVC.swift; sourceTree = "<group>"; };
 		0B4E91B22A20729C0060E903 /* CalenderTaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderTaskCell.swift; sourceTree = "<group>"; };
@@ -224,7 +233,12 @@
 		0B7824F52A2705DF00F8EAD8 /* CustomerBaseListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerBaseListVC.swift; sourceTree = "<group>"; };
 		0B7824F92A2881AD00F8EAD8 /* tvitron.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = tvitron.gif; sourceTree = "<group>"; };
 		0B78A97E2A3044510031D339 /* TaskPlannerETaVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPlannerETaVC.swift; sourceTree = "<group>"; };
+		0B87ED102ABC01F000B020F9 /* Travel_Expense.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Travel_Expense.storyboard; sourceTree = "<group>"; };
+		0B87ED122ABC059500B020F9 /* Travel_Expense_List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Travel_Expense_List.swift; sourceTree = "<group>"; };
 		0B88DB742A2F016C0090ED8D /* ReshchwduleTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReshchwduleTaskVC.swift; sourceTree = "<group>"; };
+		0B8D49762ABC0DED00C5AB1D /* Expense_Select_Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense_Select_Request.swift; sourceTree = "<group>"; };
+		0B8D49782ABC219D00C5AB1D /* Expense_Select_Catagory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense_Select_Catagory.swift; sourceTree = "<group>"; };
+		0B8D497A2ABC3CB700C5AB1D /* Travlling_Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Travlling_Expense.swift; sourceTree = "<group>"; };
 		0B8E36512A5D26A600CAC61C /* regViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = regViewController.swift; sourceTree = "<group>"; };
 		0B8E36552A6109DA00CAC61C /* ViewIndentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewIndentVC.swift; sourceTree = "<group>"; };
 		0B965DA12A49581300F2AA5F /* DoorWiseBreakdownListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoorWiseBreakdownListVC.swift; sourceTree = "<group>"; };
@@ -593,6 +607,20 @@
 			path = My_RequestVC;
 			sourceTree = "<group>";
 		};
+		0B87ED042ABBE7CA00B020F9 /* TRAVEl EXPENSE */ = {
+			isa = PBXGroup;
+			children = (
+				0B87ED102ABC01F000B020F9 /* Travel_Expense.storyboard */,
+				0B87ED122ABC059500B020F9 /* Travel_Expense_List.swift */,
+				0B8D49762ABC0DED00C5AB1D /* Expense_Select_Request.swift */,
+				0B8D49782ABC219D00C5AB1D /* Expense_Select_Catagory.swift */,
+				0B8D497A2ABC3CB700C5AB1D /* Travlling_Expense.swift */,
+				0B45F6F52ABC474E00849695 /* ExpenseCell.swift */,
+				0B45F6F62ABC474E00849695 /* ExpenseCell.xib */,
+			);
+			path = "TRAVEl EXPENSE";
+			sourceTree = "<group>";
+		};
 		0BA46CFC29F1492000A9FEC4 /* DummyNotes */ = {
 			isa = PBXGroup;
 			children = (
@@ -781,7 +809,7 @@
 		0BE525262A6E2E0400DA71DE /* TRAVEL  */ = {
 			isa = PBXGroup;
 			children = (
-				0BE525252A6E2DE300DA71DE /* TRAVEL StoryBoard */,
+				0B87ED042ABBE7CA00B020F9 /* TRAVEl EXPENSE */,
 				0BE525382A6E307900DA71DE /* TravelRequisition */,
 			);
 			path = "TRAVEL ";
@@ -790,6 +818,7 @@
 		0BE525382A6E307900DA71DE /* TravelRequisition */ = {
 			isa = PBXGroup;
 			children = (
+				0BE525252A6E2DE300DA71DE /* TRAVEL StoryBoard */,
 				0B87ED032ABA997B00B020F9 /* My_RequestVC */,
 				0BE5253A2A6E307900DA71DE /* TravelDetailsVC */,
 				0BE5253B2A6E307900DA71DE /* RequititionForm */,
@@ -915,6 +944,7 @@
 				0B69B7B229235A5100002493 /* LaunchScreen.storyboard in Resources */,
 				0B27AD872A4E8BD400A3035A /* IndentCell.xib in Resources */,
 				0BE525402A6E308900DA71DE /* TravelHistoryCell.xib in Resources */,
+				0B45F6F82ABC474E00849695 /* ExpenseCell.xib in Resources */,
 				0BBF016629F105CC0038684A /* SuggestionCell.xib in Resources */,
 				0BC89E8C292654F00001ABE7 /* CalenderTableViewCell.xib in Resources */,
 				0BC89E79292653B00001ABE7 /* DirectorySearch.xib in Resources */,
@@ -933,6 +963,7 @@
 				0B75579D2A36D344006F6C25 /* ConcludeAddtionalCell.xib in Resources */,
 				0B69B7AD29235A5000002493 /* Main.storyboard in Resources */,
 				0B4E91C72A2073290060E903 /* TaskDetailsCell.xib in Resources */,
+				0B87ED112ABC01F000B020F9 /* Travel_Expense.storyboard in Resources */,
 				0BE5254B2A6E309E00DA71DE /* CellRequisitationDetails.xib in Resources */,
 				0BE525492A6E309E00DA71DE /* CellAccomodatinDetails.xib in Resources */,
 			);
@@ -1012,8 +1043,10 @@
 				0BA46CFA29F1132E00A9FEC4 /* ChangePasswordVC.swift in Sources */,
 				0B7010F7294841AD006FE03A /* BithdayVC.swift in Sources */,
 				0B75579E2A36D344006F6C25 /* CompetitorCell.swift in Sources */,
+				0B45F6F72ABC474E00849695 /* ExpenseCell.swift in Sources */,
 				0BC89E2A2926389B0001ABE7 /* ODArchiveVC.swift in Sources */,
 				0B1593612A1C9E65005B6BC9 /* LeadReClassifyVC.swift in Sources */,
+				0B87ED132ABC059500B020F9 /* Travel_Expense_List.swift in Sources */,
 				0B69B7C829235EAD00002493 /* Base.swift in Sources */,
 				0B66F71729262F7C00C13F52 /* NewRequestVC.swift in Sources */,
 				0BC89E20292636320001ABE7 /* HelpDeskViewRequestVC.swift in Sources */,
@@ -1026,6 +1059,7 @@
 				0BCCD4ED295973FC00CD1CAC /* MenuVC.swift in Sources */,
 				0BC89E1C292636320001ABE7 /* RaisedTicket.swift in Sources */,
 				0B66F71829262F7C00C13F52 /* DetailsVC.swift in Sources */,
+				0B8D49792ABC219D00C5AB1D /* Expense_Select_Catagory.swift in Sources */,
 				0B6955A22A1F2C6100C777B2 /* NewTaskVC.swift in Sources */,
 				0BA46CFE29F1494100A9FEC4 /* DNotesVC.swift in Sources */,
 				0BCAE34F295AD13C007FF7E8 /* GalleryVC.swift in Sources */,
@@ -1079,6 +1113,7 @@
 				0B66F71529262F7C00C13F52 /* LeaveVC.swift in Sources */,
 				0BC89E88292654F00001ABE7 /* CalenderTableViewCell.m in Sources */,
 				0BE525482A6E309E00DA71DE /* RequisitationDetailsVc.swift in Sources */,
+				0B8D497B2ABC3CB700C5AB1D /* Travlling_Expense.swift in Sources */,
 				0B4E91C62A2073290060E903 /* TaskDetailsCell.swift in Sources */,
 				0B8E36562A6109DA00CAC61C /* ViewIndentVC.swift in Sources */,
 				0B965DA22A49581300F2AA5F /* DoorWiseBreakdownListVC.swift in Sources */,
@@ -1096,6 +1131,7 @@
 				0BC89E77292653B00001ABE7 /* DirectoryChildVC.swift in Sources */,
 				0B66F71229262F7C00C13F52 /* RequestDetailsVC.swift in Sources */,
 				0BB607792924935E0051E61A /* NotificationVC.swift in Sources */,
+				0B8D49772ABC0DED00C5AB1D /* Expense_Select_Request.swift in Sources */,
 				0BC89E8E292654F00001ABE7 /* CalenderViewController.m in Sources */,
 				0BE5254E2A6E30AC00DA71DE /* TravelRequisitionVC.swift in Sources */,
 				0B69B7C529235EAD00002493 /* CustomExtensions.swift in Sources */,

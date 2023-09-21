@@ -90,12 +90,33 @@ class HomeVC: UIViewController{
     }
     
     @IBAction func btn_Travel(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Travel", bundle: nil)
-        let secondVC = storyboard.instantiateViewController(withIdentifier: "TravelRequisitionVC")as! TravelRequisitionVC
-        self.navigationController?.pushViewController(secondVC, animated: true)
+        let alertController = UIAlertController(title: "Trivitron Connect", message: "Select Type", preferredStyle: .alert)
+        
+        // Create the first action
+        let action1 = UIAlertAction(title: "Travel Requisition", style: .default) { (_) in
+            let storyboard = UIStoryboard(name: "Travel", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "TravelRequisitionVC")as! TravelRequisitionVC
+            self.navigationController?.pushViewController(secondVC, animated: true)
+        }
+        
+        // Create the second action
+        let action2 = UIAlertAction(title: "Travel Expense", style: .default) { (_) in
+            let storyboard = UIStoryboard(name: "Travel_Expense", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "Travel_Expense_List")as! Travel_Expense_List
+            self.navigationController?.pushViewController(secondVC, animated: true)
+        }
+        
+        // Add the actions to the alert controller
+        alertController.addAction(action1)
+        alertController.addAction(action2)
+        
+        // Present the alert
+        present(alertController, animated: true, completion: nil)
+    }
+       
  
         
-    }
+    
     
     
     
