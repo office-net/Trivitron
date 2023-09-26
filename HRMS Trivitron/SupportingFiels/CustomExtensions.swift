@@ -57,6 +57,29 @@ extension UIViewController
     }
 }
 extension UITextField {
+    func addDownChevronImage() {
+            // Create a UIImageView for the down-chevron image
+            let imageView = UIImageView(image: UIImage(named: "drop-down-arrow")) // Replace "downChevronImage" with your image name
+            
+            // Set the image view's content mode for proper scaling (adjust as needed)
+            imageView.contentMode = .scaleAspectFit
+            
+            // Set the frame size of the image view
+            imageView.frame = CGRect(x: 0, y: 0, width: 15, height: 15) // Adjust the size as needed
+            
+            // Create a view to contain the image view with proper padding (adjust as needed)
+            let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 20)) // Adjust the size as needed
+            
+            // Add the image view to the container view
+            containerView.addSubview(imageView)
+            
+            // Set the rightView property of the text field to the container view
+            self.rightView = containerView
+            
+            // Make sure the rightView mode is set to .always so the image is always visible
+            self.rightViewMode = .always
+        }
+
     
     @IBInspectable var maxLength: Int {
         get {

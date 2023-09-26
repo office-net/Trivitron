@@ -21,7 +21,8 @@ class Expense_Select_Catagory: UIViewController {
     var NameArray = ["Travelling Expenses","Lodging Expenses","Fooding Expenses","Local Expenses","Hq-Conveyance Based On Base Location Expenses","Miscellaneous Expenses","Advance Return","Travel Summary"]
     
     var MasterData:JSON = []
-    
+    var From_Date = ""
+    var To_Date = ""
     
     
     override func viewDidLoad() {
@@ -78,6 +79,9 @@ extension Expense_Select_Catagory:UITableViewDelegate,UITableViewDataSource
         { case 0:
             let storyboard = UIStoryboard(name: "Travel_Expense", bundle: nil)
             let secondVC = storyboard.instantiateViewController(withIdentifier: "Travlling_Expense")as! Travlling_Expense
+            secondVC.MasterData = self.MasterData
+            secondVC.From_Date =  From_Date
+            secondVC.To_Date = To_Date 
             self.navigationController?.pushViewController(secondVC, animated: true)
             
         default:

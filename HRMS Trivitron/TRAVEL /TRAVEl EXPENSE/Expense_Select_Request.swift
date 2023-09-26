@@ -32,6 +32,9 @@ class Expense_Select_Request: UIViewController {
     @IBAction func btn_Claim_Your_Expense(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Travel_Expense", bundle: nil)
         let secondVC = storyboard.instantiateViewController(withIdentifier: "Expense_Select_Catagory")as! Expense_Select_Catagory
+        secondVC.MasterData = self.MasterData
+        secondVC.From_Date =  FromDate.text ?? ""
+        secondVC.To_Date = Todate.text ?? ""
         self.navigationController?.pushViewController(secondVC, animated: true)
     }
     
