@@ -136,7 +136,7 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
     var Spares = "1"
     var SparesSheet = "1"
     
-
+    
     var VeryFY_OTP = false
     var OTP_RequestID = ""
     
@@ -386,82 +386,45 @@ class BreakDownEditVC: UIViewController, UITextFieldDelegate,UIPickerViewDelegat
             }
         }
         
-        var   parameters = [String : Any]()
-        
-        
-        if PageServiceType == "Installation"
-        {
-            parameters = ["AddDetail":[ "Type": typeOfUser,
-                                        "TokenNo": token!,
-                                        "UserId": UserID!,
-                                        "ReqID": self.ReqID,
-                                        "ServiceID": self.ServiceID,
-                                        "ServiceType": Id_Type_Of_Service,
-                                        "TicketNo": ticketnumber.text ?? "",
-                                        "IsCharge": Id_Chareeable,
-                                        "DoorNo": Door_number.text ?? "",
-                                        "InstalledDate": Installed_On.text ?? "",
-                                        "Root": Root_cause.text ?? "",
-                                        "Correction": Corrective_action.text ?? "",
-                                        "ReAssign2": Id_Reassign,
-                                        "Additionalperson": Id_AdditionalPerson,
-                                        "Contractor": Contractor_wo_number.text ?? "",
-                                        "Observation": Observation_work_done.text ?? "",
-                                        "ServiceNo": service_number.text ?? "",
-                                        "ServiceReport": service_report_number.text ?? "",
-                                        "StageStatus": Id_Call_Status,
-                                        "StageDate": SelectStageDate.text ?? "",
-                                        "Spares": self.Spares,
-                                        "Product": productId,
-                                        "SparesSheet": self.SparesSheet,
-                                        "DoorType": DoorTypeId,
-                                        "Model": Model.text ?? "",
-                                        "RefSONo": Ref_So_Number.text ?? "",
-                                        "Issues": Discription_of_issue.text ?? "",
-                                        "Remarks": Remarks.text ?? "",
-                                        "LocalConveyanceDetails":NSNull(),
-                                        "ScheduleEndDate":scheduledToDate.text!,
-                                        "ScheduleStartDate":scheduledFromDate.text!,
-                                        "TotalPOSchedule":""
-                                      ] as [String : Any]
-                          
-            ]
-        }
-        else
-        {
-            parameters  = ["AddDetail":[ "Type": typeOfUser,
-                                         "TokenNo": token!,
-                                         "UserId": UserID!,
-                                         "ReqID": self.ReqID,
-                                         "ServiceID": self.ServiceID,
-                                         "ServiceType": Id_Type_Of_Service,
-                                         "TicketNo": ticketnumber.text ?? "",
-                                         "IsCharge": Id_Chareeable,
-                                         "DoorNo": Door_number.text ?? "",
-                                         "InstalledDate": Installed_On.text ?? "",
-                                         "Root": Root_cause.text ?? "",
-                                         "Correction": Corrective_action.text ?? "",
-                                         "ReAssign2": Id_Reassign,
-                                         "Additionalperson": Id_AdditionalPerson,
-                                         "Contractor": Contractor_wo_number.text ?? "",
-                                         "Observation": Observation_work_done.text ?? "",
-                                         "ServiceNo": service_number.text ?? "",
-                                         "ServiceReport": service_report_number.text ?? "",
-                                         "StageStatus": Id_Call_Status,
-                                         "StageDate": SelectStageDate.text ?? "",
-                                         "Spares": self.Spares,
-                                         "Product": productId,
-                                         "SparesSheet": self.SparesSheet,
-                                         "DoorType": DoorTypeId,
-                                         "Model": Model.text ?? "",
-                                         "RefSONo": Ref_So_Number.text ?? "",
-                                         "Issues": Discription_of_issue.text ?? "",
-                                         "Remarks": Remarks.text ?? "",
-                                         "LocalConveyanceDetails":NSNull(),
-                                         
-                                       ] as [String : Any]
-                           
-            ]
+        var parameters = [
+            "AddDetail": [
+                "Type": typeOfUser,
+                "TokenNo": token!,
+                "UserId": UserID!,
+                "ReqID": self.ReqID,
+                "ServiceID": self.ServiceID,
+                "ServiceType": Id_Type_Of_Service,
+                "TicketNo": ticketnumber.text ?? "",
+                "IsCharge": Id_Chareeable,
+                "DoorNo": Door_number.text ?? "",
+                "InstalledDate": Installed_On.text ?? "",
+                "Root": Root_cause.text ?? "",
+                "Correction": Corrective_action.text ?? "",
+                "ReAssign2": Id_Reassign,
+                "Additionalperson": Id_AdditionalPerson,
+                "Contractor": Contractor_wo_number.text ?? "",
+                "Observation": Observation_work_done.text ?? "",
+                "ServiceNo": service_number.text ?? "",
+                "ServiceReport": service_report_number.text ?? "",
+                "StageStatus": Id_Call_Status,
+                "StageDate": SelectStageDate.text ?? "",
+                "Spares": self.Spares,
+                "Product": productId,
+                "SparesSheet": self.SparesSheet,
+                "DoorType": DoorTypeId,
+                "Model": Model.text ?? "",
+                "RefSONo": Ref_So_Number.text ?? "",
+                "Issues": Discription_of_issue.text ?? "",
+                "Remarks": Remarks.text ?? "",
+                "LocalConveyanceDetails": NSNull(),
+                "ScheduleEndDate": scheduledToDate.text!,
+                "ScheduleStartDate": scheduledFromDate.text!,
+                "TotalPOSchedule": ""
+            ] as [String : Any]
+        ]
+
+        if PageServiceType != "Installation" {
+            parameters["AddDetail"]!["LocalConveyanceDetails"] = NSNull()
         }
         
         var serimgaray = [UIImage]()
@@ -521,7 +484,7 @@ extension BreakDownEditVC
             {   print(response)
                 switch self.PageServiceType
                 {
-                
+                    
                 case "Installation":
                     
                     self.SetData(Json: response["AmcListById"][0])

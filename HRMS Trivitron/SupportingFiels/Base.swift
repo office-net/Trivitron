@@ -17,11 +17,11 @@ class base
     static var cancel = ""
     static var yes = ""
     static let url = "http://192.168.0.18:7140/MobileAPI/AppServices.svc/"
-    static let url2 = "https://trivitron.officenet.in/MobileAPI/"
+    static let url2 = "https://connect.trivitron.com/MobileAPI/"
     static let alertname = "Trivitron"
     static let secondcolor = #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1)
     static let firstcolor = #colorLiteral(red: 0, green: 0.6791719198, blue: 0.6895478964, alpha: 1)
-   //http://192.168.0.18:7140/
+   //"http://192.168.0.18:7140/MobileAPI/AppServices.svc/"
     //"https://connect.trivitron.com/MobileAPI/AppServices.svc/"
     
     //"https://trivitron.officenet.in/MobileAPI/AppServices.svc/"

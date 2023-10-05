@@ -106,9 +106,17 @@ class HomeVC: UIViewController{
             self.navigationController?.pushViewController(secondVC, animated: true)
         }
         
+        let action3 = UIAlertAction(title: "Local Conveyance", style: .default) { (_) in
+            let storyboard = UIStoryboard(name: "Local", bundle: nil)
+            let secondVC = storyboard.instantiateViewController(withIdentifier: "LocalConveyanceVC")as! LocalConveyanceVC
+            self.navigationController?.pushViewController(secondVC, animated: true)
+        }
+    
+        
         // Add the actions to the alert controller
         alertController.addAction(action1)
         alertController.addAction(action2)
+        alertController.addAction(action3)
         
         // Present the alert
         present(alertController, animated: true, completion: nil)

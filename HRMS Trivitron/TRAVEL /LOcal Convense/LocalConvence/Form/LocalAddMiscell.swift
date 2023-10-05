@@ -9,8 +9,14 @@ import UIKit
 
 class LocalAddMiscell: UITableViewCell {
 
-    @IBOutlet weak var btn: UIButton!
-    var delegate:deleteTblRow2?
+    @IBOutlet weak var btn_AttachMent: UIButton!
+    
+    @IBOutlet weak var btn_Delete: UIButton!
+   
+    @IBOutlet weak var date: UILabel!
+    @IBOutlet weak var ammout: UILabel!
+    @IBOutlet weak var expensetype: UILabel!
+    @IBOutlet weak var particular: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
      
@@ -22,7 +28,5 @@ class LocalAddMiscell: UITableViewCell {
        
     }
     
-    @IBAction func btn_cancel(_ sender: Any) {
-        delegate?.buttonAction()
-    }
+   
 }
